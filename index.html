@@ -6,33 +6,19 @@
 <title>Tony Whale | Portfolio</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
-
   *{margin:0;padding:0;box-sizing:border-box;}
-  :root{
-    --neon:#00f5ff;
-    --neon2:#bf00ff;
-    --neon3:#ff0080;
-    --dark:#020811;
-    --dark2:#040d1a;
-    --glass:rgba(0,245,255,0.04);
-    --glass-border:rgba(0,245,255,0.18);
-  }
+  :root{--neon:#00f5ff;--neon2:#bf00ff;--neon3:#ff0080;--dark:#020811;--dark2:#040d1a;--glass:rgba(0,245,255,0.04);--glass-border:rgba(0,245,255,0.18);}
   html{scroll-behavior:smooth;}
   body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
-
- #cursor{position:fixed;width:10px;height:10px;background:var(--neon);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--neon),0 0 16px var(--neon);}
-#cursor-trail-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;}
+  #cursor{position:fixed;width:10px;height:10px;background:var(--neon);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--neon),0 0 16px var(--neon);}
+  #cursor-trail-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9997;}
   #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(2,8,17,0.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
   .logo{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--neon);letter-spacing:0.2em;text-shadow:0 0 10px var(--neon);}
   .nav-links{display:flex;gap:2rem;}
   .nav-links a{color:#a0d4e0;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
   .nav-links a:hover{color:var(--neon);text-shadow:0 0 8px var(--neon);}
-
   section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
-
-  /* HERO */
   #hero{display:flex;align-items:center;justify-content:space-between;padding-top:6rem;}
   .hero-text{flex:1;max-width:600px;}
   .hero-tag{font-size:0.75rem;letter-spacing:0.4em;color:var(--neon);text-transform:uppercase;margin-bottom:1rem;opacity:0.8;}
@@ -47,8 +33,6 @@
   .btn-primary span{position:relative;z-index:1;}
   .btn-sec{padding:0.75rem 2rem;background:transparent;border:1px solid var(--neon2);color:var(--neon2);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
   .btn-sec:hover{background:var(--neon2);color:var(--dark);}
-
-  /* PHOTO AVATAR */
   .avatar-wrap{flex:0 0 340px;display:flex;justify-content:center;align-items:center;position:relative;}
   .avatar-photo{width:280px;height:280px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--glass-border);position:relative;z-index:2;}
   .avatar-ring{position:absolute;width:310px;height:310px;border-radius:50%;border:1px solid rgba(0,245,255,0.3);animation:ring-pulse 3s ease-in-out infinite;z-index:1;}
@@ -56,8 +40,6 @@
   .avatar-ring3{position:absolute;width:390px;height:390px;border-radius:50%;border:1px solid rgba(255,0,128,0.1);animation:ring-pulse 3s ease-in-out infinite 2s;z-index:1;}
   .avatar-glow{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.15),transparent 70%);z-index:3;pointer-events:none;}
   @keyframes ring-pulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.05);opacity:1;}}
-
-  /* AI DIALOG */
   #ai-dialog{position:fixed;bottom:2rem;right:2rem;z-index:200;width:320px;background:rgba(4,13,26,0.95);border:1px solid var(--glass-border);backdrop-filter:blur(20px);border-radius:4px;overflow:hidden;transform:translateY(20px);opacity:0;animation:dialog-in 0.8s 2s forwards;}
   @keyframes dialog-in{to{transform:translateY(0);opacity:1;}}
   .dialog-header{background:rgba(0,245,255,0.06);padding:0.7rem 1rem;display:flex;align-items:center;gap:0.7rem;border-bottom:1px solid var(--glass-border);}
@@ -67,14 +49,10 @@
   .dialog-body{padding:1rem;font-size:0.85rem;color:#a0d4e0;line-height:1.6;min-height:60px;}
   #dialog-text{display:inline;}
   .dialog-cursor{display:inline-block;width:2px;height:0.9em;background:var(--neon);margin-left:2px;animation:blink 0.8s infinite;vertical-align:text-bottom;}
-
-  /* SECTION HEADERS */
   .sec-header{margin-bottom:3rem;}
   .sec-number{font-family:'Orbitron',monospace;font-size:0.7rem;color:var(--neon);letter-spacing:0.3em;opacity:0.6;margin-bottom:0.5rem;}
   .sec-title{font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:700;color:#fff;text-shadow:0 0 30px rgba(0,245,255,0.3);}
   .sec-line{width:60px;height:1px;background:linear-gradient(90deg,var(--neon),transparent);margin-top:1rem;}
-
-  /* ABOUT */
   #about{background:linear-gradient(180deg,transparent,rgba(0,10,20,0.8),transparent);}
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
   .about-text p{font-size:1.05rem;line-height:1.9;color:#88b4c0;margin-bottom:1rem;}
@@ -84,8 +62,6 @@
   .stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--neon);}
   .stat-num{font-family:'Orbitron',monospace;font-size:2.2rem;color:var(--neon);font-weight:900;}
   .stat-label{font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;}
-
-  /* SKILLS */
   #skills{background:rgba(0,5,15,0.5);}
   .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
   .skill-card{border:1px solid var(--glass-border);background:var(--glass);padding:1.8rem 1.5rem;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
@@ -97,9 +73,6 @@
   .skill-bar-bg{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
   .skill-bar{height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px;width:0;transition:width 1.5s ease;}
   .skill-pct{font-size:0.75rem;color:var(--neon);margin-top:0.4rem;text-align:right;}
-
-  /* PROJECTS / WORK */
-  #projects{}
   .work-tabs{display:flex;gap:0;margin-bottom:2.5rem;border:1px solid var(--glass-border);width:fit-content;}
   .work-tab{padding:0.8rem 2rem;font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.15em;color:#88b4c0;cursor:pointer;border-right:1px solid var(--glass-border);transition:all 0.3s;background:transparent;text-transform:uppercase;}
   .work-tab:last-child{border-right:none;}
@@ -108,8 +81,6 @@
   .work-panel{display:none;}
   .work-panel.active{display:block;}
   .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
-
-  /* VIDEO CARD */
   .video-card{border:1px solid var(--glass-border);background:var(--glass);overflow:hidden;transition:transform 0.3s,border-color 0.3s;cursor:pointer;text-decoration:none;display:block;}
   .video-card:hover{transform:translateY(-6px);border-color:var(--neon);}
   .video-thumb{height:150px;background:rgba(0,10,20,0.8);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
@@ -121,14 +92,10 @@
   .video-info{padding:1rem 1.2rem 1.2rem;}
   .video-title{font-family:'Orbitron',monospace;font-size:0.8rem;color:#fff;margin-bottom:0.4rem;letter-spacing:0.05em;}
   .video-desc{font-size:0.8rem;color:#88b4c0;line-height:1.5;}
-
-  /* ADD VIDEO CARD */
   .add-video-card{border:1px dashed var(--glass-border);background:transparent;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;min-height:230px;}
   .add-icon{font-size:2rem;opacity:0.3;}
   .add-text{font-family:'Orbitron',monospace;font-size:0.7rem;color:#88b4c0;letter-spacing:0.1em;text-align:center;opacity:0.5;}
   .add-hint{font-size:0.75rem;color:#88b4c0;opacity:0.4;text-align:center;line-height:1.5;}
-
-  /* CONTACT */
   #contact{background:linear-gradient(180deg,transparent,rgba(0,10,30,0.9));}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
   .contact-info p{font-size:1rem;color:#88b4c0;line-height:1.8;margin-bottom:2rem;}
@@ -145,48 +112,33 @@
   .form-submit:hover::before{transform:translateX(0);}
   .form-submit:hover{color:var(--dark);}
   .form-submit span{position:relative;z-index:1;}
-
   .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s,transform 0.8s;}
   .reveal.visible{opacity:1;transform:translateY(0);}
-
   .scanlines{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);}
   .grid-overlay{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:1;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
-
   footer{position:relative;z-index:10;text-align:center;padding:2rem;border-top:1px solid var(--glass-border);font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;}
   footer span{color:var(--neon);}
 </style>
 </head>
 <body>
-
 <div class="scanlines"></div>
 <div class="grid-overlay"></div>
 <canvas id="bg-canvas"></canvas>
 <div id="cursor"></div>
 <canvas id="cursor-trail-canvas"></canvas>
 
-<!-- AI DIALOG -->
 <div id="ai-dialog">
-  <div class="dialog-header">
-    <div class="dialog-dot"></div>
-    <div class="dialog-title">AI GUIDE — ONLINE</div>
-  </div>
-  <div class="dialog-body">
-    <span id="dialog-text"></span><span class="dialog-cursor"></span>
-  </div>
+  <div class="dialog-header"><div class="dialog-dot"></div><div class="dialog-title">AI GUIDE — ONLINE</div></div>
+  <div class="dialog-body"><span id="dialog-text"></span><span class="dialog-cursor"></span></div>
 </div>
 
-<!-- NAV -->
 <nav>
   <div class="logo">TONY WHALE</div>
   <div class="nav-links">
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#projects">Work</a>
-    <a href="#contact">Contact</a>
+    <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Work</a><a href="#contact">Contact</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-text">
     <div class="hero-tag">// Video Editor &amp; Graphic Designer</div>
@@ -198,27 +150,14 @@
       <button class="btn-sec" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
     </div>
   </div>
-  <!-- PHOTO AVATAR -->
   <div class="avatar-wrap">
-    <div class="avatar-ring"></div>
-    <div class="avatar-ring2"></div>
-    <div class="avatar-ring3"></div>
-    <div class="avatar-glow"></div>
-    <!-- =============================================
-         YOUR PHOTO — already uploaded to GitHub ✅
-         File: photo.png
-         ============================================= -->
+    <div class="avatar-ring"></div><div class="avatar-ring2"></div><div class="avatar-ring3"></div><div class="avatar-glow"></div>
     <img class="avatar-photo" src="https://raw.githubusercontent.com/TonyWhale/Tony-Whale/main/photo.png" alt="Tony Whale" style="width:280px;height:280px;border-radius:50%;object-fit:cover;position:relative;z-index:2;" />
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
-  <div class="sec-header reveal">
-    <div class="sec-number">// 01</div>
-    <div class="sec-title">About Me</div>
-    <div class="sec-line"></div>
-  </div>
+  <div class="sec-header reveal"><div class="sec-number">// 01</div><div class="sec-title">About Me</div><div class="sec-line"></div></div>
   <div class="about-grid">
     <div class="about-text reveal">
       <p>I am a <span>Video Editor</span> and <span>Graphic Designer</span> with a passion for turning raw footage and blank canvases into immersive visual stories that captivate audiences.</p>
@@ -234,13 +173,8 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
-  <div class="sec-header reveal">
-    <div class="sec-number">// 02</div>
-    <div class="sec-title">Skills</div>
-    <div class="sec-line"></div>
-  </div>
+  <div class="sec-header reveal"><div class="sec-number">// 02</div><div class="sec-title">Skills</div><div class="sec-line"></div></div>
   <div class="skills-grid reveal">
     <div class="skill-card"><span class="skill-icon">🎬</span><div class="skill-name">Video Editing</div><div class="skill-bar-bg"><div class="skill-bar" data-w="95"></div></div><div class="skill-pct">95%</div></div>
     <div class="skill-card"><span class="skill-icon">🎨</span><div class="skill-name">Graphic Design</div><div class="skill-bar-bg"><div class="skill-bar" data-w="92"></div></div><div class="skill-pct">92%</div></div>
@@ -251,173 +185,62 @@
   </div>
 </section>
 
-<!-- PROJECTS / MY WORK -->
 <section id="projects">
-  <div class="sec-header reveal">
-    <div class="sec-number">// 03</div>
-    <div class="sec-title">My Work</div>
-    <div class="sec-line"></div>
-  </div>
-
-  <!-- CATEGORY TABS -->
+  <div class="sec-header reveal"><div class="sec-number">// 03</div><div class="sec-title">My Work</div><div class="sec-line"></div></div>
   <div class="work-tabs reveal">
-    <button class="work-tab active" onclick="switchTab('typography')">Typography Video</button>
-    <button class="work-tab" onclick="switchTab('3d')">3D Designing</button>
-    <button class="work-tab" onclick="switchTab('thumbnails')">Thumbnails &amp; Posters</button>
+    <button class="work-tab active" onclick="switchTab('typography',this)">Typography Video</button>
+    <button class="work-tab" onclick="switchTab('3d',this)">3D Designing</button>
+    <button class="work-tab" onclick="switchTab('thumbnails',this)">Thumbnails &amp; Posters</button>
   </div>
-
-  <!-- ================================================
-       HOW TO ADD YOUR VIMEO VIDEOS:
-       1. Upload your video on vimeo.com
-       2. Open the video → copy its link
-          e.g. https://vimeo.com/123456789
-       3. Find the section below for your category
-       4. Replace the href="YOUR_VIMEO_LINK_HERE"
-          with your actual Vimeo video link
-       5. Change "Your Video Title" to your title
-       6. Save and commit on GitHub — done! ✅
-       ================================================ -->
-
-  <!-- TYPOGRAPHY VIDEOS -->
   <div class="work-panel active" id="panel-typography">
     <div class="video-grid">
-
-      <!-- ✏️ TYPOGRAPHY VIDEO 1 — Replace link and title -->
       <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
-        <div class="video-thumb">
-          <canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas>
-          <div class="play-btn"><div class="play-icon"></div></div>
-          <div class="vimeo-badge">VIMEO</div>
-        </div>
-        <div class="video-info">
-          <div class="video-title">Your Video Title</div>
-          <div class="video-desc">Kinetic typography with dynamic text animations and smooth motion design.</div>
-        </div>
+        <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Kinetic typography with dynamic text animations and smooth motion design.</div></div>
       </a>
-
-      <!-- ✏️ TYPOGRAPHY VIDEO 2 — Replace link and title -->
       <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
-        <div class="video-thumb">
-          <canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas>
-          <div class="play-btn"><div class="play-icon"></div></div>
-          <div class="vimeo-badge">VIMEO</div>
-        </div>
-        <div class="video-info">
-          <div class="video-title">Your Video Title</div>
-          <div class="video-desc">Creative lyric video with expressive typography and visual storytelling.</div>
-        </div>
+        <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Creative lyric video with expressive typography and visual storytelling.</div></div>
       </a>
-
-      <!-- ADD MORE TYPOGRAPHY VIDEOS BY COPYING THE BLOCK ABOVE -->
-      <div class="add-video-card">
-        <div class="add-icon">＋</div>
-        <div class="add-text">Add More Videos</div>
-        <div class="add-hint">Upload on Vimeo → paste link in index.html where it says YOUR_VIMEO_LINK_HERE</div>
-      </div>
-
+      <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on Vimeo → paste link where it says YOUR_VIMEO_LINK_HERE</div></div>
     </div>
   </div>
-
-  <!-- 3D DESIGNING VIDEOS -->
   <div class="work-panel" id="panel-3d">
     <div class="video-grid">
-
-      <!-- ✏️ 3D VIDEO 1 — Replace link and title -->
       <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
-        <div class="video-thumb">
-          <canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas>
-          <div class="play-btn"><div class="play-icon"></div></div>
-          <div class="vimeo-badge">VIMEO</div>
-        </div>
-        <div class="video-info">
-          <div class="video-title">Your Video Title</div>
-          <div class="video-desc">Stunning 3D renders and animations crafted with precision and creativity.</div>
-        </div>
+        <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Stunning 3D renders and animations crafted with precision and creativity.</div></div>
       </a>
-
-      <!-- ✏️ 3D VIDEO 2 — Replace link and title -->
       <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
-        <div class="video-thumb">
-          <canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas>
-          <div class="play-btn"><div class="play-icon"></div></div>
-          <div class="vimeo-badge">VIMEO</div>
-        </div>
-        <div class="video-info">
-          <div class="video-title">Your Video Title</div>
-          <div class="video-desc">3D motion design with immersive visual depth and futuristic aesthetics.</div>
-        </div>
+        <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">3D motion design with immersive visual depth and futuristic aesthetics.</div></div>
       </a>
-
-      <!-- ADD MORE 3D VIDEOS BY COPYING THE BLOCK ABOVE -->
-      <div class="add-video-card">
-        <div class="add-icon">＋</div>
-        <div class="add-text">Add More Videos</div>
-        <div class="add-hint">Upload on Vimeo → paste link in index.html where it says YOUR_VIMEO_LINK_HERE</div>
-      </div>
-
+      <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on Vimeo → paste link where it says YOUR_VIMEO_LINK_HERE</div></div>
     </div>
   </div>
-
-  <!-- THUMBNAILS & POSTERS VIDEOS -->
   <div class="work-panel" id="panel-thumbnails">
     <div class="video-grid">
-
-      <!-- ✏️ THUMBNAIL VIDEO 1 — Replace link and title -->
       <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
-        <div class="video-thumb">
-          <canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas>
-          <div class="play-btn"><div class="play-icon"></div></div>
-          <div class="vimeo-badge">VIMEO</div>
-        </div>
-        <div class="video-info">
-          <div class="video-title">Your Video Title</div>
-          <div class="video-desc">Eye-catching thumbnails and posters designed to grab attention instantly.</div>
-        </div>
+        <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Eye-catching thumbnails and posters designed to grab attention instantly.</div></div>
       </a>
-
-      <!-- ✏️ THUMBNAIL VIDEO 2 — Replace link and title -->
       <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
-        <div class="video-thumb">
-          <canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas>
-          <div class="play-btn"><div class="play-icon"></div></div>
-          <div class="vimeo-badge">VIMEO</div>
-        </div>
-        <div class="video-info">
-          <div class="video-title">Your Video Title</div>
-          <div class="video-desc">Bold poster designs with striking typography and powerful visual impact.</div>
-        </div>
+        <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Bold poster designs with striking typography and powerful visual impact.</div></div>
       </a>
-
-      <!-- ADD MORE THUMBNAIL VIDEOS BY COPYING THE BLOCK ABOVE -->
-      <div class="add-video-card">
-        <div class="add-icon">＋</div>
-        <div class="add-text">Add More Videos</div>
-        <div class="add-hint">Upload on Vimeo → paste link in index.html where it says YOUR_VIMEO_LINK_HERE</div>
-      </div>
-
+      <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on Vimeo → paste link where it says YOUR_VIMEO_LINK_HERE</div></div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
-  <div class="sec-header reveal">
-    <div class="sec-number">// 04</div>
-    <div class="sec-title">Contact</div>
-    <div class="sec-line"></div>
-  </div>
+  <div class="sec-header reveal"><div class="sec-number">// 04</div><div class="sec-title">Contact</div><div class="sec-line"></div></div>
   <div class="contact-grid">
     <div class="contact-info reveal">
       <p>Ready to bring your vision to life? Whether it's a cinematic video, a brand identity, or a full creative campaign — let's collaborate.</p>
       <div class="contact-links">
-        <!-- ✏️ EMAIL -->
-        <a href="mailto:tomedits316@gmail.com" class="contact-link">
-          <span class="contact-link-icon">✉</span>tomedits316@gmail.com
-        </a>
-        <!-- ✏️ INSTAGRAM -->
-        <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link">
-          <span class="contact-link-icon">◈</span>@whale_creations
-        </a>
+        <a href="mailto:tomedits316@gmail.com" class="contact-link"><span class="contact-link-icon">✉</span>tomedits316@gmail.com</a>
+        <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link"><span class="contact-link-icon">◈</span>@whale_creations</a>
       </div>
     </div>
     <div class="contact-form reveal">
@@ -429,221 +252,106 @@
   </div>
 </section>
 
-<footer>
-  <p>Designed &amp; Built by <span>Tony Whale</span> &nbsp;·&nbsp; &copy; 2026</p>
-</footer>
+<footer><p>Designed &amp; Built by <span>Tony Whale</span> &nbsp;·&nbsp; &copy; 2026</p></footer>
 
 <script>
-// CUSTOM CURSOR
-  // ADVANCED CURSOR WITH COMET TRAIL + PARTICLES
 // COMET TRAIL CURSOR
 const cursor = document.getElementById('cursor');
 const trailCanvas = document.getElementById('cursor-trail-canvas');
 const tCtx = trailCanvas.getContext('2d');
 trailCanvas.width = window.innerWidth;
 trailCanvas.height = window.innerHeight;
-window.addEventListener('resize', () => {
-  trailCanvas.width = window.innerWidth;
-  trailCanvas.height = window.innerHeight;
-});
-
-let mx = 0, my = 0;
-let speedX = 0, speedY = 0;
+window.addEventListener('resize', () => { trailCanvas.width = window.innerWidth; trailCanvas.height = window.innerHeight; });
+let mx = 0, my = 0, speedX = 0, speedY = 0;
 const trailPoints = [];
-
 document.addEventListener('mousemove', e => {
-  speedX = e.clientX - mx;
-  speedY = e.clientY - my;
-  mx = e.clientX;
-  my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top = my + 'px';
+  speedX = e.clientX - mx; speedY = e.clientY - my;
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
   const speed = Math.sqrt(speedX * speedX + speedY * speedY);
   const maxPoints = Math.max(8, Math.min(Math.floor(speed * 2), 35));
-  trailPoints.push({ x: mx, y: my, speed: speed });
+  trailPoints.push({ x: mx, y: my });
   if (trailPoints.length > maxPoints) trailPoints.shift();
 });
-
 function drawCometTrail() {
   tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
   if (trailPoints.length > 1) {
     for (let i = 1; i < trailPoints.length; i++) {
-      const t = trailPoints[i];
-      const prev = trailPoints[i - 1];
+      const t = trailPoints[i], prev = trailPoints[i - 1];
       const progress = i / trailPoints.length;
-      // Main comet line — same neon color, low opacity
-      tCtx.beginPath();
-      tCtx.moveTo(prev.x, prev.y);
-      tCtx.lineTo(t.x, t.y);
-      tCtx.strokeStyle = `rgba(0,245,255,${progress * 0.25})`;
-      tCtx.lineWidth = progress * 5;
-      tCtx.lineCap = 'round';
-      tCtx.stroke();
-      // Soft glow layer — very low opacity
-      tCtx.beginPath();
-      tCtx.moveTo(prev.x, prev.y);
-      tCtx.lineTo(t.x, t.y);
-      tCtx.strokeStyle = `rgba(0,245,255,${progress * 0.08})`;
-      tCtx.lineWidth = progress * 14;
-      tCtx.lineCap = 'round';
-      tCtx.stroke();
+      tCtx.beginPath(); tCtx.moveTo(prev.x, prev.y); tCtx.lineTo(t.x, t.y);
+      tCtx.strokeStyle = `rgba(0,245,255,${progress * 0.25})`; tCtx.lineWidth = progress * 5; tCtx.lineCap = 'round'; tCtx.stroke();
+      tCtx.beginPath(); tCtx.moveTo(prev.x, prev.y); tCtx.lineTo(t.x, t.y);
+      tCtx.strokeStyle = `rgba(0,245,255,${progress * 0.08})`; tCtx.lineWidth = progress * 14; tCtx.lineCap = 'round'; tCtx.stroke();
     }
   }
   requestAnimationFrame(drawCometTrail);
 }
 drawCometTrail();
 
-  // Add trail point
-  trailPoints.push({ x: mx, y: my, life: 1.0 });
-  if (trailPoints.length > 30) trailPoints.shift();
-
-  // Spawn particles based on speed
-  const speed = Math.sqrt(speedX * speedX + speedY * speedY);
-  if (speed > 3) {
-    const count = Math.min(Math.floor(speed / 3), 6);
-    for (let i = 0; i < count; i++) {
-      cursorParticles.push({
-        x: mx + (Math.random() - 0.5) * 10,
-        y: my + (Math.random() - 0.5) * 10,
-        vx: (Math.random() - 0.5) * speed * 0.3,
-        vy: (Math.random() - 0.5) * speed * 0.3,
-        life: 1.0,
-        size: Math.random() * 3 + 1,
-        color: Math.random() > 0.5 ? '0,245,255' : '191,0,255'
-      });
-    }
-  }
-});
-
-function drawCursorFX() {
-  tCtx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
-
-  // Draw comet trail
-  if (trailPoints.length > 1) {
-    for (let i = 1; i < trailPoints.length; i++) {
-      const t = trailPoints[i];
-      const prev = trailPoints[i - 1];
-      const alpha = (i / trailPoints.length) * 0.8;
-      const width = (i / trailPoints.length) * 6;
-      tCtx.beginPath();
-      tCtx.moveTo(prev.x, prev.y);
-      tCtx.lineTo(t.x, t.y);
-      tCtx.strokeStyle = `rgba(0,245,255,${alpha})`;
-      tCtx.lineWidth = width;
-      tCtx.lineCap = 'round';
-      tCtx.stroke();
-
-      // Glow layer
-      tCtx.beginPath();
-      tCtx.moveTo(prev.x, prev.y);
-      tCtx.lineTo(t.x, t.y);
-      tCtx.strokeStyle = `rgba(191,0,255,${alpha * 0.4})`;
-      tCtx.lineWidth = width * 2.5;
-      tCtx.stroke();
-    }
-    // Fade trail points
-    for (let i = trailPoints.length - 1; i >= 0; i--) {
-      trailPoints[i].life -= 0.04;
-      if (trailPoints[i].life <= 0) trailPoints.splice(i, 1);
-    }
-  }
-
-  // Draw particles
-  for (let i = cursorParticles.length - 1; i >= 0; i--) {
-    const p = cursorParticles[i];
-    p.x += p.vx;
-    p.y += p.vy;
-    p.vx *= 0.92;
-    p.vy *= 0.92;
-    p.life -= 0.035;
-    if (p.life <= 0) { cursorParticles.splice(i, 1); continue; }
-    tCtx.beginPath();
-    tCtx.arc(p.x, p.y, p.size * p.life, 0, Math.PI * 2);
-    tCtx.fillStyle = `rgba(${p.color},${p.life})`;
-    tCtx.fill();
-    // Particle glow
-    const pg = tCtx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 4 * p.life);
-    pg.addColorStop(0, `rgba(${p.color},${p.life * 0.4})`);
-    pg.addColorStop(1, 'transparent');
-    tCtx.fillStyle = pg;
-    tCtx.beginPath();
-    tCtx.arc(p.x, p.y, p.size * 4 * p.life, 0, Math.PI * 2);
-    tCtx.fill();
-  }
-
-  requestAnimationFrame(drawCursorFX);
-}
-drawCursorFX();
-const bgC=document.getElementById('bg-canvas'),bgCtx=bgC.getContext('2d');
-function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;}resizeBg();
-window.addEventListener('resize',resizeBg);
-const particles=[];
-for(let i=0;i<120;i++)particles.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,c:Math.random()>0.5?'0,245,255':'191,0,255'});
-function drawBg(){
-  bgCtx.clearRect(0,0,bgC.width,bgC.height);
-  particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=bgC.width;if(p.x>bgC.width)p.x=0;if(p.y<0)p.y=bgC.height;if(p.y>bgC.height)p.y=0;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fillStyle=`rgba(${p.c},0.6)`;bgCtx.fill();});
-  particles.forEach((a,i)=>particles.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){bgCtx.beginPath();bgCtx.moveTo(a.x,a.y);bgCtx.lineTo(b.x,b.y);bgCtx.strokeStyle=`rgba(0,245,255,${0.08*(1-d/100)})`;bgCtx.lineWidth=0.5;bgCtx.stroke();}}));
+// BG PARTICLES
+const bgC = document.getElementById('bg-canvas'), bgCtx = bgC.getContext('2d');
+function resizeBg() { bgC.width = window.innerWidth; bgC.height = window.innerHeight; } resizeBg();
+window.addEventListener('resize', resizeBg);
+const particles = [];
+for (let i = 0; i < 120; i++) particles.push({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, r: Math.random() * 1.5 + 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, c: Math.random() > 0.5 ? '0,245,255' : '191,0,255' });
+function drawBg() {
+  bgCtx.clearRect(0, 0, bgC.width, bgC.height);
+  particles.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = bgC.width; if (p.x > bgC.width) p.x = 0; if (p.y < 0) p.y = bgC.height; if (p.y > bgC.height) p.y = 0; bgCtx.beginPath(); bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); bgCtx.fillStyle = `rgba(${p.c},0.6)`; bgCtx.fill(); });
+  particles.forEach((a, i) => particles.slice(i + 1).forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 100) { bgCtx.beginPath(); bgCtx.moveTo(a.x, a.y); bgCtx.lineTo(b.x, b.y); bgCtx.strokeStyle = `rgba(0,245,255,${0.08 * (1 - d / 100)})`; bgCtx.lineWidth = 0.5; bgCtx.stroke(); } }));
   requestAnimationFrame(drawBg);
-}drawBg();
+} drawBg();
 
 // PROJECT CANVASES
-document.querySelectorAll('.proj-canvas').forEach(c=>{
-  const ctx=c.getContext('2d'),col=c.dataset.color;let t=0;
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='rgba(2,8,17,0.9)';ctx.fillRect(0,0,c.width,c.height);
-    for(let i=0;i<8;i++){const x=c.width/2+Math.cos(t+i*0.8)*70,y=c.height/2+Math.sin(t*0.7+i*0.8)*30;const g=ctx.createRadialGradient(x,y,0,x,y,25);g.addColorStop(0,`rgba(${col},0.3)`);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();}
-    ctx.strokeStyle=`rgba(${col},0.08)`;ctx.lineWidth=0.5;
-    for(let x=0;x<c.width;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c.height);ctx.stroke();}
-    for(let y=0;y<c.height;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(c.width,y);ctx.stroke();}
-    t+=0.015;requestAnimationFrame(draw);
-  }draw();
+document.querySelectorAll('.proj-canvas').forEach(c => {
+  const ctx = c.getContext('2d'), col = c.dataset.color; let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height); ctx.fillStyle = 'rgba(2,8,17,0.9)'; ctx.fillRect(0, 0, c.width, c.height);
+    for (let i = 0; i < 8; i++) { const x = c.width / 2 + Math.cos(t + i * 0.8) * 70, y = c.height / 2 + Math.sin(t * 0.7 + i * 0.8) * 30; const g = ctx.createRadialGradient(x, y, 0, x, y, 25); g.addColorStop(0, `rgba(${col},0.3)`); g.addColorStop(1, 'transparent'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI * 2); ctx.fill(); }
+    ctx.strokeStyle = `rgba(${col},0.08)`; ctx.lineWidth = 0.5;
+    for (let x = 0; x < c.width; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, c.height); ctx.stroke(); }
+    for (let y = 0; y < c.height; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(c.width, y); ctx.stroke(); }
+    t += 0.015; requestAnimationFrame(draw);
+  } draw();
 });
 
 // TYPEWRITER
-const phrases=["Motion that tells stories.","Frames that define moments.","Design beyond boundaries.","Color grading perfected."];
-let pi=0,ci=0,deleting=false;
-const tw=document.getElementById('typewriter');
-function type(){
-  const ph=phrases[pi];
-  if(!deleting){tw.textContent=ph.slice(0,ci+1);ci++;if(ci===ph.length){setTimeout(()=>{deleting=true;},2000);setTimeout(()=>type(),2100);return;}}
-  else{tw.textContent=ph.slice(0,ci-1);ci--;if(ci===0){deleting=false;pi=(pi+1)%phrases.length;}}
-  setTimeout(type,deleting?60:90);
-}type();
+const phrases = ["Motion that tells stories.", "Frames that define moments.", "Design beyond boundaries.", "Color grading perfected."];
+let pi = 0, ci = 0, deleting = false;
+const tw = document.getElementById('typewriter');
+function type() {
+  const ph = phrases[pi];
+  if (!deleting) { tw.textContent = ph.slice(0, ci + 1); ci++; if (ci === ph.length) { setTimeout(() => { deleting = true; }, 2000); setTimeout(() => type(), 2100); return; } }
+  else { tw.textContent = ph.slice(0, ci - 1); ci--; if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; } }
+  setTimeout(type, deleting ? 60 : 90);
+} type();
 
 // AI DIALOG
-const messages=[
-  "Welcome to Tony Whale's portfolio. Scroll down to explore his creative universe.",
-  "Click the work tabs to explore Typography, 3D Design, and Thumbnail projects.",
-  "Each project links directly to Vimeo for the best viewing experience.",
-  "Interested in working together? Scroll to the Contact section.",
-];
-let mi=0;
-function typeDialog(msg,cb){
-  const el=document.getElementById('dialog-text');el.textContent='';let i=0;
-  const iv=setInterval(()=>{el.textContent+=msg[i];i++;if(i>=msg.length){clearInterval(iv);if(cb)setTimeout(cb,3500);}},32);
-}
-function nextMsg(){typeDialog(messages[mi],()=>{mi=(mi+1)%messages.length;nextMsg();});}
-setTimeout(nextMsg,2200);
+const messages = ["Welcome to Tony Whale's portfolio. Scroll down to explore his creative universe.","Click the work tabs to explore Typography, 3D Design, and Thumbnail projects.","Each project links directly to Vimeo for the best viewing experience.","Interested in working together? Scroll to the Contact section."];
+let mi = 0;
+function typeDialog(msg, cb) { const el = document.getElementById('dialog-text'); el.textContent = ''; let i = 0; const iv = setInterval(() => { el.textContent += msg[i]; i++; if (i >= msg.length) { clearInterval(iv); if (cb) setTimeout(cb, 3500); } }, 32); }
+function nextMsg() { typeDialog(messages[mi], () => { mi = (mi + 1) % messages.length; nextMsg(); }); }
+setTimeout(nextMsg, 2200);
 
 // SCROLL REVEAL
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.skill-bar').forEach(b=>{b.style.width=b.dataset.w+'%';});}});},{threshold:0.15});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.querySelectorAll('.skill-bar').forEach(b => { b.style.width = b.dataset.w + '%'; }); } }); }, { threshold: 0.15 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 // PARALLAX
-document.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelector('.hero-text').style.transform=`translateY(${y*0.15}px)`;document.querySelector('.avatar-wrap').style.transform=`translateY(${y*0.08}px)`;});
+document.addEventListener('scroll', () => { const y = window.scrollY; document.querySelector('.hero-text').style.transform = `translateY(${y * 0.15}px)`; document.querySelector('.avatar-wrap').style.transform = `translateY(${y * 0.08}px)`; });
 
 // 3D TILT
-document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card=>{
-  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-6px)`;});
-  card.addEventListener('mouseleave',()=>{card.style.transform='';});
+document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card => {
+  card.addEventListener('mousemove', e => { const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5; card.style.transform = `perspective(600px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-6px)`; });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 });
 
 // TAB SWITCHING
-function switchTab(tab){
-  document.querySelectorAll('.work-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.work-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('panel-'+tab).classList.add('active');
-  event.target.classList.add('active');
+function switchTab(tab, el) {
+  document.querySelectorAll('.work-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.work-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  el.classList.add('active');
 }
 </script>
 </body>
