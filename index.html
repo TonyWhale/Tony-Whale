@@ -17,64 +17,23 @@ body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;over
 /* ══════════════════════════════
    INTRO
 ══════════════════════════════ */
-#intro{
-  position:fixed;inset:0;z-index:10000;
-  background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-}
+#intro{position:fixed;inset:0;z-index:10000;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;}
 #intro-bg{position:absolute;inset:0;width:100%;height:100%;}
-
-#skip-btn{
-  position:absolute;top:2rem;right:2rem;
-  background:transparent;border:1px solid rgba(191,0,255,0.3);
-  color:rgba(191,0,255,0.6);font-family:'Orbitron',monospace;
-  font-size:0.6rem;letter-spacing:0.2em;padding:0.5rem 1.2rem;
-  cursor:pointer;z-index:20;transition:all 0.3s;text-transform:uppercase;
-}
+#skip-btn{position:absolute;top:2rem;right:2rem;background:transparent;border:1px solid rgba(191,0,255,0.3);color:rgba(191,0,255,0.6);font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;padding:0.5rem 1.2rem;cursor:pointer;z-index:20;transition:all 0.3s;text-transform:uppercase;}
 #skip-btn:hover{border-color:var(--neon2);color:var(--neon2);}
-
-/* SPLIT PANELS */
 #split-top{position:fixed;inset:0 0 50% 0;z-index:9999;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);pointer-events:none;}
 #split-bot{position:fixed;inset:50% 0 0 0;z-index:9999;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);pointer-events:none;}
 #split-top.open{transform:translateY(-100%);}
 #split-bot.open{transform:translateY(100%);}
-
-/* CYLINDER */
 #cyl-stage{position:relative;display:flex;align-items:center;justify-content:center;z-index:10;}
-#cylinder{
-  position:relative;width:240px;height:72px;border-radius:36px;
-  background:linear-gradient(135deg,rgba(191,0,255,0.15) 0%,rgba(0,245,255,0.08) 50%,rgba(191,0,255,0.15) 100%);
-  border:1.5px solid rgba(191,0,255,0.6);
-  box-shadow:0 0 20px rgba(191,0,255,0.4),0 0 50px rgba(191,0,255,0.2),inset 0 0 20px rgba(191,0,255,0.08);
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
-  opacity:0;transform:scaleX(0.04) scaleY(1);transition:none;
-}
+#cylinder{position:relative;width:240px;height:72px;border-radius:36px;background:linear-gradient(135deg,rgba(191,0,255,0.15) 0%,rgba(0,245,255,0.08) 50%,rgba(191,0,255,0.15) 100%);border:1.5px solid rgba(191,0,255,0.6);box-shadow:0 0 20px rgba(191,0,255,0.4),0 0 50px rgba(191,0,255,0.2),inset 0 0 20px rgba(191,0,255,0.08);display:flex;align-items:center;justify-content:center;overflow:hidden;opacity:0;transform:scaleX(0.04) scaleY(1);transition:none;}
 #cylinder::before{content:'';position:absolute;top:7px;left:20%;width:60%;height:35%;background:linear-gradient(180deg,rgba(255,255,255,0.12),transparent);border-radius:50%;}
 #cylinder::after{content:'';position:absolute;inset:0;border-radius:36px;background:linear-gradient(90deg,rgba(191,0,255,0.3) 0%,transparent 20%,transparent 80%,rgba(0,245,255,0.3) 100%);}
-
-/* PULSE ANIMATION during stay */
-@keyframes cyl-pulse{
-  0%,100%{box-shadow:0 0 20px rgba(191,0,255,0.4),0 0 50px rgba(191,0,255,0.2),inset 0 0 20px rgba(191,0,255,0.08);}
-  50%{box-shadow:0 0 35px rgba(191,0,255,0.7),0 0 80px rgba(0,245,255,0.35),0 0 120px rgba(191,0,255,0.2),inset 0 0 30px rgba(191,0,255,0.15);}
-}
+@keyframes cyl-pulse{0%,100%{box-shadow:0 0 20px rgba(191,0,255,0.4),0 0 50px rgba(191,0,255,0.2),inset 0 0 20px rgba(191,0,255,0.08);}50%{box-shadow:0 0 35px rgba(191,0,255,0.7),0 0 80px rgba(0,245,255,0.35),0 0 120px rgba(191,0,255,0.2),inset 0 0 30px rgba(191,0,255,0.15);}}
 #cylinder.pulsing{animation:cyl-pulse 1.4s ease-in-out infinite;}
-
-/* WELCOME TEXT */
 #welcome-wrap{position:relative;z-index:2;overflow:hidden;height:30px;display:flex;align-items:center;}
-#welcome-text{
-  font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;
-  letter-spacing:0.45em;color:#fff;
-  text-shadow:0 0 10px var(--neon2),0 0 20px var(--neon2);
-  white-space:nowrap;padding-right:0.45em;
-  /* arrival: right edge moves left to reveal W→E */
-  clip-path:inset(0 100% 0 0);
-  transition:clip-path 1.5s cubic-bezier(0.25,1,0.5,1);
-}
-/* arrival: reveal W to E (right edge collapses) */
+#welcome-text{font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;letter-spacing:0.45em;color:#fff;text-shadow:0 0 10px var(--neon2),0 0 20px var(--neon2);white-space:nowrap;padding-right:0.45em;clip-path:inset(0 100% 0 0);transition:clip-path 1.5s cubic-bezier(0.25,1,0.5,1);}
 #welcome-text.arrive{clip-path:inset(0 0% 0 0);}
-/* departure: hide E to W (left edge expands) */
-
-/* inner line glow during stretch */
 #cyl-line{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(191,0,255,0.6) 20%,rgba(0,245,255,0.8) 50%,rgba(191,0,255,0.6) 80%,transparent 100%);opacity:0;border-radius:36px;}
 
 /* ══════════════════════════════
@@ -157,6 +116,10 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .add-icon{font-size:2rem;opacity:0.3;}
 .add-text{font-family:'Orbitron',monospace;font-size:0.7rem;color:#88b4c0;letter-spacing:0.1em;text-align:center;opacity:0.5;}
 .add-hint{font-size:0.75rem;color:#88b4c0;opacity:0.4;text-align:center;line-height:1.5;}
+
+/* ══════════════════════════════
+   CONTACT
+══════════════════════════════ */
 #contact{background:linear-gradient(180deg,transparent,rgba(0,10,30,0.9));}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
 .contact-info p{font-size:1rem;color:#88b4c0;line-height:1.8;margin-bottom:2rem;}
@@ -167,12 +130,69 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .contact-form{display:flex;flex-direction:column;gap:1rem;}
 .contact-form input,.contact-form textarea{width:100%;background:var(--glass);border:1px solid var(--glass-border);color:#e0f7fa;padding:0.9rem 1.2rem;font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.3s;resize:none;}
 .contact-form input:focus,.contact-form textarea:focus{border-color:var(--neon);}
+.contact-form input.error,.contact-form textarea.error{border-color:var(--neon3);box-shadow:0 0 8px rgba(255,0,128,0.3);}
 .contact-form textarea{height:120px;}
-.form-submit{padding:0.9rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;align-self:flex-start;}
+.form-submit{padding:0.9rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;align-self:flex-start;min-width:180px;}
 .form-submit::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform 0.3s;}
 .form-submit:hover::before{transform:translateX(0);}
 .form-submit:hover{color:var(--dark);}
 .form-submit span{position:relative;z-index:1;}
+.form-submit:disabled{opacity:0.6;cursor:not-allowed;}
+.form-submit:disabled::before{display:none;}
+
+/* validation error text */
+.field-error{font-size:0.75rem;color:var(--neon3);margin-top:-0.5rem;margin-bottom:0.2rem;letter-spacing:0.05em;display:none;}
+.field-error.show{display:block;}
+
+/* ══════════════════════════════
+   POPUPS
+══════════════════════════════ */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.popup-overlay.show{opacity:1;pointer-events:all;}
+.popup-box{background:#040d1a;border:1px solid var(--glass-border);width:380px;max-width:92vw;position:relative;transform:translateY(20px) scale(0.97);transition:transform 0.3s;}
+.popup-overlay.show .popup-box{transform:translateY(0) scale(1);}
+
+/* top accent line */
+.popup-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon2),var(--neon),var(--neon2),transparent);}
+
+.popup-header{padding:1.2rem 1.4rem 0.8rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glass-border);}
+.popup-title{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.2em;display:flex;align-items:center;gap:0.6rem;}
+.popup-title.warn{color:#ffcc00;}
+.popup-title.success{color:#00ff88;}
+.popup-close{background:none;border:none;color:rgba(0,245,255,0.4);font-size:1.1rem;cursor:pointer;transition:color 0.3s;line-height:1;}
+.popup-close:hover{color:var(--neon);}
+
+.popup-body{padding:1.3rem 1.4rem;}
+.popup-desc{font-size:0.88rem;color:#a0d4e0;line-height:1.7;margin-bottom:1.3rem;}
+.popup-desc strong{color:#fff;}
+
+/* popup action buttons */
+.popup-actions{display:flex;flex-direction:column;gap:0.7rem;}
+.pop-btn{display:flex;align-items:center;gap:0.8rem;padding:0.85rem 1.2rem;border:1px solid var(--glass-border);background:var(--glass);color:#e0f7fa;font-family:'Rajdhani',sans-serif;font-size:0.9rem;cursor:pointer;transition:all 0.3s;text-align:left;width:100%;text-decoration:none;}
+.pop-btn:hover{border-color:var(--neon);color:var(--neon);}
+.pop-btn.primary{border-color:rgba(0,245,255,0.4);color:var(--neon);}
+.pop-btn.primary:hover{background:rgba(0,245,255,0.08);}
+.pop-btn.secondary{border-color:rgba(191,0,255,0.3);color:#c880ff;}
+.pop-btn.secondary:hover{border-color:var(--neon2);background:rgba(191,0,255,0.06);}
+.pop-btn.instagram{border-color:rgba(255,0,128,0.3);color:#ff88bb;}
+.pop-btn.instagram:hover{border-color:var(--neon3);background:rgba(255,0,128,0.06);}
+.pop-btn-icon{font-size:1.1rem;flex-shrink:0;}
+.pop-btn-text{display:flex;flex-direction:column;}
+.pop-btn-label{font-weight:600;letter-spacing:0.05em;}
+.pop-btn-sub{font-size:0.75rem;opacity:0.65;margin-top:0.1rem;}
+
+/* instagram note */
+.insta-note{margin-top:0.5rem;padding:0.6rem 0.8rem;background:rgba(255,0,128,0.05);border-left:2px solid rgba(255,0,128,0.4);font-size:0.78rem;color:#cc6688;line-height:1.5;}
+
+/* copy feedback */
+.copy-feedback{font-size:0.75rem;color:#00ff88;margin-top:0.2rem;display:none;letter-spacing:0.1em;}
+.copy-feedback.show{display:block;}
+
+/* success icon */
+.success-icon{font-size:2.5rem;text-align:center;margin-bottom:0.8rem;}
+.success-msg{font-size:0.9rem;color:#a0d4e0;line-height:1.7;text-align:center;}
+.success-msg strong{color:#00ff88;}
+
 .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s,transform 0.8s;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .scanlines{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);}
@@ -186,6 +206,7 @@ footer span{color:var(--neon);}
 <div id="split-top"></div>
 <div id="split-bot"></div>
 
+<!-- INTRO -->
 <div id="intro">
   <canvas id="intro-bg"></canvas>
   <button id="skip-btn" onclick="skipIntro()">SKIP ▶</button>
@@ -199,6 +220,78 @@ footer span{color:var(--neon);}
   </div>
 </div>
 
+<!-- ══════════════════════════════
+     FALLBACK POPUP
+══════════════════════════════ -->
+<div class="popup-overlay" id="fallback-popup">
+  <div class="popup-box">
+    <div class="popup-header">
+      <div class="popup-title warn">⚠ &nbsp;DIRECT CONTACT</div>
+      <button class="popup-close" onclick="closePopup('fallback-popup')">✕</button>
+    </div>
+    <div class="popup-body">
+      <p class="popup-desc">
+        Our message system is busy right now.<br>
+        <strong>No worries — your message is saved!</strong><br><br>
+        Click <strong>"Open Gmail"</strong> below and your name and message will already be written — just hit send. No retyping needed!
+      </p>
+      <div class="popup-actions">
+
+        <!-- OPEN GMAIL -->
+        <button class="pop-btn primary" id="gmail-btn" onclick="openGmail()">
+          <span class="pop-btn-icon">📧</span>
+          <span class="pop-btn-text">
+            <span class="pop-btn-label">Open Gmail — Pre-filled</span>
+            <span class="pop-btn-sub">Your message is already written. Just hit send!</span>
+          </span>
+        </button>
+
+        <!-- COPY EMAIL -->
+        <button class="pop-btn secondary" onclick="copyEmail()">
+          <span class="pop-btn-icon">📋</span>
+          <span class="pop-btn-text">
+            <span class="pop-btn-label">Copy Email Address</span>
+            <span class="pop-btn-sub" id="copy-sub">tomedits316@gmail.com</span>
+          </span>
+        </button>
+        <div class="copy-feedback" id="copy-feedback">✓ Email copied to clipboard!</div>
+
+        <!-- INSTAGRAM -->
+        <a class="pop-btn instagram" href="https://www.instagram.com/whale_creations/" target="_blank">
+          <span class="pop-btn-icon">◈</span>
+          <span class="pop-btn-text">
+            <span class="pop-btn-label">DM on Instagram</span>
+            <span class="pop-btn-sub">@whale_creations</span>
+          </span>
+        </a>
+        <div class="insta-note">Send a DM with your project brief to <strong>@whale_creations</strong> for a faster response!</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     SUCCESS POPUP
+══════════════════════════════ -->
+<div class="popup-overlay" id="success-popup">
+  <div class="popup-box">
+    <div class="popup-header">
+      <div class="popup-title success">✓ &nbsp;MESSAGE SENT</div>
+      <button class="popup-close" onclick="closePopup('success-popup')">✕</button>
+    </div>
+    <div class="popup-body">
+      <div class="success-icon">✅</div>
+      <p class="success-msg">
+        <strong>Message received successfully!</strong><br><br>
+        Tony will review your message and get back to you within <strong>24 hours</strong>.<br><br>
+        Thank you for reaching out!
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
 <div id="portfolio">
   <div class="scanlines"></div>
   <div class="grid-overlay"></div>
@@ -270,7 +363,6 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel active" id="panel-typography">
       <div class="video-grid">
-        <!-- ✏️ Replace YOUR_VIMEO_LINK_HERE with actual Vimeo link -->
         <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Kinetic typography with dynamic text animations and smooth motion design.</div></div>
@@ -320,11 +412,22 @@ footer span{color:var(--neon);}
           <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link snd-nav"><span class="contact-link-icon">◈</span>@whale_creations</a>
         </div>
       </div>
-      <div class="contact-form reveal">
-        <input type="text" placeholder="Your Name" class="snd-input"/>
-        <input type="email" placeholder="Email Address" class="snd-input"/>
-        <textarea placeholder="Tell me about your project..." class="snd-input"></textarea>
-        <button class="form-submit snd-btn"><span>Send Message →</span></button>
+      <div class="contact-form reveal" id="contact-form-wrap">
+
+        <input type="text" id="cf-name" placeholder="Your Name" class="snd-input"/>
+        <div class="field-error" id="err-name">⚠ Please enter your name.</div>
+
+        <input type="email" id="cf-email" placeholder="Email Address" class="snd-input"/>
+        <div class="field-error" id="err-email">⚠ Please enter a valid email address.</div>
+
+        <textarea id="cf-msg" placeholder="Tell me about your project..." class="snd-input"></textarea>
+        <div class="field-error" id="err-msg">⚠ Please write your message before sending.</div>
+
+        <!-- https://formspree.io/f/xaqkjqny -->
+        <button class="form-submit snd-btn" id="send-btn" onclick="submitForm()">
+          <span id="send-label">Send Message →</span>
+        </button>
+
       </div>
     </div>
   </section>
@@ -333,256 +436,183 @@ footer span{color:var(--neon);}
 
 <script>
 // ══════════════════════════════════════
-// AUDIO ENGINE
+// AUDIO
 // ══════════════════════════════════════
-let audioCtx = null;
-function initAudio(){
-  if(!audioCtx){
-    audioCtx = new(window.AudioContext||window.webkitAudioContext)();
+let audioCtx=null;
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+document.addEventListener('click',initAudio,{once:true});
+document.addEventListener('mousemove',initAudio,{once:true});
+function sndNav(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(1800,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(1200,audioCtx.currentTime+0.06);g.gain.setValueAtTime(0.04,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.08);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.09);}
+function sndBtn(){if(!audioCtx)return;const t=audioCtx.currentTime;[440,550].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.setValueAtTime(f,t+i*0.05);g.gain.setValueAtTime(0.05,t+i*0.05);g.gain.exponentialRampToValueAtTime(0.001,t+i*0.05+0.12);o.connect(g);g.connect(audioCtx.destination);o.start(t+i*0.05);o.stop(t+i*0.05+0.14);});}
+function sndTab(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.setValueAtTime(600,audioCtx.currentTime);o.frequency.linearRampToValueAtTime(900,audioCtx.currentTime+0.04);o.frequency.linearRampToValueAtTime(600,audioCtx.currentTime+0.08);g.gain.setValueAtTime(0.04,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.1);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.11);}
+function sndCard(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(2400,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(1600,audioCtx.currentTime+0.05);g.gain.setValueAtTime(0.025,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.07);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.08);}
+function sndInput(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(1200,audioCtx.currentTime);o.frequency.linearRampToValueAtTime(1400,audioCtx.currentTime+0.03);g.gain.setValueAtTime(0.03,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.1);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.12);}
+function sndWhoosh(){if(!audioCtx)return;const bufSize=audioCtx.sampleRate*0.4,buf=audioCtx.createBuffer(1,bufSize,audioCtx.sampleRate),d=buf.getChannelData(0);for(let i=0;i<bufSize;i++)d[i]=(Math.random()*2-1);const src=audioCtx.createBufferSource();src.buffer=buf;const f=audioCtx.createBiquadFilter();f.type='bandpass';f.frequency.value=800;f.Q.value=0.5;const g=audioCtx.createGain();g.gain.setValueAtTime(0,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0.12,audioCtx.currentTime+0.05);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);src.connect(f);f.connect(g);g.connect(audioCtx.destination);src.start();src.stop(audioCtx.currentTime+0.45);const o=audioCtx.createOscillator(),og=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(180,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(1000,audioCtx.currentTime+0.35);og.gain.setValueAtTime(0.05,audioCtx.currentTime);og.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);o.connect(og);og.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.45);}
+function sndHum(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.value=75;g.gain.setValueAtTime(0,audioCtx.currentTime);g.gain.linearRampToValueAtTime(0.035,audioCtx.currentTime+0.6);g.gain.linearRampToValueAtTime(0.035,audioCtx.currentTime+2);g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+2.8);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+3);}
+
+// ══════════════════════════════════════
+// CONTACT FORM
+// ══════════════════════════════════════
+// ✏️ Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
+const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+const MY_EMAIL = 'tomedits316@gmail.com';
+
+function validateForm(){
+  let valid=true;
+  const name=document.getElementById('cf-name');
+  const email=document.getElementById('cf-email');
+  const msg=document.getElementById('cf-msg');
+
+  // reset errors
+  [name,email,msg].forEach(el=>{el.classList.remove('error');});
+  ['err-name','err-email','err-msg'].forEach(id=>{document.getElementById(id).classList.remove('show');});
+
+  if(!name.value.trim()){name.classList.add('error');document.getElementById('err-name').classList.add('show');sndInput();valid=false;}
+  if(!email.value.trim()||!email.value.includes('@')){email.classList.add('error');document.getElementById('err-email').classList.add('show');sndInput();valid=false;}
+  if(!msg.value.trim()){msg.classList.add('error');document.getElementById('err-msg').classList.add('show');sndInput();valid=false;}
+  return valid;
+}
+
+async function submitForm(){
+  if(!validateForm())return;
+  initAudio();
+  sndBtn();
+
+  const btn=document.getElementById('send-btn');
+  const label=document.getElementById('send-label');
+  btn.disabled=true;
+  label.textContent='SENDING... ⟳';
+
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const message=document.getElementById('cf-msg').value.trim();
+
+  try{
+    const res=await fetch(FORMSPREE_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({name,email,message})
+    });
+
+    if(res.ok){
+      // SUCCESS
+      showPopup('success-popup');
+      document.getElementById('cf-name').value='';
+      document.getElementById('cf-email').value='';
+      document.getElementById('cf-msg').value='';
+      label.textContent='Send Message →';
+      btn.disabled=false;
+    } else {
+      // FORMSPREE ERROR / LIMIT HIT
+      storeFormData(name,email,message);
+      showPopup('fallback-popup');
+      label.textContent='Send Message →';
+      btn.disabled=false;
+    }
+  } catch(err){
+    // NETWORK ERROR
+    storeFormData(name,email,message);
+    showPopup('fallback-popup');
+    label.textContent='Send Message →';
+    btn.disabled=false;
   }
 }
-// Wake audio on first interaction
-document.addEventListener('click', initAudio, {once:true});
-document.addEventListener('mousemove', initAudio, {once:true});
 
-// NAV SOUND — soft high tick
-function sndNav(){
-  if(!audioCtx)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine';
-  o.frequency.setValueAtTime(1800, audioCtx.currentTime);
-  o.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime+0.06);
-  g.gain.setValueAtTime(0.04, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.08);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime+0.09);
+// Store form data for pre-filling Gmail
+let storedName='', storedEmail='', storedMsg='';
+function storeFormData(name,email,msg){
+  storedName=name; storedEmail=email; storedMsg=msg;
 }
 
-// BUTTON SOUND — mechanical confirm mid tone
-function sndBtn(){
-  if(!audioCtx)return;
-  const t = audioCtx.currentTime;
-  [440, 550].forEach((f,i)=>{
-    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-    o.type='square';
-    o.frequency.setValueAtTime(f, t+i*0.05);
-    g.gain.setValueAtTime(0.05, t+i*0.05);
-    g.gain.exponentialRampToValueAtTime(0.001, t+i*0.05+0.12);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(t+i*0.05); o.stop(t+i*0.05+0.14);
+function openGmail(){
+  const subject=encodeURIComponent(`Portfolio Inquiry from ${storedName}`);
+  const body=encodeURIComponent(`Hi Tony,\n\nMy name is ${storedName}.\n\n${storedMsg}\n\n---\nReply to: ${storedEmail}\nSent via Tony Whale Portfolio`);
+  window.open(`https://mail.google.com/mail/?view=cm&to=${MY_EMAIL}&su=${subject}&body=${body}`,'_blank');
+}
+
+function copyEmail(){
+  navigator.clipboard.writeText(MY_EMAIL).then(()=>{
+    const fb=document.getElementById('copy-feedback');
+    fb.classList.add('show');
+    setTimeout(()=>fb.classList.remove('show'),2500);
+    sndNav();
   });
 }
 
-// TAB SOUND — electronic switch
-function sndTab(){
-  if(!audioCtx)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='square';
-  o.frequency.setValueAtTime(600, audioCtx.currentTime);
-  o.frequency.linearRampToValueAtTime(900, audioCtx.currentTime+0.04);
-  o.frequency.linearRampToValueAtTime(600, audioCtx.currentTime+0.08);
-  g.gain.setValueAtTime(0.04, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.1);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime+0.11);
+function showPopup(id){
+  document.getElementById(id).classList.add('show');
+  sndBtn();
 }
-
-// CARD HOVER SOUND — holographic tap, very soft
-function sndCard(){
-  if(!audioCtx)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine';
-  o.frequency.setValueAtTime(2400, audioCtx.currentTime);
-  o.frequency.exponentialRampToValueAtTime(1600, audioCtx.currentTime+0.05);
-  g.gain.setValueAtTime(0.025, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.07);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime+0.08);
+function closePopup(id){
+  document.getElementById(id).classList.remove('show');
+  sndNav();
 }
-
-// INPUT FOCUS SOUND — light digital ping
-function sndInput(){
-  if(!audioCtx)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine';
-  o.frequency.setValueAtTime(1200, audioCtx.currentTime);
-  o.frequency.linearRampToValueAtTime(1400, audioCtx.currentTime+0.03);
-  g.gain.setValueAtTime(0.03, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.1);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime+0.12);
-}
-
-// WHOOSH — for stretch and split
-function sndWhoosh(){
-  if(!audioCtx)return;
-  const bufSize=audioCtx.sampleRate*0.4;
-  const buf=audioCtx.createBuffer(1,bufSize,audioCtx.sampleRate);
-  const d=buf.getChannelData(0);
-  for(let i=0;i<bufSize;i++)d[i]=(Math.random()*2-1);
-  const src=audioCtx.createBufferSource();
-  src.buffer=buf;
-  const f=audioCtx.createBiquadFilter();
-  f.type='bandpass'; f.frequency.value=800; f.Q.value=0.5;
-  const g=audioCtx.createGain();
-  g.gain.setValueAtTime(0, audioCtx.currentTime);
-  g.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime+0.05);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.4);
-  src.connect(f); f.connect(g); g.connect(audioCtx.destination);
-  src.start(); src.stop(audioCtx.currentTime+0.45);
-  const o=audioCtx.createOscillator(), og=audioCtx.createGain();
-  o.type='sine';
-  o.frequency.setValueAtTime(180, audioCtx.currentTime);
-  o.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime+0.35);
-  og.gain.setValueAtTime(0.05, audioCtx.currentTime);
-  og.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.4);
-  o.connect(og); og.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime+0.45);
-}
-
-// HUM — low ambient during intro
-function sndHum(){
-  if(!audioCtx)return;
-  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
-  o.type='sine'; o.frequency.value=75;
-  g.gain.setValueAtTime(0, audioCtx.currentTime);
-  g.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime+0.6);
-  g.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime+2);
-  g.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2.8);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime+3);
-}
+// Close popup on overlay click
+document.querySelectorAll('.popup-overlay').forEach(overlay=>{
+  overlay.addEventListener('click',e=>{
+    if(e.target===overlay)overlay.classList.remove('show');
+  });
+});
 
 // ══════════════════════════════════════
 // INTRO BG PARTICLES
 // ══════════════════════════════════════
-const ibg=document.getElementById('intro-bg');
-const ibCtx=ibg.getContext('2d');
-ibg.width=window.innerWidth; ibg.height=window.innerHeight;
+const ibg=document.getElementById('intro-bg'),ibCtx=ibg.getContext('2d');
+ibg.width=window.innerWidth;ibg.height=window.innerHeight;
 const iP=[];
-for(let i=0;i<80;i++)iP.push({
-  x:Math.random()*ibg.width, y:Math.random()*ibg.height,
-  r:Math.random()*1.2+0.2,
-  vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2,
-  c:Math.random()>0.5?'191,0,255':'0,245,255',
-  o:Math.random()*0.35+0.08
-});
+for(let i=0;i<80;i++)iP.push({x:Math.random()*ibg.width,y:Math.random()*ibg.height,r:Math.random()*1.2+0.2,vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,c:Math.random()>0.5?'191,0,255':'0,245,255',o:Math.random()*0.35+0.08});
 let introDone=false;
-function drawIBg(){
-  ibCtx.clearRect(0,0,ibg.width,ibg.height);
-  iP.forEach(p=>{
-    p.x+=p.vx; p.y+=p.vy;
-    if(p.x<0)p.x=ibg.width; if(p.x>ibg.width)p.x=0;
-    if(p.y<0)p.y=ibg.height; if(p.y>ibg.height)p.y=0;
-    ibCtx.beginPath(); ibCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ibCtx.fillStyle=`rgba(${p.c},${p.o})`; ibCtx.fill();
-  });
-  if(!introDone)requestAnimationFrame(drawIBg);
-}
+function drawIBg(){ibCtx.clearRect(0,0,ibg.width,ibg.height);iP.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=ibg.width;if(p.x>ibg.width)p.x=0;if(p.y<0)p.y=ibg.height;if(p.y>ibg.height)p.y=0;ibCtx.beginPath();ibCtx.arc(p.x,p.y,p.r,0,Math.PI*2);ibCtx.fillStyle=`rgba(${p.c},${p.o})`;ibCtx.fill();});if(!introDone)requestAnimationFrame(drawIBg);}
 drawIBg();
 
 // ══════════════════════════════════════
 // INTRO SEQUENCE
-// Timing:
-// 0.3s  — cylinder pops in
-// 1.0s  — WELCOME arrives (1.5s duration) → done at 2.5s
-// 4.5s  — WELCOME departs (1.5s duration) → done at 6.0s
-// 6.2s  — cylinder stretches
-// 6.9s  — split reveal
 // ══════════════════════════════════════
-const cyl      = document.getElementById('cylinder');
-const wText    = document.getElementById('welcome-text');
-const cylLine  = document.getElementById('cyl-line');
+const cyl=document.getElementById('cylinder');
+const wText=document.getElementById('welcome-text');
+const cylLine=document.getElementById('cyl-line');
 
 function runIntro(){
-  // 0.3s — pop in cylinder
+  setTimeout(()=>{initAudio();sndHum();cyl.style.transition='opacity 0.4s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1)';cyl.style.opacity='1';cyl.style.transform='scaleX(1) scaleY(1)';},300);
+  setTimeout(()=>{sndNav();wText.classList.add('arrive');},1000);
+  setTimeout(()=>{cyl.classList.add('pulsing');},2600);
   setTimeout(()=>{
-    initAudio(); sndHum();
-    cyl.style.transition='opacity 0.4s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1)';
-    cyl.style.opacity='1';
-    cyl.style.transform='scaleX(1) scaleY(1)';
-  }, 300);
-
-  // 1.0s — WELCOME arrival: W → E (right clip collapses)
-  setTimeout(()=>{
-    sndNav();
-    wText.classList.add('arrive');
-  }, 1000);
-
-  // 2.6s — start pulse (after arrival finishes ~2.5s)
-  setTimeout(()=>{
-    cyl.classList.add('pulsing');
-  }, 2600);
-
-  // 4.5s — stop pulse + WELCOME departure: E → W (left clip expands)
-  setTimeout(()=>{
-    cyl.classList.remove('pulsing');
-    sndNav();
-    // Force reset transition for depart direction
-    wText.style.transition='none';
-    wText.offsetHeight; // reflow
-    // departure: left side covers, so inset left grows
+    cyl.classList.remove('pulsing');sndNav();
+    wText.style.transition='none';wText.offsetHeight;
     wText.style.transition='clip-path 1.5s cubic-bezier(0.5,0,0.75,0)';
     wText.style.clipPath='inset(0 100% 0 0%)';
-  }, 4500);
-
-  // 6.2s — stretch cylinder
+  },4500);
   setTimeout(()=>{
-    sndWhoosh();
-    cylLine.style.transition='opacity 0.2s';
-    cylLine.style.opacity='1';
+    sndWhoosh();cylLine.style.transition='opacity 0.2s';cylLine.style.opacity='1';
     cyl.style.transition='transform 0.55s cubic-bezier(0.55,0,1,0.45), border-radius 0.55s, box-shadow 0.3s, filter 0.55s';
     cyl.style.transform=`scaleX(${window.innerWidth/240*1.1}) scaleY(0.15)`;
-    cyl.style.borderRadius='0';
-    cyl.style.boxShadow='0 0 60px rgba(191,0,255,0.9), 0 0 120px rgba(0,245,255,0.5)';
-    cyl.style.filter='blur(3px)';
-  }, 6200);
-
-  // 6.9s — split reveal
-  setTimeout(()=>{
-    doReveal();
-  }, 6900);
+    cyl.style.borderRadius='0';cyl.style.boxShadow='0 0 60px rgba(191,0,255,0.9), 0 0 120px rgba(0,245,255,0.5)';cyl.style.filter='blur(3px)';
+  },6200);
+  setTimeout(()=>{doReveal();},6900);
 }
 
 function doReveal(){
   introDone=true;
   const intro=document.getElementById('intro');
-  intro.style.transition='opacity 0.3s';
-  intro.style.opacity='0';
-  setTimeout(()=>intro.style.display='none', 300);
-
+  intro.style.transition='opacity 0.3s';intro.style.opacity='0';
+  setTimeout(()=>intro.style.display='none',300);
   document.getElementById('portfolio').classList.add('visible');
-
-  setTimeout(()=>{
-    document.getElementById('split-top').classList.add('open');
-    document.getElementById('split-bot').classList.add('open');
-    sndWhoosh();
-  }, 100);
-
-  setTimeout(()=>{
-    document.getElementById('split-top').style.display='none';
-    document.getElementById('split-bot').style.display='none';
-    initPortfolio();
-  }, 1400);
+  setTimeout(()=>{document.getElementById('split-top').classList.add('open');document.getElementById('split-bot').classList.add('open');sndWhoosh();},100);
+  setTimeout(()=>{document.getElementById('split-top').style.display='none';document.getElementById('split-bot').style.display='none';initPortfolio();},1400);
 }
 
-function skipIntro(){
-  introDone=true;
-  initAudio();
-  doReveal();
-}
-
+function skipIntro(){introDone=true;initAudio();doReveal();}
 runIntro();
 
 // ══════════════════════════════════════
-// ATTACH SOUNDS TO ELEMENTS
+// SOUND BINDINGS
 // ══════════════════════════════════════
 function attachSounds(){
-  document.querySelectorAll('.snd-nav').forEach(el=>el.addEventListener('click', sndNav));
-  document.querySelectorAll('.snd-btn').forEach(el=>el.addEventListener('click', sndBtn));
-  document.querySelectorAll('.snd-tab').forEach(el=>el.addEventListener('click', sndTab));
-  document.querySelectorAll('.snd-card').forEach(el=>el.addEventListener('mouseenter', sndCard));
-  document.querySelectorAll('.snd-input').forEach(el=>el.addEventListener('focus', sndInput));
+  document.querySelectorAll('.snd-nav').forEach(el=>el.addEventListener('click',sndNav));
+  document.querySelectorAll('.snd-btn').forEach(el=>el.addEventListener('click',sndBtn));
+  document.querySelectorAll('.snd-tab').forEach(el=>el.addEventListener('click',sndTab));
+  document.querySelectorAll('.snd-card').forEach(el=>el.addEventListener('mouseenter',sndCard));
+  document.querySelectorAll('.snd-input').forEach(el=>el.addEventListener('focus',sndInput));
 }
 
 // ══════════════════════════════════════
@@ -590,63 +620,24 @@ function attachSounds(){
 // ══════════════════════════════════════
 function initPortfolio(){
   attachSounds();
-
-  // CURSOR
   const cursor=document.getElementById('cursor');
   document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
-
-  // BG PARTICLES
-  const bgC=document.getElementById('bg-canvas'), bgCtx=bgC.getContext('2d');
-  function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;} resizeBg();
+  const bgC=document.getElementById('bg-canvas'),bgCtx=bgC.getContext('2d');
+  function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;}resizeBg();
   window.addEventListener('resize',resizeBg);
   const particles=[];
   for(let i=0;i<120;i++)particles.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,c:Math.random()>0.5?'0,245,255':'191,0,255'});
-  function drawBg(){
-    bgCtx.clearRect(0,0,bgC.width,bgC.height);
-    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=bgC.width;if(p.x>bgC.width)p.x=0;if(p.y<0)p.y=bgC.height;if(p.y>bgC.height)p.y=0;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fillStyle=`rgba(${p.c},0.6)`;bgCtx.fill();});
-    particles.forEach((a,i)=>particles.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){bgCtx.beginPath();bgCtx.moveTo(a.x,a.y);bgCtx.lineTo(b.x,b.y);bgCtx.strokeStyle=`rgba(0,245,255,${0.08*(1-d/100)})`;bgCtx.lineWidth=0.5;bgCtx.stroke();}}));
-    requestAnimationFrame(drawBg);
-  } drawBg();
-
-  // PROJECT CANVASES
-  document.querySelectorAll('.proj-canvas').forEach(c=>{
-    const ctx=c.getContext('2d'),col=c.dataset.color;let t=0;
-    function draw(){
-      ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='rgba(2,8,17,0.9)';ctx.fillRect(0,0,c.width,c.height);
-      for(let i=0;i<8;i++){const x=c.width/2+Math.cos(t+i*0.8)*70,y=c.height/2+Math.sin(t*0.7+i*0.8)*30;const g=ctx.createRadialGradient(x,y,0,x,y,25);g.addColorStop(0,`rgba(${col},0.3)`);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();}
-      ctx.strokeStyle=`rgba(${col},0.08)`;ctx.lineWidth=0.5;
-      for(let x=0;x<c.width;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c.height);ctx.stroke();}
-      for(let y=0;y<c.height;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(c.width,y);ctx.stroke();}
-      t+=0.015;requestAnimationFrame(draw);
-    }draw();
-  });
-
-  // TYPEWRITER
+  function drawBg(){bgCtx.clearRect(0,0,bgC.width,bgC.height);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=bgC.width;if(p.x>bgC.width)p.x=0;if(p.y<0)p.y=bgC.height;if(p.y>bgC.height)p.y=0;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fillStyle=`rgba(${p.c},0.6)`;bgCtx.fill();});particles.forEach((a,i)=>particles.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){bgCtx.beginPath();bgCtx.moveTo(a.x,a.y);bgCtx.lineTo(b.x,b.y);bgCtx.strokeStyle=`rgba(0,245,255,${0.08*(1-d/100)})`;bgCtx.lineWidth=0.5;bgCtx.stroke();}}));requestAnimationFrame(drawBg);}drawBg();
+  document.querySelectorAll('.proj-canvas').forEach(c=>{const ctx=c.getContext('2d'),col=c.dataset.color;let t=0;function draw(){ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='rgba(2,8,17,0.9)';ctx.fillRect(0,0,c.width,c.height);for(let i=0;i<8;i++){const x=c.width/2+Math.cos(t+i*0.8)*70,y=c.height/2+Math.sin(t*0.7+i*0.8)*30;const g=ctx.createRadialGradient(x,y,0,x,y,25);g.addColorStop(0,`rgba(${col},0.3)`);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();}ctx.strokeStyle=`rgba(${col},0.08)`;ctx.lineWidth=0.5;for(let x=0;x<c.width;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c.height);ctx.stroke();}for(let y=0;y<c.height;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(c.width,y);ctx.stroke();}t+=0.015;requestAnimationFrame(draw);}draw();});
   const phrases=["Motion that tells stories.","Frames that define moments.","Design beyond boundaries.","Color grading perfected."];
-  let pi=0,ci=0,deleting=false;
-  const tw=document.getElementById('typewriter');
-  function type(){
-    const ph=phrases[pi];
-    if(!deleting){tw.textContent=ph.slice(0,ci+1);ci++;if(ci===ph.length){setTimeout(()=>{deleting=true;},2000);setTimeout(()=>type(),2100);return;}}
-    else{tw.textContent=ph.slice(0,ci-1);ci--;if(ci===0){deleting=false;pi=(pi+1)%phrases.length;}}
-    setTimeout(type,deleting?60:90);
-  }type();
-
-  // SCROLL REVEAL
+  let pi=0,ci=0,deleting=false;const tw=document.getElementById('typewriter');
+  function type(){const ph=phrases[pi];if(!deleting){tw.textContent=ph.slice(0,ci+1);ci++;if(ci===ph.length){setTimeout(()=>{deleting=true;},2000);setTimeout(()=>type(),2100);return;}}else{tw.textContent=ph.slice(0,ci-1);ci--;if(ci===0){deleting=false;pi=(pi+1)%phrases.length;}}setTimeout(type,deleting?60:90);}type();
   const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.skill-bar').forEach(b=>{b.style.width=b.dataset.w+'%';}); }});},{threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-  // PARALLAX
   document.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelector('.hero-text').style.transform=`translateY(${y*0.15}px)`;document.querySelector('.avatar-wrap').style.transform=`translateY(${y*0.08}px)`;});
-
-  // 3D TILT
-  document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card=>{
-    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-6px)`;});
-    card.addEventListener('mouseleave',()=>{card.style.transform='';});
-  });
+  document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card=>{card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-6px)`;});card.addEventListener('mouseleave',()=>{card.style.transform='';});});
 }
 
-// TAB SWITCHING
 function switchTab(tab,el){
   document.querySelectorAll('.work-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.work-panel').forEach(p=>p.classList.remove('active'));
