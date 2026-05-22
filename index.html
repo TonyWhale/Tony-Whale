@@ -19,14 +19,11 @@ body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;over
 ══════════════════════════════ */
 #intro{
   position:fixed;inset:0;z-index:10000;
-  background:radial-gradient(ellipse at center, #0d0020 0%, #020811 60%, #000 100%);
+  background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
-
-/* bg particle canvas for intro */
 #intro-bg{position:absolute;inset:0;width:100%;height:100%;}
 
-/* SKIP */
 #skip-btn{
   position:absolute;top:2rem;right:2rem;
   background:transparent;border:1px solid rgba(191,0,255,0.3);
@@ -36,92 +33,55 @@ body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;over
 }
 #skip-btn:hover{border-color:var(--neon2);color:var(--neon2);}
 
-/* SPLIT PANELS — for reveal */
-#split-top{
-  position:fixed;inset:0 0 50% 0;z-index:9999;
-  background:radial-gradient(ellipse at center, #0d0020 0%, #020811 60%, #000 100%);
-  transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);
-  pointer-events:none;
-}
-#split-bot{
-  position:fixed;inset:50% 0 0 0;z-index:9999;
-  background:radial-gradient(ellipse at center, #0d0020 0%, #020811 60%, #000 100%);
-  transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);
-  pointer-events:none;
-}
+/* SPLIT PANELS */
+#split-top{position:fixed;inset:0 0 50% 0;z-index:9999;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);pointer-events:none;}
+#split-bot{position:fixed;inset:50% 0 0 0;z-index:9999;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);pointer-events:none;}
 #split-top.open{transform:translateY(-100%);}
 #split-bot.open{transform:translateY(100%);}
 
-/* CYLINDER STAGE */
+/* CYLINDER */
 #cyl-stage{position:relative;display:flex;align-items:center;justify-content:center;z-index:10;}
-
-/* THE CYLINDER / CAPSULE */
 #cylinder{
-  position:relative;
-  width:220px;height:70px;
-  border-radius:35px;
-  background:linear-gradient(135deg, rgba(191,0,255,0.15) 0%, rgba(0,245,255,0.08) 50%, rgba(191,0,255,0.15) 100%);
+  position:relative;width:240px;height:72px;border-radius:36px;
+  background:linear-gradient(135deg,rgba(191,0,255,0.15) 0%,rgba(0,245,255,0.08) 50%,rgba(191,0,255,0.15) 100%);
   border:1.5px solid rgba(191,0,255,0.6);
-  box-shadow:
-    0 0 20px rgba(191,0,255,0.4),
-    0 0 50px rgba(191,0,255,0.2),
-    inset 0 0 20px rgba(191,0,255,0.08);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
-  opacity:0;
-  transform:scaleX(0.05) scaleY(1);
-  transition:none;
+  box-shadow:0 0 20px rgba(191,0,255,0.4),0 0 50px rgba(191,0,255,0.2),inset 0 0 20px rgba(191,0,255,0.08);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  opacity:0;transform:scaleX(0.04) scaleY(1);transition:none;
 }
+#cylinder::before{content:'';position:absolute;top:7px;left:20%;width:60%;height:35%;background:linear-gradient(180deg,rgba(255,255,255,0.12),transparent);border-radius:50%;}
+#cylinder::after{content:'';position:absolute;inset:0;border-radius:36px;background:linear-gradient(90deg,rgba(191,0,255,0.3) 0%,transparent 20%,transparent 80%,rgba(0,245,255,0.3) 100%);}
 
-/* gloss highlight on cylinder */
-#cylinder::before{
-  content:'';position:absolute;top:6px;left:20%;width:60%;height:35%;
-  background:linear-gradient(180deg,rgba(255,255,255,0.12),transparent);
-  border-radius:50%;
+/* PULSE ANIMATION during stay */
+@keyframes cyl-pulse{
+  0%,100%{box-shadow:0 0 20px rgba(191,0,255,0.4),0 0 50px rgba(191,0,255,0.2),inset 0 0 20px rgba(191,0,255,0.08);}
+  50%{box-shadow:0 0 35px rgba(191,0,255,0.7),0 0 80px rgba(0,245,255,0.35),0 0 120px rgba(191,0,255,0.2),inset 0 0 30px rgba(191,0,255,0.15);}
 }
-/* edge glow lines */
-#cylinder::after{
-  content:'';position:absolute;inset:0;border-radius:35px;
-  background:linear-gradient(90deg,
-    rgba(191,0,255,0.3) 0%,
-    transparent 20%,
-    transparent 80%,
-    rgba(0,245,255,0.3) 100%);
-}
+#cylinder.pulsing{animation:cyl-pulse 1.4s ease-in-out infinite;}
 
-/* WELCOME TEXT inside cylinder */
-#welcome-wrap{
-  position:relative;z-index:2;overflow:hidden;height:28px;display:flex;align-items:center;
-}
+/* WELCOME TEXT */
+#welcome-wrap{position:relative;z-index:2;overflow:hidden;height:30px;display:flex;align-items:center;}
 #welcome-text{
-  font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;
-  letter-spacing:0.4em;color:#fff;
+  font-family:'Orbitron',monospace;font-size:1.05rem;font-weight:700;
+  letter-spacing:0.45em;color:#fff;
   text-shadow:0 0 10px var(--neon2),0 0 20px var(--neon2);
+  white-space:nowrap;padding-right:0.45em;
+  /* arrival: right edge moves left to reveal W→E */
   clip-path:inset(0 100% 0 0);
-  transition:clip-path 0.8s cubic-bezier(0.25,1,0.5,1);
-  white-space:nowrap;padding-right:0.4em;
+  transition:clip-path 1.5s cubic-bezier(0.25,1,0.5,1);
 }
-#welcome-text.reveal-text{clip-path:inset(0 0% 0 0);}
-#welcome-text.hide-text{clip-path:inset(0 0% 0 100%);}
+/* arrival: reveal W to E (right edge collapses) */
+#welcome-text.arrive{clip-path:inset(0 0% 0 0);}
+/* departure: hide E to W (left edge expands) */
 
-/* horizontal line inside cylinder during stretch */
-#cyl-line{
-  position:absolute;inset:0;
-  background:linear-gradient(90deg,
-    transparent 0%,
-    rgba(191,0,255,0.6) 20%,
-    rgba(0,245,255,0.8) 50%,
-    rgba(191,0,255,0.6) 80%,
-    transparent 100%);
-  opacity:0;border-radius:35px;
-}
+/* inner line glow during stretch */
+#cyl-line{position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(191,0,255,0.6) 20%,rgba(0,245,255,0.8) 50%,rgba(191,0,255,0.6) 80%,transparent 100%);opacity:0;border-radius:36px;}
 
 /* ══════════════════════════════
    PORTFOLIO
 ══════════════════════════════ */
 #portfolio{opacity:0;transition:opacity 0.8s;}
 #portfolio.visible{opacity:1;}
-
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(2,8,17,0.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
 .logo{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--neon);letter-spacing:0.2em;text-shadow:0 0 10px var(--neon);}
@@ -223,11 +183,9 @@ footer span{color:var(--neon);}
 </head>
 <body>
 
-<!-- SPLIT PANELS -->
 <div id="split-top"></div>
 <div id="split-bot"></div>
 
-<!-- INTRO -->
 <div id="intro">
   <canvas id="intro-bg"></canvas>
   <button id="skip-btn" onclick="skipIntro()">SKIP ▶</button>
@@ -241,7 +199,6 @@ footer span{color:var(--neon);}
   </div>
 </div>
 
-<!-- PORTFOLIO -->
 <div id="portfolio">
   <div class="scanlines"></div>
   <div class="grid-overlay"></div>
@@ -251,10 +208,10 @@ footer span{color:var(--neon);}
   <nav>
     <div class="logo">TONY WHALE</div>
     <div class="nav-links">
-      <a href="#about" onclick="playClick()">About</a>
-      <a href="#skills" onclick="playClick()">Skills</a>
-      <a href="#projects" onclick="playClick()">Work</a>
-      <a href="#contact" onclick="playClick()">Contact</a>
+      <a href="#about" class="snd-nav">About</a>
+      <a href="#skills" class="snd-nav">Skills</a>
+      <a href="#projects" class="snd-nav">Work</a>
+      <a href="#contact" class="snd-nav">Contact</a>
     </div>
   </nav>
 
@@ -265,8 +222,8 @@ footer span{color:var(--neon);}
       <div class="hero-title">Crafting Visual Universes</div>
       <div class="typewriter" id="typewriter"></div>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="playClick();document.getElementById('projects').scrollIntoView({behavior:'smooth'})"><span>View My Work</span></button>
-        <button class="btn-sec" onclick="playClick();document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
+        <button class="btn-primary snd-btn" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})"><span>View My Work</span></button>
+        <button class="btn-sec snd-btn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get In Touch</button>
       </div>
     </div>
     <div class="avatar-wrap">
@@ -307,17 +264,18 @@ footer span{color:var(--neon);}
   <section id="projects">
     <div class="sec-header reveal"><div class="sec-number">// 03</div><div class="sec-title">My Work</div><div class="sec-line"></div></div>
     <div class="work-tabs reveal">
-      <button class="work-tab active" onclick="switchTab('typography',this);playClick()">Typography Video</button>
-      <button class="work-tab" onclick="switchTab('3d',this);playClick()">3D Designing</button>
-      <button class="work-tab" onclick="switchTab('thumbnails',this);playClick()">Thumbnails &amp; Posters</button>
+      <button class="work-tab active snd-tab" onclick="switchTab('typography',this)">Typography Video</button>
+      <button class="work-tab snd-tab" onclick="switchTab('3d',this)">3D Designing</button>
+      <button class="work-tab snd-tab" onclick="switchTab('thumbnails',this)">Thumbnails &amp; Posters</button>
     </div>
     <div class="work-panel active" id="panel-typography">
       <div class="video-grid">
-        <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="playClick()">
+        <!-- ✏️ Replace YOUR_VIMEO_LINK_HERE with actual Vimeo link -->
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Kinetic typography with dynamic text animations and smooth motion design.</div></div>
         </a>
-        <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="playClick()">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Creative lyric video with expressive typography and visual storytelling.</div></div>
         </a>
@@ -326,11 +284,11 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel" id="panel-3d">
       <div class="video-grid">
-        <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="playClick()">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Stunning 3D renders and animations crafted with precision and creativity.</div></div>
         </a>
-        <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="playClick()">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">3D motion design with immersive visual depth and futuristic aesthetics.</div></div>
         </a>
@@ -339,11 +297,11 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel" id="panel-thumbnails">
       <div class="video-grid">
-        <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="playClick()">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Eye-catching thumbnails and posters designed to grab attention instantly.</div></div>
         </a>
-        <a class="video-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="playClick()">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Bold poster designs with striking typography and powerful visual impact.</div></div>
         </a>
@@ -358,15 +316,15 @@ footer span{color:var(--neon);}
       <div class="contact-info reveal">
         <p>Ready to bring your vision to life? Whether it's a cinematic video, a brand identity, or a full creative campaign — let's collaborate.</p>
         <div class="contact-links">
-          <a href="mailto:tomedits316@gmail.com" class="contact-link" onclick="playClick()"><span class="contact-link-icon">✉</span>tomedits316@gmail.com</a>
-          <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link" onclick="playClick()"><span class="contact-link-icon">◈</span>@whale_creations</a>
+          <a href="mailto:tomedits316@gmail.com" class="contact-link snd-nav"><span class="contact-link-icon">✉</span>tomedits316@gmail.com</a>
+          <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link snd-nav"><span class="contact-link-icon">◈</span>@whale_creations</a>
         </div>
       </div>
       <div class="contact-form reveal">
-        <input type="text" placeholder="Your Name"/>
-        <input type="email" placeholder="Email Address"/>
-        <textarea placeholder="Tell me about your project..."></textarea>
-        <button class="form-submit" onclick="playClick()"><span>Send Message →</span></button>
+        <input type="text" placeholder="Your Name" class="snd-input"/>
+        <input type="email" placeholder="Email Address" class="snd-input"/>
+        <textarea placeholder="Tell me about your project..." class="snd-input"></textarea>
+        <button class="form-submit snd-btn"><span>Send Message →</span></button>
       </div>
     </div>
   </section>
@@ -374,174 +332,241 @@ footer span{color:var(--neon);}
 </div>
 
 <script>
-// ══════════════════════════════
-// AUDIO
-// ══════════════════════════════
+// ══════════════════════════════════════
+// AUDIO ENGINE
+// ══════════════════════════════════════
 let audioCtx = null;
-function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
-document.addEventListener('click',initAudio,{once:true});
-document.addEventListener('mousemove',initAudio,{once:true});
+function initAudio(){
+  if(!audioCtx){
+    audioCtx = new(window.AudioContext||window.webkitAudioContext)();
+  }
+}
+// Wake audio on first interaction
+document.addEventListener('click', initAudio, {once:true});
+document.addEventListener('mousemove', initAudio, {once:true});
 
-function playClick(){
+// NAV SOUND — soft high tick
+function sndNav(){
   if(!audioCtx)return;
-  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
-  o.type='square';o.frequency.setValueAtTime(700,audioCtx.currentTime);
-  o.frequency.exponentialRampToValueAtTime(350,audioCtx.currentTime+0.06);
-  g.gain.setValueAtTime(0.05,audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.09);
-  o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.1);
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(1800, audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime+0.06);
+  g.gain.setValueAtTime(0.04, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.08);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+0.09);
 }
 
-function playWhoosh(){
+// BUTTON SOUND — mechanical confirm mid tone
+function sndBtn(){
   if(!audioCtx)return;
-  // noise burst for whoosh
+  const t = audioCtx.currentTime;
+  [440, 550].forEach((f,i)=>{
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type='square';
+    o.frequency.setValueAtTime(f, t+i*0.05);
+    g.gain.setValueAtTime(0.05, t+i*0.05);
+    g.gain.exponentialRampToValueAtTime(0.001, t+i*0.05+0.12);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(t+i*0.05); o.stop(t+i*0.05+0.14);
+  });
+}
+
+// TAB SOUND — electronic switch
+function sndTab(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='square';
+  o.frequency.setValueAtTime(600, audioCtx.currentTime);
+  o.frequency.linearRampToValueAtTime(900, audioCtx.currentTime+0.04);
+  o.frequency.linearRampToValueAtTime(600, audioCtx.currentTime+0.08);
+  g.gain.setValueAtTime(0.04, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.1);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+0.11);
+}
+
+// CARD HOVER SOUND — holographic tap, very soft
+function sndCard(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(2400, audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(1600, audioCtx.currentTime+0.05);
+  g.gain.setValueAtTime(0.025, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.07);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+0.08);
+}
+
+// INPUT FOCUS SOUND — light digital ping
+function sndInput(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(1200, audioCtx.currentTime);
+  o.frequency.linearRampToValueAtTime(1400, audioCtx.currentTime+0.03);
+  g.gain.setValueAtTime(0.03, audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.1);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+0.12);
+}
+
+// WHOOSH — for stretch and split
+function sndWhoosh(){
+  if(!audioCtx)return;
   const bufSize=audioCtx.sampleRate*0.4;
   const buf=audioCtx.createBuffer(1,bufSize,audioCtx.sampleRate);
-  const data=buf.getChannelData(0);
-  for(let i=0;i<bufSize;i++)data[i]=(Math.random()*2-1);
+  const d=buf.getChannelData(0);
+  for(let i=0;i<bufSize;i++)d[i]=(Math.random()*2-1);
   const src=audioCtx.createBufferSource();
   src.buffer=buf;
-  const filt=audioCtx.createBiquadFilter();
-  filt.type='bandpass';filt.frequency.value=800;filt.Q.value=0.5;
+  const f=audioCtx.createBiquadFilter();
+  f.type='bandpass'; f.frequency.value=800; f.Q.value=0.5;
   const g=audioCtx.createGain();
-  g.gain.setValueAtTime(0,audioCtx.currentTime);
-  g.gain.linearRampToValueAtTime(0.15,audioCtx.currentTime+0.05);
-  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);
-  src.connect(filt);filt.connect(g);g.connect(audioCtx.destination);
-  src.start();src.stop(audioCtx.currentTime+0.45);
-
-  // tone sweep
-  const o=audioCtx.createOscillator(),og=audioCtx.createGain();
+  g.gain.setValueAtTime(0, audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime+0.05);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.4);
+  src.connect(f); f.connect(g); g.connect(audioCtx.destination);
+  src.start(); src.stop(audioCtx.currentTime+0.45);
+  const o=audioCtx.createOscillator(), og=audioCtx.createGain();
   o.type='sine';
-  o.frequency.setValueAtTime(200,audioCtx.currentTime);
-  o.frequency.exponentialRampToValueAtTime(1200,audioCtx.currentTime+0.35);
-  og.gain.setValueAtTime(0.06,audioCtx.currentTime);
-  og.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);
-  o.connect(og);og.connect(audioCtx.destination);
-  o.start();o.stop(audioCtx.currentTime+0.45);
+  o.frequency.setValueAtTime(180, audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime+0.35);
+  og.gain.setValueAtTime(0.05, audioCtx.currentTime);
+  og.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime+0.4);
+  o.connect(og); og.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+0.45);
 }
 
-function playHum(){
+// HUM — low ambient during intro
+function sndHum(){
   if(!audioCtx)return;
-  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
-  o.type='sine';o.frequency.value=80;
-  g.gain.setValueAtTime(0,audioCtx.currentTime);
-  g.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+0.5);
-  g.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+1.5);
-  g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+2.2);
-  o.connect(g);g.connect(audioCtx.destination);
-  o.start();o.stop(audioCtx.currentTime+2.3);
+  const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+  o.type='sine'; o.frequency.value=75;
+  g.gain.setValueAtTime(0, audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime+0.6);
+  g.gain.linearRampToValueAtTime(0.035, audioCtx.currentTime+2);
+  g.gain.linearRampToValueAtTime(0, audioCtx.currentTime+2.8);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime+3);
 }
 
-// ══════════════════════════════
+// ══════════════════════════════════════
 // INTRO BG PARTICLES
-// ══════════════════════════════
+// ══════════════════════════════════════
 const ibg=document.getElementById('intro-bg');
 const ibCtx=ibg.getContext('2d');
-ibg.width=window.innerWidth;ibg.height=window.innerHeight;
-const iParticles=[];
-for(let i=0;i<80;i++)iParticles.push({
-  x:Math.random()*ibg.width,y:Math.random()*ibg.height,
+ibg.width=window.innerWidth; ibg.height=window.innerHeight;
+const iP=[];
+for(let i=0;i<80;i++)iP.push({
+  x:Math.random()*ibg.width, y:Math.random()*ibg.height,
   r:Math.random()*1.2+0.2,
-  vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,
+  vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2,
   c:Math.random()>0.5?'191,0,255':'0,245,255',
-  o:Math.random()*0.4+0.1
+  o:Math.random()*0.35+0.08
 });
+let introDone=false;
 function drawIBg(){
   ibCtx.clearRect(0,0,ibg.width,ibg.height);
-  iParticles.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;
-    if(p.x<0)p.x=ibg.width;if(p.x>ibg.width)p.x=0;
-    if(p.y<0)p.y=ibg.height;if(p.y>ibg.height)p.y=0;
-    ibCtx.beginPath();ibCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ibCtx.fillStyle=`rgba(${p.c},${p.o})`;ibCtx.fill();
+  iP.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0)p.x=ibg.width; if(p.x>ibg.width)p.x=0;
+    if(p.y<0)p.y=ibg.height; if(p.y>ibg.height)p.y=0;
+    ibCtx.beginPath(); ibCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ibCtx.fillStyle=`rgba(${p.c},${p.o})`; ibCtx.fill();
   });
   if(!introDone)requestAnimationFrame(drawIBg);
 }
-let introDone=false;
 drawIBg();
 
-// ══════════════════════════════
+// ══════════════════════════════════════
 // INTRO SEQUENCE
-// ══════════════════════════════
-const cyl=document.getElementById('cylinder');
-const welcomeText=document.getElementById('welcome-text');
-const cylLine=document.getElementById('cyl-line');
-let introSkipped=false;
+// Timing:
+// 0.3s  — cylinder pops in
+// 1.0s  — WELCOME arrives (1.5s duration) → done at 2.5s
+// 4.5s  — WELCOME departs (1.5s duration) → done at 6.0s
+// 6.2s  — cylinder stretches
+// 6.9s  — split reveal
+// ══════════════════════════════════════
+const cyl      = document.getElementById('cylinder');
+const wText    = document.getElementById('welcome-text');
+const cylLine  = document.getElementById('cyl-line');
 
 function runIntro(){
-  // Step 1 (0.3s): cylinder pops in as small capsule
+  // 0.3s — pop in cylinder
   setTimeout(()=>{
-    initAudio();
-    playHum();
-    cyl.style.transition='opacity 0.4s, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+    initAudio(); sndHum();
+    cyl.style.transition='opacity 0.4s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1)';
     cyl.style.opacity='1';
     cyl.style.transform='scaleX(1) scaleY(1)';
-  },300);
+  }, 300);
 
-  // Step 2 (1.2s): reveal WELCOME with line wipe
+  // 1.0s — WELCOME arrival: W → E (right clip collapses)
   setTimeout(()=>{
-    playClick();
-    welcomeText.classList.add('reveal-text');
-  },1200);
+    sndNav();
+    wText.classList.add('arrive');
+  }, 1000);
 
-  // Step 3 (3.0s): hide WELCOME inversely
+  // 2.6s — start pulse (after arrival finishes ~2.5s)
   setTimeout(()=>{
-    playClick();
-    welcomeText.classList.remove('reveal-text');
-    welcomeText.classList.add('hide-text');
-  },3000);
+    cyl.classList.add('pulsing');
+  }, 2600);
 
-  // Step 4 (3.8s): stretch cylinder horizontally with speed blur + whoosh
+  // 4.5s — stop pulse + WELCOME departure: E → W (left clip expands)
   setTimeout(()=>{
-    playWhoosh();
-    // show the inner line glow
+    cyl.classList.remove('pulsing');
+    sndNav();
+    // Force reset transition for depart direction
+    wText.style.transition='none';
+    wText.offsetHeight; // reflow
+    // departure: left side covers, so inset left grows
+    wText.style.transition='clip-path 1.5s cubic-bezier(0.5,0,0.75,0)';
+    wText.style.clipPath='inset(0 100% 0 0%)';
+  }, 4500);
+
+  // 6.2s — stretch cylinder
+  setTimeout(()=>{
+    sndWhoosh();
     cylLine.style.transition='opacity 0.2s';
     cylLine.style.opacity='1';
-    // stretch to full width
-    cyl.style.transition='transform 0.55s cubic-bezier(0.55,0,1,0.45), border-radius 0.55s, box-shadow 0.3s';
-    cyl.style.transform=`scaleX(${window.innerWidth/220 * 1.1}) scaleY(0.18)`;
+    cyl.style.transition='transform 0.55s cubic-bezier(0.55,0,1,0.45), border-radius 0.55s, box-shadow 0.3s, filter 0.55s';
+    cyl.style.transform=`scaleX(${window.innerWidth/240*1.1}) scaleY(0.15)`;
     cyl.style.borderRadius='0';
-    cyl.style.boxShadow=`0 0 60px rgba(191,0,255,0.8), 0 0 120px rgba(0,245,255,0.4)`;
-    // blur for speed effect
-    cyl.style.filter='blur(2px)';
-  },3800);
+    cyl.style.boxShadow='0 0 60px rgba(191,0,255,0.9), 0 0 120px rgba(0,245,255,0.5)';
+    cyl.style.filter='blur(3px)';
+  }, 6200);
 
-  // Step 5 (4.5s): split reveal
+  // 6.9s — split reveal
   setTimeout(()=>{
     doReveal();
-  },4400);
+  }, 6900);
 }
 
 function doReveal(){
-  if(introSkipped && arguments.length===0)return; // prevent double call
   introDone=true;
-  // fade intro
   const intro=document.getElementById('intro');
   intro.style.transition='opacity 0.3s';
   intro.style.opacity='0';
-  setTimeout(()=>intro.style.display='none',300);
+  setTimeout(()=>intro.style.display='none', 300);
 
-  // show portfolio first (behind panels)
   document.getElementById('portfolio').classList.add('visible');
 
-  // split open
   setTimeout(()=>{
     document.getElementById('split-top').classList.add('open');
     document.getElementById('split-bot').classList.add('open');
-    playWhoosh();
-  },100);
+    sndWhoosh();
+  }, 100);
 
-  // remove panels
   setTimeout(()=>{
     document.getElementById('split-top').style.display='none';
     document.getElementById('split-bot').style.display='none';
     initPortfolio();
-  },1400);
+  }, 1400);
 }
 
 function skipIntro(){
-  introSkipped=true;
   introDone=true;
   initAudio();
   doReveal();
@@ -549,17 +574,30 @@ function skipIntro(){
 
 runIntro();
 
-// ══════════════════════════════
-// PORTFOLIO
-// ══════════════════════════════
+// ══════════════════════════════════════
+// ATTACH SOUNDS TO ELEMENTS
+// ══════════════════════════════════════
+function attachSounds(){
+  document.querySelectorAll('.snd-nav').forEach(el=>el.addEventListener('click', sndNav));
+  document.querySelectorAll('.snd-btn').forEach(el=>el.addEventListener('click', sndBtn));
+  document.querySelectorAll('.snd-tab').forEach(el=>el.addEventListener('click', sndTab));
+  document.querySelectorAll('.snd-card').forEach(el=>el.addEventListener('mouseenter', sndCard));
+  document.querySelectorAll('.snd-input').forEach(el=>el.addEventListener('focus', sndInput));
+}
+
+// ══════════════════════════════════════
+// PORTFOLIO INIT
+// ══════════════════════════════════════
 function initPortfolio(){
+  attachSounds();
+
   // CURSOR
   const cursor=document.getElementById('cursor');
   document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
 
   // BG PARTICLES
-  const bgC=document.getElementById('bg-canvas'),bgCtx=bgC.getContext('2d');
-  function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;}resizeBg();
+  const bgC=document.getElementById('bg-canvas'), bgCtx=bgC.getContext('2d');
+  function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;} resizeBg();
   window.addEventListener('resize',resizeBg);
   const particles=[];
   for(let i=0;i<120;i++)particles.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,c:Math.random()>0.5?'0,245,255':'191,0,255'});
@@ -568,7 +606,7 @@ function initPortfolio(){
     particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=bgC.width;if(p.x>bgC.width)p.x=0;if(p.y<0)p.y=bgC.height;if(p.y>bgC.height)p.y=0;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fillStyle=`rgba(${p.c},0.6)`;bgCtx.fill();});
     particles.forEach((a,i)=>particles.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){bgCtx.beginPath();bgCtx.moveTo(a.x,a.y);bgCtx.lineTo(b.x,b.y);bgCtx.strokeStyle=`rgba(0,245,255,${0.08*(1-d/100)})`;bgCtx.lineWidth=0.5;bgCtx.stroke();}}));
     requestAnimationFrame(drawBg);
-  }drawBg();
+  } drawBg();
 
   // PROJECT CANVASES
   document.querySelectorAll('.proj-canvas').forEach(c=>{
