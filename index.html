@@ -1,212 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tony Whale | Portfolio</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
-  *{margin:0;padding:0;box-sizing:border-box;}
-  :root{--neon:#00f5ff;--neon2:#bf00ff;--neon3:#ff0080;--dark:#020811;--glass:rgba(0,245,255,0.04);--glass-border:rgba(0,245,255,0.18);}
-  html{scroll-behavior:smooth;}
-  body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--neon:#00f5ff;--neon2:#bf00ff;--neon3:#ff0080;--dark:#020811;--glass:rgba(0,245,255,0.04);--glass-border:rgba(0,245,255,0.18);}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
 
-  /* CURSOR */
-  #cursor{position:fixed;width:12px;height:12px;background:var(--neon);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--neon),0 0 20px var(--neon),0 0 40px var(--neon);}
+/* CURSOR */
+#cursor{position:fixed;width:12px;height:12px;background:var(--neon);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--neon),0 0 20px var(--neon),0 0 40px var(--neon);}
 
-  /* ============ INTRO OVERLAY ============ */
-  #intro{position:fixed;inset:0;background:#000;z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;}
-  #intro-canvas{position:absolute;inset:0;width:100%;height:100%;}
+/* ══════════════════════════════
+   INTRO
+══════════════════════════════ */
+#intro{
+  position:fixed;inset:0;z-index:10000;
+  background:radial-gradient(ellipse at center, #0d0020 0%, #020811 60%, #000 100%);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
 
-  /* SKIP */
-  #skip-btn{position:absolute;top:2rem;right:2rem;background:transparent;border:1px solid rgba(0,245,255,0.3);color:rgba(0,245,255,0.6);font-family:'Orbitron',monospace;font-size:0.65rem;letter-spacing:0.2em;padding:0.5rem 1.2rem;cursor:pointer;z-index:10;transition:all 0.3s;text-transform:uppercase;}
-  #skip-btn:hover{border-color:var(--neon);color:var(--neon);}
+/* bg particle canvas for intro */
+#intro-bg{position:absolute;inset:0;width:100%;height:100%;}
 
-  /* JARVIS RING */
-  #jarvis-wrap{position:relative;width:320px;height:320px;display:flex;align-items:center;justify-content:center;opacity:0;}
-  #jarvis-ring-canvas{position:absolute;inset:0;width:100%;height:100%;}
-  #nexus-intro-text{position:relative;z-index:2;font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:900;color:var(--neon);letter-spacing:0.4em;text-shadow:0 0 20px var(--neon),0 0 40px var(--neon);text-align:center;}
+/* SKIP */
+#skip-btn{
+  position:absolute;top:2rem;right:2rem;
+  background:transparent;border:1px solid rgba(191,0,255,0.3);
+  color:rgba(191,0,255,0.6);font-family:'Orbitron',monospace;
+  font-size:0.6rem;letter-spacing:0.2em;padding:0.5rem 1.2rem;
+  cursor:pointer;z-index:20;transition:all 0.3s;text-transform:uppercase;
+}
+#skip-btn:hover{border-color:var(--neon2);color:var(--neon2);}
 
-  /* TONY WHALE ZOOM */
-  #intro-name{position:absolute;font-family:'Orbitron',monospace;font-size:3rem;font-weight:900;background:linear-gradient(135deg,#fff 30%,var(--neon) 70%,var(--neon2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;transform:scale(0.3);letter-spacing:0.2em;text-align:center;}
+/* SPLIT PANELS — for reveal */
+#split-top{
+  position:fixed;inset:0 0 50% 0;z-index:9999;
+  background:radial-gradient(ellipse at center, #0d0020 0%, #020811 60%, #000 100%);
+  transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);
+  pointer-events:none;
+}
+#split-bot{
+  position:fixed;inset:50% 0 0 0;z-index:9999;
+  background:radial-gradient(ellipse at center, #0d0020 0%, #020811 60%, #000 100%);
+  transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);
+  pointer-events:none;
+}
+#split-top.open{transform:translateY(-100%);}
+#split-bot.open{transform:translateY(100%);}
 
-  /* INTRO STATUS */
-  #intro-status{position:absolute;bottom:4rem;font-family:'Orbitron',monospace;font-size:0.65rem;color:rgba(0,245,255,0.5);letter-spacing:0.3em;text-transform:uppercase;}
+/* CYLINDER STAGE */
+#cyl-stage{position:relative;display:flex;align-items:center;justify-content:center;z-index:10;}
 
-  /* ============ MAIN PORTFOLIO ============ */
-  #portfolio{opacity:0;transition:opacity 1s;}
-  #portfolio.visible{opacity:1;}
+/* THE CYLINDER / CAPSULE */
+#cylinder{
+  position:relative;
+  width:220px;height:70px;
+  border-radius:35px;
+  background:linear-gradient(135deg, rgba(191,0,255,0.15) 0%, rgba(0,245,255,0.08) 50%, rgba(191,0,255,0.15) 100%);
+  border:1.5px solid rgba(191,0,255,0.6);
+  box-shadow:
+    0 0 20px rgba(191,0,255,0.4),
+    0 0 50px rgba(191,0,255,0.2),
+    inset 0 0 20px rgba(191,0,255,0.08);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+  opacity:0;
+  transform:scaleX(0.05) scaleY(1);
+  transition:none;
+}
 
-  #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(2,8,17,0.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
-  .logo{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--neon);letter-spacing:0.2em;text-shadow:0 0 10px var(--neon);}
-  .nav-links{display:flex;gap:2rem;}
-  .nav-links a{color:#a0d4e0;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
-  .nav-links a:hover{color:var(--neon);text-shadow:0 0 8px var(--neon);}
-  section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
-  #hero{display:flex;align-items:center;justify-content:space-between;padding-top:6rem;}
-  .hero-text{flex:1;max-width:600px;}
-  .hero-tag{font-size:0.75rem;letter-spacing:0.4em;color:var(--neon);text-transform:uppercase;margin-bottom:1rem;opacity:0.8;}
-  .hero-name{font-family:'Orbitron',monospace;font-size:3.5rem;font-weight:900;line-height:1.1;background:linear-gradient(135deg,#fff 30%,var(--neon) 70%,var(--neon2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
-  .hero-title{font-size:1.3rem;color:var(--neon2);letter-spacing:0.15em;margin-bottom:1.5rem;font-weight:300;}
-  .typewriter{font-size:1rem;color:#88b4c0;height:1.5rem;font-style:italic;}
-  .hero-btns{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
-  .btn-primary{padding:0.75rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;}
-  .btn-primary::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform 0.3s;}
-  .btn-primary:hover::before{transform:translateX(0);}
-  .btn-primary:hover{color:var(--dark);}
-  .btn-primary span{position:relative;z-index:1;}
-  .btn-sec{padding:0.75rem 2rem;background:transparent;border:1px solid var(--neon2);color:var(--neon2);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
-  .btn-sec:hover{background:var(--neon2);color:var(--dark);}
-  .avatar-wrap{flex:0 0 340px;display:flex;justify-content:center;align-items:center;position:relative;}
-  .avatar-photo{width:280px;height:280px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--glass-border);position:relative;z-index:2;}
-  .avatar-ring{position:absolute;width:310px;height:310px;border-radius:50%;border:1px solid rgba(0,245,255,0.3);animation:ring-pulse 3s ease-in-out infinite;z-index:1;}
-  .avatar-ring2{position:absolute;width:350px;height:350px;border-radius:50%;border:1px solid rgba(191,0,255,0.2);animation:ring-pulse 3s ease-in-out infinite 1s;z-index:1;}
-  .avatar-ring3{position:absolute;width:390px;height:390px;border-radius:50%;border:1px solid rgba(255,0,128,0.1);animation:ring-pulse 3s ease-in-out infinite 2s;z-index:1;}
-  .avatar-glow{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.15),transparent 70%);z-index:3;pointer-events:none;}
-  @keyframes ring-pulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.05);opacity:1;}}
-  .sec-header{margin-bottom:3rem;}
-  .sec-number{font-family:'Orbitron',monospace;font-size:0.7rem;color:var(--neon);letter-spacing:0.3em;opacity:0.6;margin-bottom:0.5rem;}
-  .sec-title{font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:700;color:#fff;text-shadow:0 0 30px rgba(0,245,255,0.3);}
-  .sec-line{width:60px;height:1px;background:linear-gradient(90deg,var(--neon),transparent);margin-top:1rem;}
-  #about{background:linear-gradient(180deg,transparent,rgba(0,10,20,0.8),transparent);}
-  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
-  .about-text p{font-size:1.05rem;line-height:1.9;color:#88b4c0;margin-bottom:1rem;}
-  .about-text p span{color:var(--neon);font-weight:600;}
-  .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
-  .stat-card{border:1px solid var(--glass-border);background:var(--glass);padding:1.5rem;position:relative;overflow:hidden;}
-  .stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--neon);}
-  .stat-num{font-family:'Orbitron',monospace;font-size:2.2rem;color:var(--neon);font-weight:900;}
-  .stat-label{font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;}
-  #skills{background:rgba(0,5,15,0.5);}
-  .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
-  .skill-card{border:1px solid var(--glass-border);background:var(--glass);padding:1.8rem 1.5rem;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
-  .skill-card:hover{border-color:var(--neon);transform:translateY(-5px);}
-  .skill-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--neon),var(--neon2));transition:width 0.4s;}
-  .skill-card:hover::after{width:100%;}
-  .skill-icon{font-size:2rem;margin-bottom:1rem;display:block;}
-  .skill-name{font-family:'Orbitron',monospace;font-size:0.8rem;color:#fff;letter-spacing:0.1em;margin-bottom:0.8rem;}
-  .skill-bar-bg{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
-  .skill-bar{height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px;width:0;transition:width 1.5s ease;}
-  .skill-pct{font-size:0.75rem;color:var(--neon);margin-top:0.4rem;text-align:right;}
-  .work-tabs{display:flex;gap:0;margin-bottom:2.5rem;border:1px solid var(--glass-border);width:fit-content;}
-  .work-tab{padding:0.8rem 2rem;font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.15em;color:#88b4c0;cursor:pointer;border-right:1px solid var(--glass-border);transition:all 0.3s;background:transparent;text-transform:uppercase;}
-  .work-tab:last-child{border-right:none;}
-  .work-tab.active{background:rgba(0,245,255,0.08);color:var(--neon);}
-  .work-tab:hover{color:var(--neon);background:rgba(0,245,255,0.05);}
-  .work-panel{display:none;}
-  .work-panel.active{display:block;}
-  .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
-  .video-card{border:1px solid var(--glass-border);background:var(--glass);overflow:hidden;transition:transform 0.3s,border-color 0.3s;cursor:pointer;text-decoration:none;display:block;}
-  .video-card:hover{transform:translateY(-6px);border-color:var(--neon);}
-  .video-thumb{height:150px;background:rgba(0,10,20,0.8);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-  .video-thumb canvas{position:absolute;inset:0;width:100%;height:100%;}
-  .play-btn{position:relative;z-index:2;width:50px;height:50px;border-radius:50%;background:rgba(0,245,255,0.15);border:2px solid var(--neon);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
-  .video-card:hover .play-btn{background:rgba(0,245,255,0.3);transform:scale(1.1);}
-  .play-icon{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid var(--neon);margin-left:4px;}
-  .vimeo-badge{position:absolute;top:0.6rem;right:0.6rem;z-index:2;background:rgba(26,183,234,0.2);border:1px solid rgba(26,183,234,0.4);color:#1ab7ea;font-size:0.6rem;padding:0.2rem 0.5rem;letter-spacing:0.1em;font-family:'Orbitron',monospace;}
-  .video-info{padding:1rem 1.2rem 1.2rem;}
-  .video-title{font-family:'Orbitron',monospace;font-size:0.8rem;color:#fff;margin-bottom:0.4rem;letter-spacing:0.05em;}
-  .video-desc{font-size:0.8rem;color:#88b4c0;line-height:1.5;}
-  .add-video-card{border:1px dashed var(--glass-border);background:transparent;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;min-height:230px;}
-  .add-icon{font-size:2rem;opacity:0.3;}
-  .add-text{font-family:'Orbitron',monospace;font-size:0.7rem;color:#88b4c0;letter-spacing:0.1em;text-align:center;opacity:0.5;}
-  .add-hint{font-size:0.75rem;color:#88b4c0;opacity:0.4;text-align:center;line-height:1.5;}
-  #contact{background:linear-gradient(180deg,transparent,rgba(0,10,30,0.9));}
-  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
-  .contact-info p{font-size:1rem;color:#88b4c0;line-height:1.8;margin-bottom:2rem;}
-  .contact-links{display:flex;flex-direction:column;gap:1rem;}
-  .contact-link{display:flex;align-items:center;gap:1rem;color:#88b4c0;text-decoration:none;font-size:0.9rem;padding:0.8rem 1rem;border:1px solid var(--glass-border);transition:all 0.3s;}
-  .contact-link:hover{border-color:var(--neon);color:var(--neon);}
-  .contact-link-icon{width:20px;text-align:center;opacity:0.6;}
-  .contact-form{display:flex;flex-direction:column;gap:1rem;}
-  .contact-form input,.contact-form textarea{width:100%;background:var(--glass);border:1px solid var(--glass-border);color:#e0f7fa;padding:0.9rem 1.2rem;font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.3s;resize:none;}
-  .contact-form input:focus,.contact-form textarea:focus{border-color:var(--neon);}
-  .contact-form textarea{height:120px;}
-  .form-submit{padding:0.9rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;align-self:flex-start;}
-  .form-submit::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform 0.3s;}
-  .form-submit:hover::before{transform:translateX(0);}
-  .form-submit:hover{color:var(--dark);}
-  .form-submit span{position:relative;z-index:1;}
-  .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s,transform 0.8s;}
-  .reveal.visible{opacity:1;transform:translateY(0);}
-  .scanlines{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);}
-  .grid-overlay{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:1;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
-  footer{position:relative;z-index:10;text-align:center;padding:2rem;border-top:1px solid var(--glass-border);font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;}
-  footer span{color:var(--neon);}
+/* gloss highlight on cylinder */
+#cylinder::before{
+  content:'';position:absolute;top:6px;left:20%;width:60%;height:35%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.12),transparent);
+  border-radius:50%;
+}
+/* edge glow lines */
+#cylinder::after{
+  content:'';position:absolute;inset:0;border-radius:35px;
+  background:linear-gradient(90deg,
+    rgba(191,0,255,0.3) 0%,
+    transparent 20%,
+    transparent 80%,
+    rgba(0,245,255,0.3) 100%);
+}
 
-  /* ============ NEXUS AI ============ */
-  #nexus{position:fixed;bottom:2rem;right:2rem;z-index:200;width:280px;opacity:0;transform:scale(0.5);transition:all 0.6s cubic-bezier(0.34,1.56,0.64,1);}
-  #nexus.visible{opacity:1;transform:scale(1);}
-  #nexus-ring-wrap{position:relative;width:280px;height:280px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
-  #nexus-ring-canvas{position:absolute;inset:0;width:100%;height:100%;}
-  #nexus-inner{position:relative;z-index:2;text-align:center;}
-  #nexus-label{font-family:'Orbitron',monospace;font-size:1.1rem;font-weight:900;color:var(--neon);letter-spacing:0.3em;text-shadow:0 0 15px var(--neon);}
-  #nexus-sub{font-size:0.6rem;color:rgba(0,245,255,0.5);letter-spacing:0.2em;font-family:'Orbitron',monospace;margin-top:0.3rem;}
-  #nexus-pulse{width:8px;height:8px;border-radius:50%;background:var(--neon);margin:0.5rem auto 0;box-shadow:0 0 8px var(--neon);animation:blink 1.5s ease-in-out infinite;}
+/* WELCOME TEXT inside cylinder */
+#welcome-wrap{
+  position:relative;z-index:2;overflow:hidden;height:28px;display:flex;align-items:center;
+}
+#welcome-text{
+  font-family:'Orbitron',monospace;font-size:1rem;font-weight:700;
+  letter-spacing:0.4em;color:#fff;
+  text-shadow:0 0 10px var(--neon2),0 0 20px var(--neon2);
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path 0.8s cubic-bezier(0.25,1,0.5,1);
+  white-space:nowrap;padding-right:0.4em;
+}
+#welcome-text.reveal-text{clip-path:inset(0 0% 0 0);}
+#welcome-text.hide-text{clip-path:inset(0 0% 0 100%);}
 
-  /* NEXUS CHAT BOX */
-  #nexus-chat{position:fixed;bottom:18rem;right:2rem;z-index:199;width:300px;background:rgba(4,13,26,0.97);border:1px solid var(--glass-border);backdrop-filter:blur(20px);border-radius:4px;overflow:hidden;opacity:0;transform:translateY(10px) scale(0.95);transition:all 0.4s;pointer-events:none;}
-  #nexus-chat.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
-  .nexus-chat-header{background:rgba(0,245,255,0.06);padding:0.7rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glass-border);}
-  .nexus-chat-title{font-family:'Orbitron',monospace;font-size:0.65rem;color:var(--neon);letter-spacing:0.2em;}
-  .nexus-close{background:none;border:none;color:rgba(0,245,255,0.5);cursor:pointer;font-size:1rem;transition:color 0.3s;}
-  .nexus-close:hover{color:var(--neon);}
-  .nexus-messages{padding:1rem;max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:0.8rem;}
-  .nexus-msg{font-size:0.85rem;color:#a0d4e0;line-height:1.6;padding:0.6rem 0.8rem;background:rgba(0,245,255,0.04);border-left:2px solid var(--neon);border-radius:0 4px 4px 0;}
-  .nexus-msg.user{border-left:2px solid var(--neon2);background:rgba(191,0,255,0.04);color:#d0b0e0;text-align:right;border-left:none;border-right:2px solid var(--neon2);border-radius:4px 0 0 4px;}
-  .nexus-quick{padding:0.5rem 1rem 1rem;display:flex;flex-wrap:wrap;gap:0.4rem;}
-  .nexus-q{font-size:0.7rem;padding:0.3rem 0.7rem;border:1px solid var(--glass-border);color:#88b4c0;cursor:pointer;font-family:'Rajdhani',sans-serif;transition:all 0.3s;background:transparent;}
-  .nexus-q:hover{border-color:var(--neon);color:var(--neon);}
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+/* horizontal line inside cylinder during stretch */
+#cyl-line{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(191,0,255,0.6) 20%,
+    rgba(0,245,255,0.8) 50%,
+    rgba(191,0,255,0.6) 80%,
+    transparent 100%);
+  opacity:0;border-radius:35px;
+}
+
+/* ══════════════════════════════
+   PORTFOLIO
+══════════════════════════════ */
+#portfolio{opacity:0;transition:opacity 0.8s;}
+#portfolio.visible{opacity:1;}
+
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(2,8,17,0.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
+.logo{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--neon);letter-spacing:0.2em;text-shadow:0 0 10px var(--neon);}
+.nav-links{display:flex;gap:2rem;}
+.nav-links a{color:#a0d4e0;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
+.nav-links a:hover{color:var(--neon);text-shadow:0 0 8px var(--neon);}
+section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
+#hero{display:flex;align-items:center;justify-content:space-between;padding-top:6rem;}
+.hero-text{flex:1;max-width:600px;}
+.hero-tag{font-size:0.75rem;letter-spacing:0.4em;color:var(--neon);text-transform:uppercase;margin-bottom:1rem;opacity:0.8;}
+.hero-name{font-family:'Orbitron',monospace;font-size:3.5rem;font-weight:900;line-height:1.1;background:linear-gradient(135deg,#fff 30%,var(--neon) 70%,var(--neon2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
+.hero-title{font-size:1.3rem;color:var(--neon2);letter-spacing:0.15em;margin-bottom:1.5rem;font-weight:300;}
+.typewriter{font-size:1rem;color:#88b4c0;height:1.5rem;font-style:italic;}
+.hero-btns{display:flex;gap:1rem;margin-top:2.5rem;flex-wrap:wrap;}
+.btn-primary{padding:0.75rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform 0.3s;}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-primary:hover{color:var(--dark);}
+.btn-primary span{position:relative;z-index:1;}
+.btn-sec{padding:0.75rem 2rem;background:transparent;border:1px solid var(--neon2);color:var(--neon2);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;}
+.btn-sec:hover{background:var(--neon2);color:var(--dark);}
+.avatar-wrap{flex:0 0 340px;display:flex;justify-content:center;align-items:center;position:relative;}
+.avatar-photo{width:280px;height:280px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid var(--glass-border);position:relative;z-index:2;}
+.avatar-ring{position:absolute;width:310px;height:310px;border-radius:50%;border:1px solid rgba(0,245,255,0.3);animation:ring-pulse 3s ease-in-out infinite;z-index:1;}
+.avatar-ring2{position:absolute;width:350px;height:350px;border-radius:50%;border:1px solid rgba(191,0,255,0.2);animation:ring-pulse 3s ease-in-out infinite 1s;z-index:1;}
+.avatar-ring3{position:absolute;width:390px;height:390px;border-radius:50%;border:1px solid rgba(255,0,128,0.1);animation:ring-pulse 3s ease-in-out infinite 2s;z-index:1;}
+.avatar-glow{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.15),transparent 70%);z-index:3;pointer-events:none;}
+@keyframes ring-pulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.05);opacity:1;}}
+.sec-header{margin-bottom:3rem;}
+.sec-number{font-family:'Orbitron',monospace;font-size:0.7rem;color:var(--neon);letter-spacing:0.3em;opacity:0.6;margin-bottom:0.5rem;}
+.sec-title{font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:700;color:#fff;text-shadow:0 0 30px rgba(0,245,255,0.3);}
+.sec-line{width:60px;height:1px;background:linear-gradient(90deg,var(--neon),transparent);margin-top:1rem;}
+#about{background:linear-gradient(180deg,transparent,rgba(0,10,20,0.8),transparent);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.about-text p{font-size:1.05rem;line-height:1.9;color:#88b4c0;margin-bottom:1rem;}
+.about-text p span{color:var(--neon);font-weight:600;}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.stat-card{border:1px solid var(--glass-border);background:var(--glass);padding:1.5rem;position:relative;overflow:hidden;}
+.stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--neon);}
+.stat-num{font-family:'Orbitron',monospace;font-size:2.2rem;color:var(--neon);font-weight:900;}
+.stat-label{font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;}
+#skills{background:rgba(0,5,15,0.5);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
+.skill-card{border:1px solid var(--glass-border);background:var(--glass);padding:1.8rem 1.5rem;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
+.skill-card:hover{border-color:var(--neon);transform:translateY(-5px);}
+.skill-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--neon),var(--neon2));transition:width 0.4s;}
+.skill-card:hover::after{width:100%;}
+.skill-icon{font-size:2rem;margin-bottom:1rem;display:block;}
+.skill-name{font-family:'Orbitron',monospace;font-size:0.8rem;color:#fff;letter-spacing:0.1em;margin-bottom:0.8rem;}
+.skill-bar-bg{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
+.skill-bar{height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px;width:0;transition:width 1.5s ease;}
+.skill-pct{font-size:0.75rem;color:var(--neon);margin-top:0.4rem;text-align:right;}
+.work-tabs{display:flex;gap:0;margin-bottom:2.5rem;border:1px solid var(--glass-border);width:fit-content;}
+.work-tab{padding:0.8rem 2rem;font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.15em;color:#88b4c0;cursor:pointer;border-right:1px solid var(--glass-border);transition:all 0.3s;background:transparent;text-transform:uppercase;}
+.work-tab:last-child{border-right:none;}
+.work-tab.active{background:rgba(0,245,255,0.08);color:var(--neon);}
+.work-tab:hover{color:var(--neon);background:rgba(0,245,255,0.05);}
+.work-panel{display:none;}
+.work-panel.active{display:block;}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
+.video-card{border:1px solid var(--glass-border);background:var(--glass);overflow:hidden;transition:transform 0.3s,border-color 0.3s;cursor:pointer;text-decoration:none;display:block;}
+.video-card:hover{transform:translateY(-6px);border-color:var(--neon);}
+.video-thumb{height:150px;background:rgba(0,10,20,0.8);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.video-thumb canvas{position:absolute;inset:0;width:100%;height:100%;}
+.play-btn{position:relative;z-index:2;width:50px;height:50px;border-radius:50%;background:rgba(0,245,255,0.15);border:2px solid var(--neon);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.video-card:hover .play-btn{background:rgba(0,245,255,0.3);transform:scale(1.1);}
+.play-icon{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid var(--neon);margin-left:4px;}
+.vimeo-badge{position:absolute;top:0.6rem;right:0.6rem;z-index:2;background:rgba(26,183,234,0.2);border:1px solid rgba(26,183,234,0.4);color:#1ab7ea;font-size:0.6rem;padding:0.2rem 0.5rem;letter-spacing:0.1em;font-family:'Orbitron',monospace;}
+.video-info{padding:1rem 1.2rem 1.2rem;}
+.video-title{font-family:'Orbitron',monospace;font-size:0.8rem;color:#fff;margin-bottom:0.4rem;letter-spacing:0.05em;}
+.video-desc{font-size:0.8rem;color:#88b4c0;line-height:1.5;}
+.add-video-card{border:1px dashed var(--glass-border);background:transparent;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.8rem;min-height:230px;}
+.add-icon{font-size:2rem;opacity:0.3;}
+.add-text{font-family:'Orbitron',monospace;font-size:0.7rem;color:#88b4c0;letter-spacing:0.1em;text-align:center;opacity:0.5;}
+.add-hint{font-size:0.75rem;color:#88b4c0;opacity:0.4;text-align:center;line-height:1.5;}
+#contact{background:linear-gradient(180deg,transparent,rgba(0,10,30,0.9));}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+.contact-info p{font-size:1rem;color:#88b4c0;line-height:1.8;margin-bottom:2rem;}
+.contact-links{display:flex;flex-direction:column;gap:1rem;}
+.contact-link{display:flex;align-items:center;gap:1rem;color:#88b4c0;text-decoration:none;font-size:0.9rem;padding:0.8rem 1rem;border:1px solid var(--glass-border);transition:all 0.3s;}
+.contact-link:hover{border-color:var(--neon);color:var(--neon);}
+.contact-link-icon{width:20px;text-align:center;opacity:0.6;}
+.contact-form{display:flex;flex-direction:column;gap:1rem;}
+.contact-form input,.contact-form textarea{width:100%;background:var(--glass);border:1px solid var(--glass-border);color:#e0f7fa;padding:0.9rem 1.2rem;font-family:'Rajdhani',sans-serif;font-size:0.95rem;outline:none;transition:border-color 0.3s;resize:none;}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--neon);}
+.contact-form textarea{height:120px;}
+.form-submit{padding:0.9rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.9rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all 0.3s;align-self:flex-start;}
+.form-submit::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform 0.3s;}
+.form-submit:hover::before{transform:translateX(0);}
+.form-submit:hover{color:var(--dark);}
+.form-submit span{position:relative;z-index:1;}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s,transform 0.8s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.scanlines{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);}
+.grid-overlay{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:1;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
+footer{position:relative;z-index:10;text-align:center;padding:2rem;border-top:1px solid var(--glass-border);font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;}
+footer span{color:var(--neon);}
 </style>
 </head>
 <body>
 
-<!-- ============ INTRO ============ -->
+<!-- SPLIT PANELS -->
+<div id="split-top"></div>
+<div id="split-bot"></div>
+
+<!-- INTRO -->
 <div id="intro">
-  <canvas id="intro-canvas"></canvas>
+  <canvas id="intro-bg"></canvas>
   <button id="skip-btn" onclick="skipIntro()">SKIP ▶</button>
-  <div id="jarvis-wrap">
-    <canvas id="jarvis-ring-canvas" width="320" height="320"></canvas>
-    <div id="nexus-intro-text"></div>
+  <div id="cyl-stage">
+    <div id="cylinder">
+      <div id="cyl-line"></div>
+      <div id="welcome-wrap">
+        <div id="welcome-text">WELCOME</div>
+      </div>
+    </div>
   </div>
-  <div id="intro-name">TONY WHALE</div>
-  <div id="intro-status">INITIALIZING SYSTEMS...</div>
 </div>
 
-<!-- ============ PORTFOLIO ============ -->
+<!-- PORTFOLIO -->
 <div id="portfolio">
   <div class="scanlines"></div>
   <div class="grid-overlay"></div>
   <canvas id="bg-canvas"></canvas>
   <div id="cursor"></div>
-
-  <!-- NEXUS AI -->
-  <div id="nexus">
-    <div id="nexus-ring-wrap" onclick="toggleNexus()">
-      <canvas id="nexus-ring-canvas" width="280" height="280"></canvas>
-      <div id="nexus-inner">
-        <div id="nexus-label">NEXUS</div>
-        <div id="nexus-sub">AI GUIDE</div>
-        <div id="nexus-pulse"></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="nexus-chat">
-    <div class="nexus-chat-header">
-      <div class="nexus-chat-title">NEXUS — ONLINE</div>
-      <button class="nexus-close" onclick="toggleNexus()">✕</button>
-    </div>
-    <div class="nexus-messages" id="nexus-messages"></div>
-    <div class="nexus-quick">
-      <button class="nexus-q" onclick="nexusAsk('about')">Who is Tony?</button>
-      <button class="nexus-q" onclick="nexusAsk('work')">See his work</button>
-      <button class="nexus-q" onclick="nexusAsk('skills')">His skills</button>
-      <button class="nexus-q" onclick="nexusAsk('contact')">Get in touch</button>
-    </div>
-  </div>
 
   <nav>
     <div class="logo">TONY WHALE</div>
@@ -231,7 +271,7 @@
     </div>
     <div class="avatar-wrap">
       <div class="avatar-ring"></div><div class="avatar-ring2"></div><div class="avatar-ring3"></div><div class="avatar-glow"></div>
-      <img class="avatar-photo" src="https://raw.githubusercontent.com/TonyWhale/Tony-Whale/main/photo.png" alt="Tony Whale" style="width:280px;height:280px;border-radius:50%;object-fit:cover;position:relative;z-index:2;" />
+      <img class="avatar-photo" src="https://raw.githubusercontent.com/TonyWhale/Tony-Whale/main/photo.png" alt="Tony Whale" style="width:280px;height:280px;border-radius:50%;object-fit:cover;position:relative;z-index:2;"/>
     </div>
   </section>
 
@@ -323,8 +363,8 @@
         </div>
       </div>
       <div class="contact-form reveal">
-        <input type="text" placeholder="Your Name" onfocus="playClick()" />
-        <input type="email" placeholder="Email Address" onfocus="playClick()" />
+        <input type="text" placeholder="Your Name"/>
+        <input type="email" placeholder="Email Address"/>
         <textarea placeholder="Tell me about your project..."></textarea>
         <button class="form-submit" onclick="playClick()"><span>Send Message →</span></button>
       </div>
@@ -334,577 +374,245 @@
 </div>
 
 <script>
-// =============================================
-// WEB AUDIO — JARVIS MECHANICAL AMBIENT
-// =============================================
+// ══════════════════════════════
+// AUDIO
+// ══════════════════════════════
 let audioCtx = null;
-let ambientNodes = [];
-let ambientPlaying = false;
+function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
+document.addEventListener('click',initAudio,{once:true});
+document.addEventListener('mousemove',initAudio,{once:true});
 
-function initAudio() {
-  if (audioCtx) return;
-  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playClick(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type='square';o.frequency.setValueAtTime(700,audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(350,audioCtx.currentTime+0.06);
+  g.gain.setValueAtTime(0.05,audioCtx.currentTime);
+  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.09);
+  o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.1);
 }
 
-function playJarvisAmbient() {
-  initAudio();
-  if (ambientPlaying) return;
-  ambientPlaying = true;
+function playWhoosh(){
+  if(!audioCtx)return;
+  // noise burst for whoosh
+  const bufSize=audioCtx.sampleRate*0.4;
+  const buf=audioCtx.createBuffer(1,bufSize,audioCtx.sampleRate);
+  const data=buf.getChannelData(0);
+  for(let i=0;i<bufSize;i++)data[i]=(Math.random()*2-1);
+  const src=audioCtx.createBufferSource();
+  src.buffer=buf;
+  const filt=audioCtx.createBiquadFilter();
+  filt.type='bandpass';filt.frequency.value=800;filt.Q.value=0.5;
+  const g=audioCtx.createGain();
+  g.gain.setValueAtTime(0,audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.15,audioCtx.currentTime+0.05);
+  g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);
+  src.connect(filt);filt.connect(g);g.connect(audioCtx.destination);
+  src.start();src.stop(audioCtx.currentTime+0.45);
 
-  // Low mechanical hum
-  const hum = audioCtx.createOscillator();
-  const humGain = audioCtx.createGain();
-  hum.type = 'sawtooth';
-  hum.frequency.setValueAtTime(55, audioCtx.currentTime);
-  hum.frequency.linearRampToValueAtTime(60, audioCtx.currentTime + 4);
-  humGain.gain.setValueAtTime(0, audioCtx.currentTime);
-  humGain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 1.5);
-  hum.connect(humGain); humGain.connect(audioCtx.destination);
-  hum.start(); ambientNodes.push(hum);
-
-  // Mid drone
-  const drone = audioCtx.createOscillator();
-  const droneGain = audioCtx.createGain();
-  drone.type = 'sine';
-  drone.frequency.setValueAtTime(110, audioCtx.currentTime);
-  drone.frequency.linearRampToValueAtTime(120, audioCtx.currentTime + 6);
-  droneGain.gain.setValueAtTime(0, audioCtx.currentTime);
-  droneGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 2);
-  drone.connect(droneGain); droneGain.connect(audioCtx.destination);
-  drone.start(); ambientNodes.push(drone);
-
-  // High freq shimmer
-  const shimmer = audioCtx.createOscillator();
-  const shimmerGain = audioCtx.createGain();
-  shimmer.type = 'sine';
-  shimmer.frequency.setValueAtTime(880, audioCtx.currentTime);
-  shimmerGain.gain.setValueAtTime(0, audioCtx.currentTime);
-  shimmerGain.gain.linearRampToValueAtTime(0.015, audioCtx.currentTime + 3);
-  shimmer.connect(shimmerGain); shimmerGain.connect(audioCtx.destination);
-  shimmer.start(); ambientNodes.push(shimmer);
-
-  // Pulse beep every 2 seconds
-  function pulseBeat(time, count) {
-    if (count <= 0) return;
-    const beep = audioCtx.createOscillator();
-    const beepGain = audioCtx.createGain();
-    beep.type = 'square';
-    beep.frequency.setValueAtTime(440 + Math.random() * 200, time);
-    beepGain.gain.setValueAtTime(0.04, time);
-    beepGain.gain.exponentialRampToValueAtTime(0.001, time + 0.08);
-    beep.connect(beepGain); beepGain.connect(audioCtx.destination);
-    beep.start(time); beep.stop(time + 0.1);
-    pulseBeat(time + 1.8 + Math.random() * 0.8, count - 1);
-  }
-  pulseBeat(audioCtx.currentTime + 0.5, 8);
+  // tone sweep
+  const o=audioCtx.createOscillator(),og=audioCtx.createGain();
+  o.type='sine';
+  o.frequency.setValueAtTime(200,audioCtx.currentTime);
+  o.frequency.exponentialRampToValueAtTime(1200,audioCtx.currentTime+0.35);
+  og.gain.setValueAtTime(0.06,audioCtx.currentTime);
+  og.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.4);
+  o.connect(og);og.connect(audioCtx.destination);
+  o.start();o.stop(audioCtx.currentTime+0.45);
 }
 
-function stopAmbient() {
-  ambientNodes.forEach(n => { try { n.stop(); } catch(e){} });
-  ambientNodes = [];
-  ambientPlaying = false;
+function playHum(){
+  if(!audioCtx)return;
+  const o=audioCtx.createOscillator(),g=audioCtx.createGain();
+  o.type='sine';o.frequency.value=80;
+  g.gain.setValueAtTime(0,audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+0.5);
+  g.gain.linearRampToValueAtTime(0.04,audioCtx.currentTime+1.5);
+  g.gain.linearRampToValueAtTime(0,audioCtx.currentTime+2.2);
+  o.connect(g);g.connect(audioCtx.destination);
+  o.start();o.stop(audioCtx.currentTime+2.3);
 }
 
-function playClick() {
-  initAudio();
-  const o = audioCtx.createOscillator();
-  const g = audioCtx.createGain();
-  o.type = 'square';
-  o.frequency.setValueAtTime(800, audioCtx.currentTime);
-  o.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.05);
-  g.gain.setValueAtTime(0.06, audioCtx.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
-  o.connect(g); g.connect(audioCtx.destination);
-  o.start(); o.stop(audioCtx.currentTime + 0.1);
-}
-
-function playActivate() {
-  initAudio();
-  [440,550,660,880].forEach((freq, i) => {
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = 'sine';
-    o.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.08);
-    g.gain.setValueAtTime(0.08, audioCtx.currentTime + i * 0.08);
-    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.08 + 0.2);
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start(audioCtx.currentTime + i * 0.08);
-    o.stop(audioCtx.currentTime + i * 0.08 + 0.25);
+// ══════════════════════════════
+// INTRO BG PARTICLES
+// ══════════════════════════════
+const ibg=document.getElementById('intro-bg');
+const ibCtx=ibg.getContext('2d');
+ibg.width=window.innerWidth;ibg.height=window.innerHeight;
+const iParticles=[];
+for(let i=0;i<80;i++)iParticles.push({
+  x:Math.random()*ibg.width,y:Math.random()*ibg.height,
+  r:Math.random()*1.2+0.2,
+  vx:(Math.random()-0.5)*0.2,vy:(Math.random()-0.5)*0.2,
+  c:Math.random()>0.5?'191,0,255':'0,245,255',
+  o:Math.random()*0.4+0.1
+});
+function drawIBg(){
+  ibCtx.clearRect(0,0,ibg.width,ibg.height);
+  iParticles.forEach(p=>{
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=ibg.width;if(p.x>ibg.width)p.x=0;
+    if(p.y<0)p.y=ibg.height;if(p.y>ibg.height)p.y=0;
+    ibCtx.beginPath();ibCtx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ibCtx.fillStyle=`rgba(${p.c},${p.o})`;ibCtx.fill();
   });
+  if(!introDone)requestAnimationFrame(drawIBg);
 }
+let introDone=false;
+drawIBg();
 
-// =============================================
-// INTRO CANVAS — CIRCUIT BACKGROUND
-// =============================================
-const introCanvas = document.getElementById('intro-canvas');
-const iCtx = introCanvas.getContext('2d');
-introCanvas.width = window.innerWidth;
-introCanvas.height = window.innerHeight;
-
-const circuitLines = [];
-for (let i = 0; i < 25; i++) {
-  circuitLines.push({
-    x: Math.random() * introCanvas.width,
-    y: Math.random() * introCanvas.height,
-    len: Math.random() * 120 + 40,
-    dir: Math.floor(Math.random() * 4),
-    progress: 0,
-    speed: Math.random() * 0.008 + 0.003,
-    opacity: Math.random() * 0.3 + 0.1,
-    color: Math.random() > 0.7 ? '255,140,0' : '0,245,255'
-  });
-}
-
-function drawIntroCircuits(globalAlpha) {
-  circuitLines.forEach(l => {
-    l.progress = Math.min(l.progress + l.speed, 1);
-    const len = l.len * l.progress;
-    iCtx.beginPath();
-    iCtx.strokeStyle = `rgba(${l.color},${l.opacity * globalAlpha})`;
-    iCtx.lineWidth = 0.8;
-    if (l.dir === 0) { iCtx.moveTo(l.x, l.y); iCtx.lineTo(l.x + len, l.y); }
-    else if (l.dir === 1) { iCtx.moveTo(l.x, l.y); iCtx.lineTo(l.x, l.y + len); }
-    else if (l.dir === 2) { iCtx.moveTo(l.x, l.y); iCtx.lineTo(l.x - len, l.y); }
-    else { iCtx.moveTo(l.x, l.y); iCtx.lineTo(l.x, l.y - len); }
-    iCtx.stroke();
-    // Node dot
-    iCtx.beginPath();
-    iCtx.arc(l.x, l.y, 2, 0, Math.PI * 2);
-    iCtx.fillStyle = `rgba(${l.color},${l.opacity * globalAlpha * 1.5})`;
-    iCtx.fill();
-  });
-}
-
-// =============================================
-// JARVIS RING ANIMATION
-// =============================================
-const jCanvas = document.getElementById('jarvis-ring-canvas');
-const jCtx = jCanvas.getContext('2d');
-let jAngle = 0;
-let jRingOpacity = 0;
-
-function drawJarvisRing() {
-  jCtx.clearRect(0, 0, 320, 320);
-  const cx = 160, cy = 160;
-  if (jRingOpacity <= 0) { requestAnimationFrame(drawJarvisRing); return; }
-
-  // Outer ring
-  jCtx.beginPath();
-  jCtx.arc(cx, cy, 140, 0, Math.PI * 2);
-  jCtx.strokeStyle = `rgba(0,245,255,${jRingOpacity * 0.3})`;
-  jCtx.lineWidth = 1;
-  jCtx.stroke();
-
-  // Rotating arc segments
-  for (let s = 0; s < 8; s++) {
-    const start = jAngle + s * (Math.PI / 4);
-    const end = start + Math.PI / 8;
-    jCtx.beginPath();
-    jCtx.arc(cx, cy, 130, start, end);
-    jCtx.strokeStyle = `rgba(0,245,255,${jRingOpacity * 0.8})`;
-    jCtx.lineWidth = 3;
-    jCtx.stroke();
-  }
-
-  // Counter rotating
-  for (let s = 0; s < 12; s++) {
-    const start = -jAngle * 1.5 + s * (Math.PI / 6);
-    const end = start + Math.PI / 14;
-    jCtx.beginPath();
-    jCtx.arc(cx, cy, 115, start, end);
-    jCtx.strokeStyle = `rgba(0,180,255,${jRingOpacity * 0.5})`;
-    jCtx.lineWidth = 2;
-    jCtx.stroke();
-  }
-
-  // Orange accent arc
-  jCtx.beginPath();
-  jCtx.arc(cx, cy, 125, jAngle * 0.7, jAngle * 0.7 + Math.PI * 0.4);
-  jCtx.strokeStyle = `rgba(255,140,0,${jRingOpacity * 0.7})`;
-  jCtx.lineWidth = 2.5;
-  jCtx.stroke();
-
-  // Inner glow circle
-  const grad = jCtx.createRadialGradient(cx, cy, 0, cx, cy, 95);
-  grad.addColorStop(0, `rgba(0,245,255,${jRingOpacity * 0.06})`);
-  grad.addColorStop(1, 'transparent');
-  jCtx.fillStyle = grad;
-  jCtx.beginPath();
-  jCtx.arc(cx, cy, 95, 0, Math.PI * 2);
-  jCtx.fill();
-
-  // Tick marks
-  for (let t = 0; t < 60; t++) {
-    const angle = (t / 60) * Math.PI * 2 + jAngle * 0.2;
-    const r1 = 138, r2 = t % 5 === 0 ? 128 : 133;
-    jCtx.beginPath();
-    jCtx.moveTo(cx + Math.cos(angle) * r1, cy + Math.sin(angle) * r1);
-    jCtx.lineTo(cx + Math.cos(angle) * r2, cy + Math.sin(angle) * r2);
-    jCtx.strokeStyle = `rgba(0,245,255,${jRingOpacity * (t % 5 === 0 ? 0.6 : 0.2)})`;
-    jCtx.lineWidth = t % 5 === 0 ? 1.5 : 0.8;
-    jCtx.stroke();
-  }
-
-  jAngle += 0.02;
-  requestAnimationFrame(drawJarvisRing);
-}
-drawJarvisRing();
-
-// =============================================
-// NEXUS RING (bottom right)
-// =============================================
-const nCanvas = document.getElementById('nexus-ring-canvas');
-const nCtx = nCanvas.getContext('2d');
-let nAngle = 0;
-
-function drawNexusRing() {
-  nCtx.clearRect(0, 0, 280, 280);
-  const cx = 140, cy = 140;
-
-  const grad = nCtx.createRadialGradient(cx, cy, 0, cx, cy, 100);
-  grad.addColorStop(0, 'rgba(0,245,255,0.05)');
-  grad.addColorStop(1, 'transparent');
-  nCtx.fillStyle = grad;
-  nCtx.beginPath();
-  nCtx.arc(cx, cy, 120, 0, Math.PI * 2);
-  nCtx.fill();
-
-  nCtx.beginPath();
-  nCtx.arc(cx, cy, 118, 0, Math.PI * 2);
-  nCtx.strokeStyle = 'rgba(0,245,255,0.2)';
-  nCtx.lineWidth = 1;
-  nCtx.stroke();
-
-  for (let s = 0; s < 6; s++) {
-    const start = nAngle + s * (Math.PI / 3);
-    const end = start + Math.PI / 6;
-    nCtx.beginPath();
-    nCtx.arc(cx, cy, 110, start, end);
-    nCtx.strokeStyle = 'rgba(0,245,255,0.7)';
-    nCtx.lineWidth = 2.5;
-    nCtx.stroke();
-  }
-
-  for (let s = 0; s < 8; s++) {
-    const start = -nAngle * 1.3 + s * (Math.PI / 4);
-    const end = start + Math.PI / 10;
-    nCtx.beginPath();
-    nCtx.arc(cx, cy, 98, start, end);
-    nCtx.strokeStyle = 'rgba(0,180,255,0.4)';
-    nCtx.lineWidth = 1.5;
-    nCtx.stroke();
-  }
-
-  nCtx.beginPath();
-  nCtx.arc(cx, cy, 104, nAngle * 0.5, nAngle * 0.5 + Math.PI * 0.3);
-  nCtx.strokeStyle = 'rgba(255,140,0,0.6)';
-  nCtx.lineWidth = 2;
-  nCtx.stroke();
-
-  for (let t = 0; t < 48; t++) {
-    const angle = (t / 48) * Math.PI * 2;
-    const r1 = 117, r2 = t % 6 === 0 ? 108 : 113;
-    nCtx.beginPath();
-    nCtx.moveTo(cx + Math.cos(angle) * r1, cy + Math.sin(angle) * r1);
-    nCtx.lineTo(cx + Math.cos(angle) * r2, cy + Math.sin(angle) * r2);
-    nCtx.strokeStyle = `rgba(0,245,255,${t % 6 === 0 ? 0.5 : 0.15})`;
-    nCtx.lineWidth = t % 6 === 0 ? 1.2 : 0.6;
-    nCtx.stroke();
-  }
-
-  nAngle += 0.015;
-  requestAnimationFrame(drawNexusRing);
-}
-drawNexusRing();
-
-// =============================================
+// ══════════════════════════════
 // INTRO SEQUENCE
-// =============================================
-let introComplete = false;
-const jarvisWrap = document.getElementById('jarvis-wrap');
-const nexusIntroText = document.getElementById('nexus-intro-text');
-const introName = document.getElementById('intro-name');
-const introStatus = document.getElementById('intro-status');
-const statuses = ['INITIALIZING SYSTEMS...','LOADING NEURAL NETWORK...','CALIBRATING INTERFACE...','NEXUS ONLINE','WELCOME'];
+// ══════════════════════════════
+const cyl=document.getElementById('cylinder');
+const welcomeText=document.getElementById('welcome-text');
+const cylLine=document.getElementById('cyl-line');
+let introSkipped=false;
 
-const WORD = 'NEXUS';
-let letterIdx = 0;
-let introPhase = 0;
-let introAlpha = 1;
+function runIntro(){
+  // Step 1 (0.3s): cylinder pops in as small capsule
+  setTimeout(()=>{
+    initAudio();
+    playHum();
+    cyl.style.transition='opacity 0.4s, transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+    cyl.style.opacity='1';
+    cyl.style.transform='scaleX(1) scaleY(1)';
+  },300);
 
-// 4 lines from center
-const lineCanvas = document.createElement('canvas');
-lineCanvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
-document.body.appendChild(lineCanvas);
-const lCtx = lineCanvas.getContext('2d');
-lineCanvas.width = window.innerWidth;
-lineCanvas.height = window.innerHeight;
+  // Step 2 (1.2s): reveal WELCOME with line wipe
+  setTimeout(()=>{
+    playClick();
+    welcomeText.classList.add('reveal-text');
+  },1200);
 
-const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
-const lineTargets = [
-  { tx: cx, ty: 0 },                                    // up
-  { tx: window.innerWidth, ty: cy },                    // right
-  { tx: cx, ty: cy * 0.3 },                             // up-left area
-  { tx: window.innerWidth - 180, ty: window.innerHeight - 180 } // bottom right → NEXUS
-];
-const lines = lineTargets.map(t => ({ x: cx, y: cy, tx: t.tx, ty: t.ty, progress: 0, opacity: 1, isNexus: t.tx > window.innerWidth - 200 && t.ty > window.innerHeight - 200 }));
-let linesActive = false;
-let linesPhase = 0; // 0=growing, 1=fading non-nexus, 2=done
+  // Step 3 (3.0s): hide WELCOME inversely
+  setTimeout(()=>{
+    playClick();
+    welcomeText.classList.remove('reveal-text');
+    welcomeText.classList.add('hide-text');
+  },3000);
 
-function drawLines() {
-  lCtx.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
-  if (!linesActive) return;
+  // Step 4 (3.8s): stretch cylinder horizontally with speed blur + whoosh
+  setTimeout(()=>{
+    playWhoosh();
+    // show the inner line glow
+    cylLine.style.transition='opacity 0.2s';
+    cylLine.style.opacity='1';
+    // stretch to full width
+    cyl.style.transition='transform 0.55s cubic-bezier(0.55,0,1,0.45), border-radius 0.55s, box-shadow 0.3s';
+    cyl.style.transform=`scaleX(${window.innerWidth/220 * 1.1}) scaleY(0.18)`;
+    cyl.style.borderRadius='0';
+    cyl.style.boxShadow=`0 0 60px rgba(191,0,255,0.8), 0 0 120px rgba(0,245,255,0.4)`;
+    // blur for speed effect
+    cyl.style.filter='blur(2px)';
+  },3800);
 
-  lines.forEach((l, i) => {
-    if (linesPhase === 0) l.progress = Math.min(l.progress + 0.03, 1);
-    if (linesPhase === 1 && !l.isNexus) l.opacity = Math.max(l.opacity - 0.04, 0);
-    if (linesPhase === 1 && l.isNexus) l.progress = Math.min(l.progress + 0.01, 1);
-
-    const ex = cx + (l.tx - cx) * l.progress;
-    const ey = cy + (l.ty - cy) * l.progress;
-
-    lCtx.beginPath();
-    lCtx.moveTo(cx, cy);
-    lCtx.lineTo(ex, ey);
-    lCtx.strokeStyle = l.isNexus ? `rgba(0,245,255,${l.opacity})` : `rgba(0,245,255,${l.opacity * 0.6})`;
-    lCtx.lineWidth = l.isNexus ? 2 : 1;
-    lCtx.shadowColor = 'rgba(0,245,255,0.8)';
-    lCtx.shadowBlur = l.isNexus ? 10 : 4;
-    lCtx.stroke();
-    lCtx.shadowBlur = 0;
-
-    // Moving dot at tip
-    lCtx.beginPath();
-    lCtx.arc(ex, ey, l.isNexus ? 4 : 2, 0, Math.PI * 2);
-    lCtx.fillStyle = l.isNexus ? `rgba(0,245,255,${l.opacity})` : `rgba(0,245,255,${l.opacity * 0.8})`;
-    lCtx.fill();
-  });
+  // Step 5 (4.5s): split reveal
+  setTimeout(()=>{
+    doReveal();
+  },4400);
 }
 
-function introLoop() {
-  iCtx.clearRect(0, 0, introCanvas.width, introCanvas.height);
-  if (introPhase < 5) drawIntroCircuits(introAlpha);
-  drawLines();
-  requestAnimationFrame(introLoop);
-}
-introLoop();
+function doReveal(){
+  if(introSkipped && arguments.length===0)return; // prevent double call
+  introDone=true;
+  // fade intro
+  const intro=document.getElementById('intro');
+  intro.style.transition='opacity 0.3s';
+  intro.style.opacity='0';
+  setTimeout(()=>intro.style.display='none',300);
 
-// Status text cycle
-let statusIdx = 0;
-const statusInterval = setInterval(() => {
-  if (statusIdx < statuses.length) { introStatus.textContent = statuses[statusIdx++]; }
-  else clearInterval(statusInterval);
-}, 1800);
+  // show portfolio first (behind panels)
+  document.getElementById('portfolio').classList.add('visible');
 
-// PHASE TIMELINE
-setTimeout(() => {
-  // Phase 1: ring appears
-  document.addEventListener('click', () => initAudio(), { once: true });
-  playJarvisAmbient();
-  jarvisWrap.style.transition = 'opacity 1s';
-  jarvisWrap.style.opacity = '1';
-  jRingOpacity = 0;
-  let ro = 0;
-  const ringFade = setInterval(() => { ro += 0.05; jRingOpacity = Math.min(ro, 1); if (ro >= 1) clearInterval(ringFade); }, 50);
-}, 500);
+  // split open
+  setTimeout(()=>{
+    document.getElementById('split-top').classList.add('open');
+    document.getElementById('split-bot').classList.add('open');
+    playWhoosh();
+  },100);
 
-setTimeout(() => {
-  // Phase 2: type NEXUS
-  playActivate();
-  const typeInterval = setInterval(() => {
-    if (letterIdx < WORD.length) {
-      nexusIntroText.textContent += WORD[letterIdx++];
-      playClick();
-    } else clearInterval(typeInterval);
-  }, 300);
-}, 2500);
-
-setTimeout(() => {
-  // Phase 3: glitch + fade ring
-  nexusIntroText.style.animation = 'none';
-  nexusIntroText.style.transition = 'opacity 0.5s, filter 0.5s';
-  nexusIntroText.style.filter = 'blur(2px)';
-  setTimeout(() => {
-    nexusIntroText.style.filter = 'none';
-    setTimeout(() => {
-      nexusIntroText.style.opacity = '0';
-      jarvisWrap.style.opacity = '0';
-      jRingOpacity = 0;
-    }, 200);
-  }, 200);
-}, 5500);
-
-setTimeout(() => {
-  // Phase 4: TONY WHALE zoom in
-  introName.style.transition = 'opacity 0.8s, transform 0.8s';
-  introName.style.opacity = '1';
-  introName.style.transform = 'scale(1)';
-  playActivate();
-}, 6200);
-
-setTimeout(() => {
-  // Phase 5: lines shoot out
-  introName.style.opacity = '0';
-  introName.style.transform = 'scale(1.5)';
-  linesActive = true;
-  linesPhase = 0;
-}, 7500);
-
-setTimeout(() => {
-  // Phase 6: 3 lines fade, nexus line continues
-  linesPhase = 1;
-}, 9000);
-
-setTimeout(() => {
-  // Phase 7: finish intro
-  linesActive = false;
-  lCtx.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
-  stopAmbient();
-  finishIntro();
-}, 10500);
-
-function finishIntro() {
-  if (introComplete) return;
-  introComplete = true;
-  const intro = document.getElementById('intro');
-  intro.style.transition = 'opacity 1s';
-  intro.style.opacity = '0';
-  setTimeout(() => {
-    intro.style.display = 'none';
-    document.getElementById('portfolio').classList.add('visible');
-    setTimeout(() => {
-      document.getElementById('nexus').classList.add('visible');
-      playActivate();
-      nexusGreet();
-    }, 800);
+  // remove panels
+  setTimeout(()=>{
+    document.getElementById('split-top').style.display='none';
+    document.getElementById('split-bot').style.display='none';
     initPortfolio();
-  }, 1000);
+  },1400);
 }
 
-function skipIntro() {
-  clearInterval(statusInterval);
-  stopAmbient();
-  finishIntro();
+function skipIntro(){
+  introSkipped=true;
+  introDone=true;
+  initAudio();
+  doReveal();
 }
 
-// =============================================
-// NEXUS AI CHAT
-// =============================================
-let nexusOpen = false;
-const nexusResponses = {
-  about: "Hey! So Tony Whale is a creative from Madhya Pradesh, India. He's been doing video editing and graphic design for 2+ years now. He has worked with 15+ clients and delivered 25+ projects. Super passionate about motion graphics and 3D designing too!",
-  work: "Tony's work is split into three categories — Typography Videos, 3D Designing, and Thumbnail & Poster Design. You can check them all out in the Work section above! Just click the tabs to switch between them.",
-  skills: "Tony is strongest in Video Editing at 95%, followed by Color Grading at 90% and Graphic Design at 92%. He also does Motion Graphics, Thumbnail Design, and 3D Designing. Pretty well-rounded creative!",
-  contact: "You can reach Tony directly at tomedits316@gmail.com or slide into his Instagram DMs at @whale_creations. Or just fill out the contact form below — he'll get back to you soon!"
-};
+runIntro();
 
-function toggleNexus() {
-  nexusOpen = !nexusOpen;
-  const chat = document.getElementById('nexus-chat');
-  chat.classList.toggle('open', nexusOpen);
-  playClick();
-  if (nexusOpen && document.getElementById('nexus-messages').children.length === 0) nexusGreet();
-}
-
-function nexusGreet() {
-  addNexusMsg("Hey there! I'm NEXUS — Tony's AI guide. I'm here to help you navigate this portfolio. What would you like to know?");
-}
-
-function nexusAsk(topic) {
-  playClick();
-  const labels = { about: 'Who is Tony?', work: 'See his work', skills: 'His skills', contact: 'Get in touch' };
-  addNexusMsg(labels[topic], true);
-  setTimeout(() => addNexusMsg(nexusResponses[topic]), 600);
-}
-
-function addNexusMsg(text, isUser = false) {
-  const msgs = document.getElementById('nexus-messages');
-  const div = document.createElement('div');
-  div.className = 'nexus-msg' + (isUser ? ' user' : '');
-  if (!isUser) {
-    div.textContent = '';
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-    let i = 0;
-    const iv = setInterval(() => {
-      div.textContent += text[i++];
-      msgs.scrollTop = msgs.scrollHeight;
-      if (i >= text.length) clearInterval(iv);
-    }, 18);
-  } else {
-    div.textContent = text;
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-  }
-}
-
-// =============================================
-// PORTFOLIO INIT
-// =============================================
-function initPortfolio() {
+// ══════════════════════════════
+// PORTFOLIO
+// ══════════════════════════════
+function initPortfolio(){
   // CURSOR
-  const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
+  const cursor=document.getElementById('cursor');
+  document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
 
   // BG PARTICLES
-  const bgC = document.getElementById('bg-canvas'), bgCtx = bgC.getContext('2d');
-  function resizeBg() { bgC.width = window.innerWidth; bgC.height = window.innerHeight; } resizeBg();
-  window.addEventListener('resize', resizeBg);
-  const particles = [];
-  for (let i = 0; i < 120; i++) particles.push({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, r: Math.random() * 1.5 + 0.3, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, c: Math.random() > 0.5 ? '0,245,255' : '191,0,255' });
-  function drawBg() {
-    bgCtx.clearRect(0, 0, bgC.width, bgC.height);
-    particles.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = bgC.width; if (p.x > bgC.width) p.x = 0; if (p.y < 0) p.y = bgC.height; if (p.y > bgC.height) p.y = 0; bgCtx.beginPath(); bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); bgCtx.fillStyle = `rgba(${p.c},0.6)`; bgCtx.fill(); });
-    particles.forEach((a, i) => particles.slice(i + 1).forEach(b => { const d = Math.hypot(a.x - b.x, a.y - b.y); if (d < 100) { bgCtx.beginPath(); bgCtx.moveTo(a.x, a.y); bgCtx.lineTo(b.x, b.y); bgCtx.strokeStyle = `rgba(0,245,255,${0.08 * (1 - d / 100)})`; bgCtx.lineWidth = 0.5; bgCtx.stroke(); } }));
+  const bgC=document.getElementById('bg-canvas'),bgCtx=bgC.getContext('2d');
+  function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;}resizeBg();
+  window.addEventListener('resize',resizeBg);
+  const particles=[];
+  for(let i=0;i<120;i++)particles.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,c:Math.random()>0.5?'0,245,255':'191,0,255'});
+  function drawBg(){
+    bgCtx.clearRect(0,0,bgC.width,bgC.height);
+    particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=bgC.width;if(p.x>bgC.width)p.x=0;if(p.y<0)p.y=bgC.height;if(p.y>bgC.height)p.y=0;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fillStyle=`rgba(${p.c},0.6)`;bgCtx.fill();});
+    particles.forEach((a,i)=>particles.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){bgCtx.beginPath();bgCtx.moveTo(a.x,a.y);bgCtx.lineTo(b.x,b.y);bgCtx.strokeStyle=`rgba(0,245,255,${0.08*(1-d/100)})`;bgCtx.lineWidth=0.5;bgCtx.stroke();}}));
     requestAnimationFrame(drawBg);
-  } drawBg();
+  }drawBg();
 
   // PROJECT CANVASES
-  document.querySelectorAll('.proj-canvas').forEach(c => {
-    const ctx = c.getContext('2d'), col = c.dataset.color; let t = 0;
-    function draw() {
-      ctx.clearRect(0, 0, c.width, c.height); ctx.fillStyle = 'rgba(2,8,17,0.9)'; ctx.fillRect(0, 0, c.width, c.height);
-      for (let i = 0; i < 8; i++) { const x = c.width / 2 + Math.cos(t + i * 0.8) * 70, y = c.height / 2 + Math.sin(t * 0.7 + i * 0.8) * 30; const g = ctx.createRadialGradient(x, y, 0, x, y, 25); g.addColorStop(0, `rgba(${col},0.3)`); g.addColorStop(1, 'transparent'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI * 2); ctx.fill(); }
-      ctx.strokeStyle = `rgba(${col},0.08)`; ctx.lineWidth = 0.5;
-      for (let x = 0; x < c.width; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, c.height); ctx.stroke(); }
-      for (let y = 0; y < c.height; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(c.width, y); ctx.stroke(); }
-      t += 0.015; requestAnimationFrame(draw);
-    } draw();
+  document.querySelectorAll('.proj-canvas').forEach(c=>{
+    const ctx=c.getContext('2d'),col=c.dataset.color;let t=0;
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='rgba(2,8,17,0.9)';ctx.fillRect(0,0,c.width,c.height);
+      for(let i=0;i<8;i++){const x=c.width/2+Math.cos(t+i*0.8)*70,y=c.height/2+Math.sin(t*0.7+i*0.8)*30;const g=ctx.createRadialGradient(x,y,0,x,y,25);g.addColorStop(0,`rgba(${col},0.3)`);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();}
+      ctx.strokeStyle=`rgba(${col},0.08)`;ctx.lineWidth=0.5;
+      for(let x=0;x<c.width;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c.height);ctx.stroke();}
+      for(let y=0;y<c.height;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(c.width,y);ctx.stroke();}
+      t+=0.015;requestAnimationFrame(draw);
+    }draw();
   });
 
   // TYPEWRITER
-  const phrases = ["Motion that tells stories.", "Frames that define moments.", "Design beyond boundaries.", "Color grading perfected."];
-  let pi = 0, ci = 0, deleting = false;
-  const tw = document.getElementById('typewriter');
-  function type() {
-    const ph = phrases[pi];
-    if (!deleting) { tw.textContent = ph.slice(0, ci + 1); ci++; if (ci === ph.length) { setTimeout(() => { deleting = true; }, 2000); setTimeout(() => type(), 2100); return; } }
-    else { tw.textContent = ph.slice(0, ci - 1); ci--; if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; } }
-    setTimeout(type, deleting ? 60 : 90);
-  } type();
+  const phrases=["Motion that tells stories.","Frames that define moments.","Design beyond boundaries.","Color grading perfected."];
+  let pi=0,ci=0,deleting=false;
+  const tw=document.getElementById('typewriter');
+  function type(){
+    const ph=phrases[pi];
+    if(!deleting){tw.textContent=ph.slice(0,ci+1);ci++;if(ci===ph.length){setTimeout(()=>{deleting=true;},2000);setTimeout(()=>type(),2100);return;}}
+    else{tw.textContent=ph.slice(0,ci-1);ci--;if(ci===0){deleting=false;pi=(pi+1)%phrases.length;}}
+    setTimeout(type,deleting?60:90);
+  }type();
 
   // SCROLL REVEAL
-  const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); e.target.querySelectorAll('.skill-bar').forEach(b => { b.style.width = b.dataset.w + '%'; }); } }); }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.skill-bar').forEach(b=>{b.style.width=b.dataset.w+'%';}); }});},{threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
   // PARALLAX
-  document.addEventListener('scroll', () => { const y = window.scrollY; document.querySelector('.hero-text').style.transform = `translateY(${y * 0.15}px)`; document.querySelector('.avatar-wrap').style.transform = `translateY(${y * 0.08}px)`; });
+  document.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelector('.hero-text').style.transform=`translateY(${y*0.15}px)`;document.querySelector('.avatar-wrap').style.transform=`translateY(${y*0.08}px)`;});
 
   // 3D TILT
-  document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card => {
-    card.addEventListener('mousemove', e => { const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5; card.style.transform = `perspective(600px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg) translateY(-6px)`; });
-    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card=>{
+    card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-6px)`;});
+    card.addEventListener('mouseleave',()=>{card.style.transform='';});
   });
 }
 
 // TAB SWITCHING
-function switchTab(tab, el) {
-  document.querySelectorAll('.work-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.work-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('panel-' + tab).classList.add('active');
+function switchTab(tab,el){
+  document.querySelectorAll('.work-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.work-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
   el.classList.add('active');
 }
 </script>
