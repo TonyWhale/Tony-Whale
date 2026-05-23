@@ -423,7 +423,7 @@ footer span{color:var(--neon);}
         <textarea id="cf-msg" placeholder="Tell me about your project..." class="snd-input"></textarea>
         <div class="field-error" id="err-msg">⚠ Please write your message before sending.</div>
 
-        <!-- https://formspree.io/f/xaqkjqny -->
+        <!-- ✏️ REPLACE YOUR_FORMSPREE_ID with your actual Formspree form ID -->
         <button class="form-submit snd-btn" id="send-btn" onclick="submitForm()">
           <span id="send-label">Send Message →</span>
         </button>
@@ -454,7 +454,7 @@ function sndHum(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audi
 // CONTACT FORM
 // ══════════════════════════════════════
 // ✏️ Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
-const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
+const FORMSPREE_URL = 'https://formspree.io/f/xaqkjqny';
 const MY_EMAIL = 'tomedits316@gmail.com';
 
 function validateForm(){
