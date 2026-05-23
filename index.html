@@ -200,6 +200,7 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 footer{position:relative;z-index:10;text-align:center;padding:2rem;border-top:1px solid var(--glass-border);font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;}
 footer span{color:var(--neon);}
 </style>
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -455,6 +456,9 @@ function sndHum(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audi
 // ══════════════════════════════════════
 // ✏️ Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
 const FORMSPREE_URL = 'https://formspree.io/f/xaqkjqny';
+   const EMAILJS_SERVICE = 'service_jxddglk';
+const EMAILJS_TEMPLATE = 'template_7ax1p48';
+const EMAILJS_KEY = 'HGypXygWR5pF0fz7G';
 const MY_EMAIL = 'tomedits316@gmail.com';
 
 function validateForm(){
@@ -495,8 +499,14 @@ async function submitForm(){
     });
 
     if(res.ok){
-      // SUCCESS
-      showPopup('success-popup');
+  // Send auto-reply via EmailJS
+  emailjs.init(EMAILJS_KEY);
+  emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+    from_name: name,
+    reply_to: email,
+    message: message
+  });
+  showPopup('success-popup');
       document.getElementById('cf-name').value='';
       document.getElementById('cf-email').value='';
       document.getElementById('cf-msg').value='';
