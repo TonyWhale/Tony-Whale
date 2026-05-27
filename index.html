@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tony Whale | Portfolio</title>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -11,15 +12,16 @@
 html{scroll-behavior:smooth;}
 body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;overflow-x:hidden;cursor:none;}
 
-/* CURSOR */
+/* CURSOR — hidden on mobile */
 #cursor{position:fixed;width:12px;height:12px;background:var(--neon);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--neon),0 0 20px var(--neon),0 0 40px var(--neon);}
+@media(hover:none){#cursor{display:none;} body{cursor:auto;}}
 
 /* ══════════════════════════════
    INTRO
 ══════════════════════════════ */
 #intro{position:fixed;inset:0;z-index:10000;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;}
 #intro-bg{position:absolute;inset:0;width:100%;height:100%;}
-#skip-btn{position:absolute;top:2rem;right:2rem;background:transparent;border:1px solid rgba(191,0,255,0.3);color:rgba(191,0,255,0.6);font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;padding:0.5rem 1.2rem;cursor:pointer;z-index:20;transition:all 0.3s;text-transform:uppercase;}
+#skip-btn{position:absolute;top:1.5rem;right:1.5rem;background:transparent;border:1px solid rgba(191,0,255,0.3);color:rgba(191,0,255,0.6);font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.2em;padding:0.5rem 1.2rem;cursor:pointer;z-index:20;transition:all 0.3s;text-transform:uppercase;}
 #skip-btn:hover{border-color:var(--neon2);color:var(--neon2);}
 #split-top{position:fixed;inset:0 0 50% 0;z-index:9999;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);pointer-events:none;}
 #split-bot{position:fixed;inset:50% 0 0 0;z-index:9999;background:radial-gradient(ellipse at center,#0d0020 0%,#020811 60%,#000 100%);transform:translateY(0);transition:transform 1.2s cubic-bezier(0.76,0,0.24,1);pointer-events:none;}
@@ -42,13 +44,46 @@ body{background:var(--dark);color:#e0f7fa;font-family:'Rajdhani',sans-serif;over
 #portfolio{opacity:0;transition:opacity 0.8s;}
 #portfolio.visible{opacity:1;}
 #bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(2,8,17,0.7);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
-.logo{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--neon);letter-spacing:0.2em;text-shadow:0 0 10px var(--neon);}
-.nav-links{display:flex;gap:2rem;}
-.nav-links a{color:#a0d4e0;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s;}
+
+/* ══════════════════════════════
+   NAVBAR
+══════════════════════════════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 3rem;background:rgba(2,8,17,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--glass-border);}
+.logo{font-family:'Orbitron',monospace;font-size:1.1rem;color:var(--neon);letter-spacing:0.2em;text-shadow:0 0 10px var(--neon);white-space:nowrap;}
+.nav-links{display:flex;gap:2rem;align-items:center;}
+.nav-links a{color:#a0d4e0;text-decoration:none;font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;transition:color 0.3s,text-shadow 0.3s;position:relative;padding-bottom:4px;}
+
+/* Active nav glow + underline */
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--neon);box-shadow:0 0 6px var(--neon);transition:width 0.4s;}
 .nav-links a:hover{color:var(--neon);text-shadow:0 0 8px var(--neon);}
+.nav-links a:hover::after{width:100%;}
+.nav-links a.active{color:var(--neon);text-shadow:0 0 10px var(--neon),0 0 20px var(--neon);}
+.nav-links a.active::after{width:100%;}
+
+/* ══════════════════════════════
+   MOBILE NAV
+══════════════════════════════ */
+@media(max-width:600px){
+  nav{padding:0.9rem 1.2rem;}
+  .logo{font-size:0.75rem;letter-spacing:0.12em;}
+  .nav-links{gap:0.7rem;}
+  .nav-links a{font-size:0.6rem;letter-spacing:0.05em;}
+}
+@media(max-width:400px){
+  .logo{font-size:0.65rem;}
+  .nav-links a{font-size:0.55rem;gap:0.5rem;}
+  .nav-links{gap:0.5rem;}
+}
+
+/* ══════════════════════════════
+   SECTIONS
+══════════════════════════════ */
 section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
-#hero{display:flex;align-items:center;justify-content:space-between;padding-top:6rem;}
+
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+#hero{display:flex;align-items:center;justify-content:space-between;padding-top:6rem;gap:2rem;}
 .hero-text{flex:1;max-width:600px;}
 .hero-tag{font-size:0.75rem;letter-spacing:0.4em;color:var(--neon);text-transform:uppercase;margin-bottom:1rem;opacity:0.8;}
 .hero-name{font-family:'Orbitron',monospace;font-size:3.5rem;font-weight:900;line-height:1.1;background:linear-gradient(135deg,#fff 30%,var(--neon) 70%,var(--neon2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:0.5rem;}
@@ -69,12 +104,42 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .avatar-ring3{position:absolute;width:390px;height:390px;border-radius:50%;border:1px solid rgba(255,0,128,0.1);animation:ring-pulse 3s ease-in-out infinite 2s;z-index:1;}
 .avatar-glow{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(0,245,255,0.15),transparent 70%);z-index:3;pointer-events:none;}
 @keyframes ring-pulse{0%,100%{transform:scale(1);opacity:0.5;}50%{transform:scale(1.05);opacity:1;}}
+
+/* HERO MOBILE */
+@media(max-width:768px){
+  #hero{flex-direction:column-reverse;padding-top:5rem;padding-left:1.5rem;padding-right:1.5rem;text-align:center;gap:1.5rem;min-height:auto;padding-bottom:3rem;}
+  .hero-text{max-width:100%;}
+  .hero-name{font-size:2.5rem;}
+  .hero-title{font-size:1rem;letter-spacing:0.08em;}
+  .hero-tag{font-size:0.65rem;letter-spacing:0.2em;}
+  .hero-btns{justify-content:center;}
+  .btn-primary,.btn-sec{padding:0.65rem 1.5rem;font-size:0.8rem;}
+  .avatar-wrap{flex:none;width:100%;}
+  .avatar-photo{width:180px;height:180px;}
+  .avatar-ring{width:200px;height:200px;}
+  .avatar-ring2{width:230px;height:230px;}
+  .avatar-ring3{width:260px;height:260px;}
+  .avatar-glow{width:180px;height:180px;}
+}
+
+/* ══════════════════════════════
+   SECTION HEADERS
+══════════════════════════════ */
 .sec-header{margin-bottom:3rem;}
 .sec-number{font-family:'Orbitron',monospace;font-size:0.7rem;color:var(--neon);letter-spacing:0.3em;opacity:0.6;margin-bottom:0.5rem;}
 .sec-title{font-family:'Orbitron',monospace;font-size:2.2rem;font-weight:700;color:#fff;text-shadow:0 0 30px rgba(0,245,255,0.3);}
 .sec-line{width:60px;height:1px;background:linear-gradient(90deg,var(--neon),transparent);margin-top:1rem;}
+
+@media(max-width:768px){
+  section{padding:5rem 1.5rem 3rem;}
+  .sec-title{font-size:1.6rem;}
+}
+
+/* ══════════════════════════════
+   ABOUT
+══════════════════════════════ */
 #about{background:linear-gradient(180deg,transparent,rgba(0,10,20,0.8),transparent);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
 .about-text p{font-size:1.05rem;line-height:1.9;color:#88b4c0;margin-bottom:1rem;}
 .about-text p span{color:var(--neon);font-weight:600;}
 .about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
@@ -82,6 +147,20 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .stat-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;background:var(--neon);}
 .stat-num{font-family:'Orbitron',monospace;font-size:2.2rem;color:var(--neon);font-weight:900;}
 .stat-label{font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;text-transform:uppercase;margin-top:0.3rem;}
+
+/* ABOUT MOBILE */
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr;gap:2rem;}
+  .about-text p{font-size:0.95rem;line-height:1.7;}
+  .about-stats{grid-template-columns:1fr 1fr;gap:1rem;}
+  .stat-num{font-size:1.8rem;}
+  .stat-label{font-size:0.7rem;}
+  .stat-card{padding:1rem;}
+}
+
+/* ══════════════════════════════
+   SKILLS — 2x3 on mobile
+══════════════════════════════ */
 #skills{background:rgba(0,5,15,0.5);}
 .skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;}
 .skill-card{border:1px solid var(--glass-border);background:var(--glass);padding:1.8rem 1.5rem;position:relative;overflow:hidden;transition:border-color 0.3s,transform 0.3s;}
@@ -93,6 +172,19 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .skill-bar-bg{height:2px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;}
 .skill-bar{height:2px;background:linear-gradient(90deg,var(--neon),var(--neon2));border-radius:2px;width:0;transition:width 1.5s ease;}
 .skill-pct{font-size:0.75rem;color:var(--neon);margin-top:0.4rem;text-align:right;}
+
+/* SKILLS MOBILE — exactly 2 columns x 3 rows */
+@media(max-width:768px){
+  .skills-grid{grid-template-columns:1fr 1fr;gap:1rem;}
+  .skill-card{padding:1.2rem 1rem;}
+  .skill-icon{font-size:1.5rem;margin-bottom:0.6rem;}
+  .skill-name{font-size:0.65rem;margin-bottom:0.5rem;}
+  .skill-pct{font-size:0.65rem;}
+}
+
+/* ══════════════════════════════
+   WORK / PROJECTS
+══════════════════════════════ */
 .work-tabs{display:flex;gap:0;margin-bottom:2.5rem;border:1px solid var(--glass-border);width:fit-content;}
 .work-tab{padding:0.8rem 2rem;font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.15em;color:#88b4c0;cursor:pointer;border-right:1px solid var(--glass-border);transition:all 0.3s;background:transparent;text-transform:uppercase;}
 .work-tab:last-child{border-right:none;}
@@ -117,6 +209,13 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .add-text{font-family:'Orbitron',monospace;font-size:0.7rem;color:#88b4c0;letter-spacing:0.1em;text-align:center;opacity:0.5;}
 .add-hint{font-size:0.75rem;color:#88b4c0;opacity:0.4;text-align:center;line-height:1.5;}
 
+/* WORK MOBILE */
+@media(max-width:768px){
+  .work-tabs{width:100%;overflow-x:auto;}
+  .work-tab{padding:0.6rem 1rem;font-size:0.6rem;letter-spacing:0.05em;white-space:nowrap;}
+  .video-grid{grid-template-columns:1fr;}
+}
+
 /* ══════════════════════════════
    CONTACT
 ══════════════════════════════ */
@@ -138,35 +237,32 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .form-submit:hover{color:var(--dark);}
 .form-submit span{position:relative;z-index:1;}
 .form-submit:disabled{opacity:0.6;cursor:not-allowed;}
-.form-submit:disabled::before{display:none;}
-
-/* validation error text */
-.field-error{font-size:0.75rem;color:var(--neon3);margin-top:-0.5rem;margin-bottom:0.2rem;letter-spacing:0.05em;display:none;}
+.field-error{font-size:0.75rem;color:var(--neon3);margin-top:-0.5rem;letter-spacing:0.05em;display:none;}
 .field-error.show{display:block;}
+
+/* CONTACT MOBILE */
+@media(max-width:768px){
+  .contact-grid{grid-template-columns:1fr;gap:2rem;}
+  .contact-info p{font-size:0.9rem;}
+}
 
 /* ══════════════════════════════
    POPUPS
 ══════════════════════════════ */
-.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s;pointer-events:none;}
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:5000;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);opacity:0;transition:opacity 0.3s;pointer-events:none;padding:1rem;}
 .popup-overlay.show{opacity:1;pointer-events:all;}
-.popup-box{background:#040d1a;border:1px solid var(--glass-border);width:380px;max-width:92vw;position:relative;transform:translateY(20px) scale(0.97);transition:transform 0.3s;}
+.popup-box{background:#040d1a;border:1px solid var(--glass-border);width:380px;max-width:100%;position:relative;transform:translateY(20px) scale(0.97);transition:transform 0.3s;}
 .popup-overlay.show .popup-box{transform:translateY(0) scale(1);}
-
-/* top accent line */
 .popup-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--neon2),var(--neon),var(--neon2),transparent);}
-
 .popup-header{padding:1.2rem 1.4rem 0.8rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--glass-border);}
 .popup-title{font-family:'Orbitron',monospace;font-size:0.75rem;letter-spacing:0.2em;display:flex;align-items:center;gap:0.6rem;}
 .popup-title.warn{color:#ffcc00;}
 .popup-title.success{color:#00ff88;}
-.popup-close{background:none;border:none;color:rgba(0,245,255,0.4);font-size:1.1rem;cursor:pointer;transition:color 0.3s;line-height:1;}
+.popup-close{background:none;border:none;color:rgba(0,245,255,0.4);font-size:1.1rem;cursor:pointer;transition:color 0.3s;}
 .popup-close:hover{color:var(--neon);}
-
 .popup-body{padding:1.3rem 1.4rem;}
 .popup-desc{font-size:0.88rem;color:#a0d4e0;line-height:1.7;margin-bottom:1.3rem;}
 .popup-desc strong{color:#fff;}
-
-/* popup action buttons */
 .popup-actions{display:flex;flex-direction:column;gap:0.7rem;}
 .pop-btn{display:flex;align-items:center;gap:0.8rem;padding:0.85rem 1.2rem;border:1px solid var(--glass-border);background:var(--glass);color:#e0f7fa;font-family:'Rajdhani',sans-serif;font-size:0.9rem;cursor:pointer;transition:all 0.3s;text-align:left;width:100%;text-decoration:none;}
 .pop-btn:hover{border-color:var(--neon);color:var(--neon);}
@@ -180,27 +276,31 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .pop-btn-text{display:flex;flex-direction:column;}
 .pop-btn-label{font-weight:600;letter-spacing:0.05em;}
 .pop-btn-sub{font-size:0.75rem;opacity:0.65;margin-top:0.1rem;}
-
-/* instagram note */
 .insta-note{margin-top:0.5rem;padding:0.6rem 0.8rem;background:rgba(255,0,128,0.05);border-left:2px solid rgba(255,0,128,0.4);font-size:0.78rem;color:#cc6688;line-height:1.5;}
-
-/* copy feedback */
 .copy-feedback{font-size:0.75rem;color:#00ff88;margin-top:0.2rem;display:none;letter-spacing:0.1em;}
 .copy-feedback.show{display:block;}
-
-/* success icon */
 .success-icon{font-size:2.5rem;text-align:center;margin-bottom:0.8rem;}
 .success-msg{font-size:0.9rem;color:#a0d4e0;line-height:1.7;text-align:center;}
 .success-msg strong{color:#00ff88;}
 
+/* ══════════════════════════════
+   MISC
+══════════════════════════════ */
 .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s,transform 0.8s;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 .scanlines{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:5;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);}
 .grid-overlay{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:1;background-image:linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);background-size:60px 60px;}
 footer{position:relative;z-index:10;text-align:center;padding:2rem;border-top:1px solid var(--glass-border);font-size:0.8rem;color:#88b4c0;letter-spacing:0.1em;}
 footer span{color:var(--neon);}
+@media(max-width:768px){footer{font-size:0.7rem;padding:1.5rem;}}
+
+/* ══════════════════════════════
+   ROTATION HINT
+══════════════════════════════ */
+#rotate-hint{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(4,13,26,0.9);border:1px solid var(--glass-border);color:#a0d4e0;font-family:'Orbitron',monospace;font-size:0.6rem;letter-spacing:0.15em;padding:0.6rem 1.2rem;z-index:300;opacity:0;transition:opacity 0.5s;pointer-events:none;white-space:nowrap;}
+#rotate-hint.show{opacity:1;}
+@media(min-width:769px){#rotate-hint{display:none;}}
 </style>
-   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -214,16 +314,12 @@ footer span{color:var(--neon);}
   <div id="cyl-stage">
     <div id="cylinder">
       <div id="cyl-line"></div>
-      <div id="welcome-wrap">
-        <div id="welcome-text">WELCOME</div>
-      </div>
+      <div id="welcome-wrap"><div id="welcome-text">WELCOME</div></div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     FALLBACK POPUP
-══════════════════════════════ -->
+<!-- FALLBACK POPUP -->
 <div class="popup-overlay" id="fallback-popup">
   <div class="popup-box">
     <div class="popup-header">
@@ -231,50 +327,28 @@ footer span{color:var(--neon);}
       <button class="popup-close" onclick="closePopup('fallback-popup')">✕</button>
     </div>
     <div class="popup-body">
-      <p class="popup-desc">
-        Our message system is busy right now.<br>
-        <strong>No worries — your message is saved!</strong><br><br>
-        Click <strong>"Open Gmail"</strong> below and your name and message will already be written — just hit send. No retyping needed!
-      </p>
+      <p class="popup-desc">Our message system is busy right now.<br><strong>No worries — your message is saved!</strong><br><br>Click <strong>"Open Gmail"</strong> below and your name and message will already be written — just hit send. No retyping needed!</p>
       <div class="popup-actions">
-
-        <!-- OPEN GMAIL -->
-        <button class="pop-btn primary" id="gmail-btn" onclick="openGmail()">
+        <button class="pop-btn primary" onclick="openGmail()">
           <span class="pop-btn-icon">📧</span>
-          <span class="pop-btn-text">
-            <span class="pop-btn-label">Open Gmail — Pre-filled</span>
-            <span class="pop-btn-sub">Your message is already written. Just hit send!</span>
-          </span>
+          <span class="pop-btn-text"><span class="pop-btn-label">Open Gmail — Pre-filled</span><span class="pop-btn-sub">Your message is already written. Just hit send!</span></span>
         </button>
-
-        <!-- COPY EMAIL -->
         <button class="pop-btn secondary" onclick="copyEmail()">
           <span class="pop-btn-icon">📋</span>
-          <span class="pop-btn-text">
-            <span class="pop-btn-label">Copy Email Address</span>
-            <span class="pop-btn-sub" id="copy-sub">tomedits316@gmail.com</span>
-          </span>
+          <span class="pop-btn-text"><span class="pop-btn-label">Copy Email Address</span><span class="pop-btn-sub" id="copy-sub">tomedits316@gmail.com</span></span>
         </button>
         <div class="copy-feedback" id="copy-feedback">✓ Email copied to clipboard!</div>
-
-        <!-- INSTAGRAM -->
         <a class="pop-btn instagram" href="https://www.instagram.com/whale_creations/" target="_blank">
           <span class="pop-btn-icon">◈</span>
-          <span class="pop-btn-text">
-            <span class="pop-btn-label">DM on Instagram</span>
-            <span class="pop-btn-sub">@whale_creations</span>
-          </span>
+          <span class="pop-btn-text"><span class="pop-btn-label">DM on Instagram</span><span class="pop-btn-sub">@whale_creations</span></span>
         </a>
         <div class="insta-note">Send a DM with your project brief to <strong>@whale_creations</strong> for a faster response!</div>
-
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     SUCCESS POPUP
-══════════════════════════════ -->
+<!-- SUCCESS POPUP -->
 <div class="popup-overlay" id="success-popup">
   <div class="popup-box">
     <div class="popup-header">
@@ -283,14 +357,13 @@ footer span{color:var(--neon);}
     </div>
     <div class="popup-body">
       <div class="success-icon">✅</div>
-      <p class="success-msg">
-        <strong>Message received successfully!</strong><br><br>
-        Tony will review your message and get back to you within <strong>24 hours</strong>.<br><br>
-        Thank you for reaching out!
-      </p>
+      <p class="success-msg"><strong>Message received successfully!</strong><br><br>Tony will review your message and get back to you within <strong>24 hours</strong>.<br><br>Thank you for reaching out!</p>
     </div>
   </div>
 </div>
+
+<!-- ROTATION HINT -->
+<div id="rotate-hint">↻ Rotate for better experience</div>
 
 <!-- PORTFOLIO -->
 <div id="portfolio">
@@ -302,10 +375,10 @@ footer span{color:var(--neon);}
   <nav>
     <div class="logo">TONY WHALE</div>
     <div class="nav-links">
-      <a href="#about" class="snd-nav">About</a>
-      <a href="#skills" class="snd-nav">Skills</a>
-      <a href="#projects" class="snd-nav">Work</a>
-      <a href="#contact" class="snd-nav">Contact</a>
+      <a href="#about" class="snd-nav" data-section="about">About</a>
+      <a href="#skills" class="snd-nav" data-section="skills">Skills</a>
+      <a href="#projects" class="snd-nav" data-section="projects">Work</a>
+      <a href="#contact" class="snd-nav" data-section="contact">Contact</a>
     </div>
   </nav>
 
@@ -413,22 +486,14 @@ footer span{color:var(--neon);}
           <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link snd-nav"><span class="contact-link-icon">◈</span>@whale_creations</a>
         </div>
       </div>
-      <div class="contact-form reveal" id="contact-form-wrap">
-
+      <div class="contact-form reveal">
         <input type="text" id="cf-name" placeholder="Your Name" class="snd-input"/>
         <div class="field-error" id="err-name">⚠ Please enter your name.</div>
-
         <input type="email" id="cf-email" placeholder="Email Address" class="snd-input"/>
         <div class="field-error" id="err-email">⚠ Please enter a valid email address.</div>
-
         <textarea id="cf-msg" placeholder="Tell me about your project..." class="snd-input"></textarea>
         <div class="field-error" id="err-msg">⚠ Please write your message before sending.</div>
-
-        <!-- ✏️ REPLACE YOUR_FORMSPREE_ID with your actual Formspree form ID -->
-        <button class="form-submit snd-btn" id="send-btn" onclick="submitForm()">
-          <span id="send-label">Send Message →</span>
-        </button>
-
+        <button class="form-submit snd-btn" id="send-btn" onclick="submitForm()"><span id="send-label">Send Message →</span></button>
       </div>
     </div>
   </section>
@@ -442,7 +507,7 @@ footer span{color:var(--neon);}
 let audioCtx=null;
 function initAudio(){if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();}
 document.addEventListener('click',initAudio,{once:true});
-document.addEventListener('mousemove',initAudio,{once:true});
+document.addEventListener('touchstart',initAudio,{once:true});
 function sndNav(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(1800,audioCtx.currentTime);o.frequency.exponentialRampToValueAtTime(1200,audioCtx.currentTime+0.06);g.gain.setValueAtTime(0.04,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.08);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.09);}
 function sndBtn(){if(!audioCtx)return;const t=audioCtx.currentTime;[440,550].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.setValueAtTime(f,t+i*0.05);g.gain.setValueAtTime(0.05,t+i*0.05);g.gain.exponentialRampToValueAtTime(0.001,t+i*0.05+0.12);o.connect(g);g.connect(audioCtx.destination);o.start(t+i*0.05);o.stop(t+i*0.05+0.14);});}
 function sndTab(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='square';o.frequency.setValueAtTime(600,audioCtx.currentTime);o.frequency.linearRampToValueAtTime(900,audioCtx.currentTime+0.04);o.frequency.linearRampToValueAtTime(600,audioCtx.currentTime+0.08);g.gain.setValueAtTime(0.04,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.1);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+0.11);}
@@ -454,118 +519,51 @@ function sndHum(){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audi
 // ══════════════════════════════════════
 // CONTACT FORM
 // ══════════════════════════════════════
-// ✏️ Replace 'YOUR_FORMSPREE_ID' with your actual Formspree form ID
-const FORMSPREE_URL = 'https://formspree.io/f/xaqkjqny';
-   const EMAILJS_SERVICE = 'service_jxddglk';
-const EMAILJS_TEMPLATE = 'template_7ax1p48';
-const EMAILJS_KEY = 'HGypXygWR5pF0fz7G';
-const MY_EMAIL = 'tomedits316@gmail.com';
+const FORMSPREE_URL='https://formspree.io/f/xaqkjqny';
+const EMAILJS_SERVICE='service_jxddglk';
+const EMAILJS_TEMPLATE='template_7ax1p48';
+const EMAILJS_KEY='HGypXygWR5pF0fz7G';
+const MY_EMAIL='tomedits316@gmail.com';
+let storedName='',storedEmail='',storedMsg='';
 
 function validateForm(){
   let valid=true;
-  const name=document.getElementById('cf-name');
-  const email=document.getElementById('cf-email');
-  const msg=document.getElementById('cf-msg');
-
-  // reset errors
-  [name,email,msg].forEach(el=>{el.classList.remove('error');});
-  ['err-name','err-email','err-msg'].forEach(id=>{document.getElementById(id).classList.remove('show');});
-
+  const name=document.getElementById('cf-name'),email=document.getElementById('cf-email'),msg=document.getElementById('cf-msg');
+  [name,email,msg].forEach(el=>el.classList.remove('error'));
+  ['err-name','err-email','err-msg'].forEach(id=>document.getElementById(id).classList.remove('show'));
   if(!name.value.trim()){name.classList.add('error');document.getElementById('err-name').classList.add('show');sndInput();valid=false;}
-  if(!email.value.trim()||!email.value.includes('@')){email.classList.add('error');document.getElementById('err-email').classList.add('show');sndInput();valid=false;}
+  const emailRegex=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!email.value.trim()||!emailRegex.test(email.value.trim())){email.classList.add('error');document.getElementById('err-email').classList.add('show');sndInput();valid=false;}
   if(!msg.value.trim()){msg.classList.add('error');document.getElementById('err-msg').classList.add('show');sndInput();valid=false;}
   return valid;
 }
 
 async function submitForm(){
   if(!validateForm())return;
-  initAudio();
-  sndBtn();
-
-  const btn=document.getElementById('send-btn');
-  const label=document.getElementById('send-label');
-  btn.disabled=true;
-  label.textContent='SENDING... ⟳';
-
-  const name=document.getElementById('cf-name').value.trim();
-  const email=document.getElementById('cf-email').value.trim();
-  const message=document.getElementById('cf-msg').value.trim();
-
+  initAudio();sndBtn();
+  const btn=document.getElementById('send-btn'),label=document.getElementById('send-label');
+  btn.disabled=true;label.textContent='SENDING... ⟳';
+  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),message=document.getElementById('cf-msg').value.trim();
   try{
-    const res=await fetch(FORMSPREE_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({name,email,message})
-    });
-
+    const res=await fetch(FORMSPREE_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name,email,message})});
     if(res.ok){
-  // Send auto-reply via EmailJS
-  emailjs.init(EMAILJS_KEY);
-  emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
-    from_name: name,
-    reply_to: email,
-    message: message
-  });
-  showPopup('success-popup');
-      document.getElementById('cf-name').value='';
-      document.getElementById('cf-email').value='';
-      document.getElementById('cf-msg').value='';
-      label.textContent='Send Message →';
-      btn.disabled=false;
-    } else {
-      // FORMSPREE ERROR / LIMIT HIT
-      storeFormData(name,email,message);
-      showPopup('fallback-popup');
-      label.textContent='Send Message →';
-      btn.disabled=false;
-    }
-  } catch(err){
-    // NETWORK ERROR
-    storeFormData(name,email,message);
-    showPopup('fallback-popup');
-    label.textContent='Send Message →';
-    btn.disabled=false;
-  }
+      emailjs.init(EMAILJS_KEY);
+      emailjs.send(EMAILJS_SERVICE,EMAILJS_TEMPLATE,{from_name:name,reply_to:email,message:message});
+      showPopup('success-popup');
+      document.getElementById('cf-name').value='';document.getElementById('cf-email').value='';document.getElementById('cf-msg').value='';
+    }else{storedName=name;storedEmail=email;storedMsg=message;showPopup('fallback-popup');}
+  }catch(err){storedName=name;storedEmail=email;storedMsg=message;showPopup('fallback-popup');}
+  label.textContent='Send Message →';btn.disabled=false;
 }
 
-// Store form data for pre-filling Gmail
-let storedName='', storedEmail='', storedMsg='';
-function storeFormData(name,email,msg){
-  storedName=name; storedEmail=email; storedMsg=msg;
-}
-
-function openGmail(){
-  const subject=encodeURIComponent(`Portfolio Inquiry from ${storedName}`);
-  const body=encodeURIComponent(`Hi Tony,\n\nMy name is ${storedName}.\n\n${storedMsg}\n\n---\nReply to: ${storedEmail}\nSent via Tony Whale Portfolio`);
-  window.open(`https://mail.google.com/mail/?view=cm&to=${MY_EMAIL}&su=${subject}&body=${body}`,'_blank');
-}
-
-function copyEmail(){
-  navigator.clipboard.writeText(MY_EMAIL).then(()=>{
-    const fb=document.getElementById('copy-feedback');
-    fb.classList.add('show');
-    setTimeout(()=>fb.classList.remove('show'),2500);
-    sndNav();
-  });
-}
-
-function showPopup(id){
-  document.getElementById(id).classList.add('show');
-  sndBtn();
-}
-function closePopup(id){
-  document.getElementById(id).classList.remove('show');
-  sndNav();
-}
-// Close popup on overlay click
-document.querySelectorAll('.popup-overlay').forEach(overlay=>{
-  overlay.addEventListener('click',e=>{
-    if(e.target===overlay)overlay.classList.remove('show');
-  });
-});
+function openGmail(){const subject=encodeURIComponent(`Portfolio Inquiry from ${storedName}`),body=encodeURIComponent(`Hi Tony,\n\nMy name is ${storedName}.\n\n${storedMsg}\n\n---\nReply to: ${storedEmail}\nSent via Tony Whale Portfolio`);window.open(`https://mail.google.com/mail/?view=cm&to=${MY_EMAIL}&su=${subject}&body=${body}`,'_blank');}
+function copyEmail(){navigator.clipboard.writeText(MY_EMAIL).then(()=>{const fb=document.getElementById('copy-feedback');fb.classList.add('show');setTimeout(()=>fb.classList.remove('show'),2500);sndNav();});}
+function showPopup(id){document.getElementById(id).classList.add('show');sndBtn();}
+function closePopup(id){document.getElementById(id).classList.remove('show');sndNav();}
+document.querySelectorAll('.popup-overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show');}));
 
 // ══════════════════════════════════════
-// INTRO BG PARTICLES
+// INTRO BG
 // ══════════════════════════════════════
 const ibg=document.getElementById('intro-bg'),ibCtx=ibg.getContext('2d');
 ibg.width=window.innerWidth;ibg.height=window.innerHeight;
@@ -578,29 +576,15 @@ drawIBg();
 // ══════════════════════════════════════
 // INTRO SEQUENCE
 // ══════════════════════════════════════
-const cyl=document.getElementById('cylinder');
-const wText=document.getElementById('welcome-text');
-const cylLine=document.getElementById('cyl-line');
-
+const cyl=document.getElementById('cylinder'),wText=document.getElementById('welcome-text'),cylLine=document.getElementById('cyl-line');
 function runIntro(){
   setTimeout(()=>{initAudio();sndHum();cyl.style.transition='opacity 0.4s, transform 0.55s cubic-bezier(0.34,1.56,0.64,1)';cyl.style.opacity='1';cyl.style.transform='scaleX(1) scaleY(1)';},300);
   setTimeout(()=>{sndNav();wText.classList.add('arrive');},1000);
   setTimeout(()=>{cyl.classList.add('pulsing');},2600);
-  setTimeout(()=>{
-    cyl.classList.remove('pulsing');sndNav();
-    wText.style.transition='none';wText.offsetHeight;
-    wText.style.transition='clip-path 1.5s cubic-bezier(0.5,0,0.75,0)';
-    wText.style.clipPath='inset(0 100% 0 0%)';
-  },4500);
-  setTimeout(()=>{
-    sndWhoosh();cylLine.style.transition='opacity 0.2s';cylLine.style.opacity='1';
-    cyl.style.transition='transform 0.55s cubic-bezier(0.55,0,1,0.45), border-radius 0.55s, box-shadow 0.3s, filter 0.55s';
-    cyl.style.transform=`scaleX(${window.innerWidth/240*1.1}) scaleY(0.15)`;
-    cyl.style.borderRadius='0';cyl.style.boxShadow='0 0 60px rgba(191,0,255,0.9), 0 0 120px rgba(0,245,255,0.5)';cyl.style.filter='blur(3px)';
-  },6200);
+  setTimeout(()=>{cyl.classList.remove('pulsing');sndNav();wText.style.transition='none';wText.offsetHeight;wText.style.transition='clip-path 1.5s cubic-bezier(0.5,0,0.75,0)';wText.style.clipPath='inset(0 100% 0 0%)';},4500);
+  setTimeout(()=>{sndWhoosh();cylLine.style.transition='opacity 0.2s';cylLine.style.opacity='1';cyl.style.transition='transform 0.55s cubic-bezier(0.55,0,1,0.45), border-radius 0.55s, box-shadow 0.3s, filter 0.55s';cyl.style.transform=`scaleX(${window.innerWidth/240*1.1}) scaleY(0.15)`;cyl.style.borderRadius='0';cyl.style.boxShadow='0 0 60px rgba(191,0,255,0.9), 0 0 120px rgba(0,245,255,0.5)';cyl.style.filter='blur(3px)';},6200);
   setTimeout(()=>{doReveal();},6900);
 }
-
 function doReveal(){
   introDone=true;
   const intro=document.getElementById('intro');
@@ -610,9 +594,39 @@ function doReveal(){
   setTimeout(()=>{document.getElementById('split-top').classList.add('open');document.getElementById('split-bot').classList.add('open');sndWhoosh();},100);
   setTimeout(()=>{document.getElementById('split-top').style.display='none';document.getElementById('split-bot').style.display='none';initPortfolio();},1400);
 }
-
 function skipIntro(){introDone=true;initAudio();doReveal();}
 runIntro();
+
+// ══════════════════════════════════════
+// ACTIVE NAV — glow on scroll
+// ══════════════════════════════════════
+function initActiveNav(){
+  const sections=document.querySelectorAll('section[id]');
+  const navLinks=document.querySelectorAll('.nav-links a[data-section]');
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id=entry.target.id;
+        navLinks.forEach(a=>{
+          a.classList.remove('active');
+          if(a.dataset.section===id)a.classList.add('active');
+        });
+      }
+    });
+  },{threshold:0.4});
+  sections.forEach(s=>observer.observe(s));
+}
+
+// ══════════════════════════════════════
+// ROTATION HINT (mobile portrait only)
+// ══════════════════════════════════════
+function checkOrientation(){
+  const hint=document.getElementById('rotate-hint');
+  if(window.innerWidth<769&&window.innerHeight>window.innerWidth){
+    hint.classList.add('show');
+    setTimeout(()=>hint.classList.remove('show'),3000);
+  }
+}
 
 // ══════════════════════════════════════
 // SOUND BINDINGS
@@ -630,22 +644,46 @@ function attachSounds(){
 // ══════════════════════════════════════
 function initPortfolio(){
   attachSounds();
+  initActiveNav();
+  checkOrientation();
+  window.addEventListener('orientationchange',()=>setTimeout(checkOrientation,300));
+
+  // CURSOR
   const cursor=document.getElementById('cursor');
   document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
+
+  // BG PARTICLES
   const bgC=document.getElementById('bg-canvas'),bgCtx=bgC.getContext('2d');
   function resizeBg(){bgC.width=window.innerWidth;bgC.height=window.innerHeight;}resizeBg();
   window.addEventListener('resize',resizeBg);
   const particles=[];
   for(let i=0;i<120;i++)particles.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,r:Math.random()*1.5+0.3,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,c:Math.random()>0.5?'0,245,255':'191,0,255'});
   function drawBg(){bgCtx.clearRect(0,0,bgC.width,bgC.height);particles.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0)p.x=bgC.width;if(p.x>bgC.width)p.x=0;if(p.y<0)p.y=bgC.height;if(p.y>bgC.height)p.y=0;bgCtx.beginPath();bgCtx.arc(p.x,p.y,p.r,0,Math.PI*2);bgCtx.fillStyle=`rgba(${p.c},0.6)`;bgCtx.fill();});particles.forEach((a,i)=>particles.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<100){bgCtx.beginPath();bgCtx.moveTo(a.x,a.y);bgCtx.lineTo(b.x,b.y);bgCtx.strokeStyle=`rgba(0,245,255,${0.08*(1-d/100)})`;bgCtx.lineWidth=0.5;bgCtx.stroke();}}));requestAnimationFrame(drawBg);}drawBg();
+
+  // PROJECT CANVASES
   document.querySelectorAll('.proj-canvas').forEach(c=>{const ctx=c.getContext('2d'),col=c.dataset.color;let t=0;function draw(){ctx.clearRect(0,0,c.width,c.height);ctx.fillStyle='rgba(2,8,17,0.9)';ctx.fillRect(0,0,c.width,c.height);for(let i=0;i<8;i++){const x=c.width/2+Math.cos(t+i*0.8)*70,y=c.height/2+Math.sin(t*0.7+i*0.8)*30;const g=ctx.createRadialGradient(x,y,0,x,y,25);g.addColorStop(0,`rgba(${col},0.3)`);g.addColorStop(1,'transparent');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,25,0,Math.PI*2);ctx.fill();}ctx.strokeStyle=`rgba(${col},0.08)`;ctx.lineWidth=0.5;for(let x=0;x<c.width;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c.height);ctx.stroke();}for(let y=0;y<c.height;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(c.width,y);ctx.stroke();}t+=0.015;requestAnimationFrame(draw);}draw();});
+
+  // TYPEWRITER
   const phrases=["Motion that tells stories.","Frames that define moments.","Design beyond boundaries.","Color grading perfected."];
   let pi=0,ci=0,deleting=false;const tw=document.getElementById('typewriter');
   function type(){const ph=phrases[pi];if(!deleting){tw.textContent=ph.slice(0,ci+1);ci++;if(ci===ph.length){setTimeout(()=>{deleting=true;},2000);setTimeout(()=>type(),2100);return;}}else{tw.textContent=ph.slice(0,ci-1);ci--;if(ci===0){deleting=false;pi=(pi+1)%phrases.length;}}setTimeout(type,deleting?60:90);}type();
+
+  // SCROLL REVEAL
   const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.skill-bar').forEach(b=>{b.style.width=b.dataset.w+'%';}); }});},{threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-  document.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelector('.hero-text').style.transform=`translateY(${y*0.15}px)`;document.querySelector('.avatar-wrap').style.transform=`translateY(${y*0.08}px)`;});
-  document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card=>{card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-6px)`;});card.addEventListener('mouseleave',()=>{card.style.transform='';});});
+
+  // PARALLAX — desktop only
+  if(window.innerWidth>768){
+    document.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelector('.hero-text').style.transform=`translateY(${y*0.15}px)`;document.querySelector('.avatar-wrap').style.transform=`translateY(${y*0.08}px)`;});
+  }
+
+  // 3D TILT — desktop only
+  if(window.innerWidth>768){
+    document.querySelectorAll('.video-card,.skill-card,.stat-card').forEach(card=>{
+      card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-6px)`;});
+      card.addEventListener('mouseleave',()=>{card.style.transform='';});
+    });
+  }
 }
 
 function switchTab(tab,el){
