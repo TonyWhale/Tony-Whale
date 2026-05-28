@@ -4,6 +4,14 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Tony Whale | Portfolio</title>
+<!-- Google Analytics GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HXPPPP3T2S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-HXPPPP3T2S');
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap');
@@ -437,11 +445,11 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel active" id="panel-typography">
       <div class="video-grid">
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Video 1'})">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Kinetic typography with dynamic text animations and smooth motion design.</div></div>
         </a>
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Video 2'})">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Creative lyric video with expressive typography and visual storytelling.</div></div>
         </a>
@@ -450,11 +458,11 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel" id="panel-3d">
       <div class="video-grid">
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'3d',title:'Video 1'})">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Stunning 3D renders and animations crafted with precision and creativity.</div></div>
         </a>
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'3d',title:'Video 2'})">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">3D motion design with immersive visual depth and futuristic aesthetics.</div></div>
         </a>
@@ -463,11 +471,11 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel" id="panel-thumbnails">
       <div class="video-grid">
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'thumbnails',title:'Video 1'})">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Eye-catching thumbnails and posters designed to grab attention instantly.</div></div>
         </a>
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank">
+        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'thumbnails',title:'Video 2'})">
           <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
           <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Bold poster designs with striking typography and powerful visual impact.</div></div>
         </a>
@@ -483,7 +491,7 @@ footer span{color:var(--neon);}
         <p>Ready to bring your vision to life? Whether it's a cinematic video, a brand identity, or a full creative campaign — let's collaborate.</p>
         <div class="contact-links">
           <a href="mailto:tomedits316@gmail.com" class="contact-link snd-nav"><span class="contact-link-icon">✉</span>tomedits316@gmail.com</a>
-          <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link snd-nav"><span class="contact-link-icon">◈</span>@whale_creations</a>
+          <a href="https://www.instagram.com/whale_creations/" target="_blank" class="contact-link snd-nav" onclick="gtag('event','view_instagram')"><span class="contact-link-icon">◈</span>@whale_creations</a>
         </div>
       </div>
       <div class="contact-form reveal">
@@ -541,6 +549,7 @@ function validateForm(){
 async function submitForm(){
   if(!validateForm())return;
   initAudio();sndBtn();
+  gtag('event','contact_attempt');
   const btn=document.getElementById('send-btn'),label=document.getElementById('send-label');
   btn.disabled=true;label.textContent='SENDING... ⟳';
   const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),message=document.getElementById('cf-msg').value.trim();
@@ -549,10 +558,11 @@ async function submitForm(){
     if(res.ok){
       emailjs.init(EMAILJS_KEY);
       emailjs.send(EMAILJS_SERVICE,EMAILJS_TEMPLATE,{from_name:name,reply_to:email,message:message});
+      gtag('event','contact_success');
       showPopup('success-popup');
       document.getElementById('cf-name').value='';document.getElementById('cf-email').value='';document.getElementById('cf-msg').value='';
-    }else{storedName=name;storedEmail=email;storedMsg=message;showPopup('fallback-popup');}
-  }catch(err){storedName=name;storedEmail=email;storedMsg=message;showPopup('fallback-popup');}
+    }else{storedName=name;storedEmail=email;storedMsg=message;gtag('event','contact_fallback');showPopup('fallback-popup');}
+  }catch(err){storedName=name;storedEmail=email;storedMsg=message;gtag('event','contact_fallback');showPopup('fallback-popup');}
   label.textContent='Send Message →';btn.disabled=false;
 }
 
@@ -594,7 +604,7 @@ function doReveal(){
   setTimeout(()=>{document.getElementById('split-top').classList.add('open');document.getElementById('split-bot').classList.add('open');sndWhoosh();},100);
   setTimeout(()=>{document.getElementById('split-top').style.display='none';document.getElementById('split-bot').style.display='none';initPortfolio();},1400);
 }
-function skipIntro(){introDone=true;initAudio();doReveal();}
+function skipIntro(){introDone=true;initAudio();gtag('event','intro_skipped');doReveal();}
 runIntro();
 
 // ══════════════════════════════════════
@@ -672,6 +682,13 @@ function initPortfolio(){
   const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');e.target.querySelectorAll('.skill-bar').forEach(b=>{b.style.width=b.dataset.w+'%';}); }});},{threshold:0.15});
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
+  // SCROLL DEPTH TRACKING
+  const scrollMilestones=[25,50,75,100];const reached=new Set();
+  window.addEventListener('scroll',()=>{
+    const pct=Math.round((window.scrollY/(document.body.scrollHeight-window.innerHeight))*100);
+    scrollMilestones.forEach(m=>{if(pct>=m&&!reached.has(m)){reached.add(m);gtag('event','scroll_depth',{depth:m});}});
+  });
+
   // PARALLAX — desktop only
   if(window.innerWidth>768){
     document.addEventListener('scroll',()=>{const y=window.scrollY;document.querySelector('.hero-text').style.transform=`translateY(${y*0.15}px)`;document.querySelector('.avatar-wrap').style.transform=`translateY(${y*0.08}px)`;});
@@ -691,6 +708,7 @@ function switchTab(tab,el){
   document.querySelectorAll('.work-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
   el.classList.add('active');
+  gtag('event','view_work_tab',{tab_name:tab});
 }
 </script>
 </body>
