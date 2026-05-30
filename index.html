@@ -270,12 +270,17 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 .video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;}
 .video-card{border:1px solid var(--glass-border);background:var(--glass);overflow:hidden;transition:transform 0.3s,border-color 0.3s;cursor:pointer;text-decoration:none;display:block;}
 .video-card:hover{transform:translateY(-6px);border-color:var(--neon);}
-.video-thumb{height:150px;background:rgba(0,10,20,0.8);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.video-thumb{height:180px;background:rgba(0,10,20,0.8);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
 .video-thumb canvas{position:absolute;inset:0;width:100%;height:100%;}
+.video-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;}
+.video-card:hover .video-thumb img{transform:scale(1.05);}
+.video-thumb-overlay{position:absolute;inset:0;background:rgba(2,8,17,0.35);transition:background 0.3s;}
+.video-card:hover .video-thumb-overlay{background:rgba(2,8,17,0.15);}
 .play-btn{position:relative;z-index:2;width:50px;height:50px;border-radius:50%;background:rgba(0,245,255,0.15);border:2px solid var(--neon);display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
 .video-card:hover .play-btn{background:rgba(0,245,255,0.3);transform:scale(1.1);}
 .play-icon{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:16px solid var(--neon);margin-left:4px;}
 .vimeo-badge{position:absolute;top:0.6rem;right:0.6rem;z-index:2;background:rgba(26,183,234,0.2);border:1px solid rgba(26,183,234,0.4);color:#1ab7ea;font-size:0.6rem;padding:0.2rem 0.5rem;letter-spacing:0.1em;font-family:'Orbitron',monospace;}
+.youtube-badge{position:absolute;top:0.6rem;right:0.6rem;z-index:3;background:rgba(255,0,0,0.25);border:1px solid rgba(255,80,80,0.6);color:#ff4444;font-size:0.6rem;padding:0.2rem 0.5rem;letter-spacing:0.1em;font-family:'Orbitron',monospace;}
 .video-info{padding:1rem 1.2rem 1.2rem;}
 .video-title{font-family:'Orbitron',monospace;font-size:0.8rem;color:#fff;margin-bottom:0.4rem;letter-spacing:0.05em;}
 .video-desc{font-size:0.8rem;color:#88b4c0;line-height:1.5;}
@@ -513,41 +518,70 @@ footer span{color:var(--neon);}
     </div>
     <div class="work-panel active" id="panel-typography">
       <div class="video-grid">
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Video 1'})">
-          <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
-          <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Kinetic typography with dynamic text animations and smooth motion design.</div></div>
+        <a class="video-card snd-card" href="https://youtu.be/Jm-MmvpGjrI" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Self Guide 18-25 Skills'})">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/Jm-MmvpGjrI/hqdefault.jpg" alt="If You're 18-25 Learn These 5 Skills Now" loading="lazy"/>
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="youtube-badge">▶ YOUTUBE</div>
+          </div>
+          <div class="video-info"><div class="video-title">Edited for Self Guide</div><div class="video-desc">If You're 18–25 Learn These 5 Skills Now — dynamic cuts with engaging motion design.</div></div>
         </a>
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Video 2'})">
-          <div class="video-thumb"><canvas class="proj-canvas" data-color="0,245,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
-          <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Creative lyric video with expressive typography and visual storytelling.</div></div>
+        <a class="video-card snd-card" href="https://youtu.be/5-Mk1kPQsug" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Ryan Herrick Cinematic Reels'})">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/5-Mk1kPQsug/hqdefault.jpg" alt="How I Make Cinematic Reels In DaVinci Resolve" loading="lazy"/>
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="youtube-badge">▶ YOUTUBE</div>
+          </div>
+          <div class="video-info"><div class="video-title">Edited for Ryan Herrick</div><div class="video-desc">How I Make Cinematic Reels In DaVinci Resolve — smooth transitions and color grading.</div></div>
         </a>
-        <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on Vimeo → paste link where it says YOUR_VIMEO_LINK_HERE</div></div>
+        <a class="video-card snd-card" href="https://youtu.be/MP9ceyu22W8" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Self Guide 7 Habits'})">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/MP9ceyu22W8/hqdefault.jpg" alt="7 Habits to Level Up Your Looks & Life 2026" loading="lazy"/>
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="youtube-badge">▶ YOUTUBE</div>
+          </div>
+          <div class="video-info"><div class="video-title">Edited for Self Guide</div><div class="video-desc">7 Habits to Level Up Your Looks & Life 2026 — lifestyle content with energetic pacing.</div></div>
+        </a>
+        <a class="video-card snd-card" href="https://youtu.be/daM_XcWWEcs" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Ritu Solanki Editing Tips'})">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/daM_XcWWEcs/hqdefault.jpg" alt="These Editing Tips Will Make You 10x Faster in Resolve" loading="lazy"/>
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="youtube-badge">▶ YOUTUBE</div>
+          </div>
+          <div class="video-info"><div class="video-title">Edited for Ritu Solanki</div><div class="video-desc">These Editing Tips Will Make You 10x Faster in Resolve — clean cuts and motion graphics.</div></div>
+        </a>
+        <a class="video-card snd-card" href="https://youtu.be/lEd-jNuZQu0" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Ritu Solanki 90 Day Roadmap'})">
+          <div class="video-thumb">
+            <img src="https://img.youtube.com/vi/lEd-jNuZQu0/hqdefault.jpg" alt="90-Day Video Editing Roadmap to Build" loading="lazy"/>
+            <div class="video-thumb-overlay"></div>
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="youtube-badge">▶ YOUTUBE</div>
+          </div>
+          <div class="video-info"><div class="video-title">Edited for Ritu Solanki</div><div class="video-desc">90-Day Video Editing Roadmap — cinematic color grading and engaging visual storytelling.</div></div>
+        </a>
+        <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on YouTube as Unlisted → paste link here</div></div>
       </div>
     </div>
     <div class="work-panel" id="panel-reels">
       <div class="video-grid">
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'reels',title:'Reel 1'})">
-          <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <a class="video-card snd-card" href="YOUR_YOUTUBE_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'reels',title:'Reel 1'})">
+          <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="180"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="youtube-badge">▶ YOUTUBE</div></div>
           <div class="video-info"><div class="video-title">Your Reel Title</div><div class="video-desc">High energy Instagram reel with dynamic cuts, transitions and motion effects.</div></div>
         </a>
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'reels',title:'Reel 2'})">
-          <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
+        <a class="video-card snd-card" href="YOUR_YOUTUBE_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'reels',title:'Reel 2'})">
+          <div class="video-thumb"><canvas class="proj-canvas" data-color="191,0,255" width="400" height="180"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="youtube-badge">▶ YOUTUBE</div></div>
           <div class="video-info"><div class="video-title">Your Reel Title</div><div class="video-desc">YouTube Short with cinematic color grading, smooth transitions and storytelling.</div></div>
         </a>
-        <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on Vimeo → paste link where it says YOUR_VIMEO_LINK_HERE</div></div>
+        <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on YouTube as Unlisted → paste link here</div></div>
       </div>
     </div>
     <div class="work-panel" id="panel-thumbnails">
       <div class="video-grid">
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'thumbnails',title:'Video 1'})">
-          <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
-          <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Eye-catching thumbnails and posters designed to grab attention instantly.</div></div>
-        </a>
-        <a class="video-card snd-card" href="YOUR_VIMEO_LINK_HERE" target="_blank" onclick="gtag('event','play_video',{category:'thumbnails',title:'Video 2'})">
-          <div class="video-thumb"><canvas class="proj-canvas" data-color="255,0,128" width="400" height="150"></canvas><div class="play-btn"><div class="play-icon"></div></div><div class="vimeo-badge">VIMEO</div></div>
-          <div class="video-info"><div class="video-title">Your Video Title</div><div class="video-desc">Bold poster designs with striking typography and powerful visual impact.</div></div>
-        </a>
-        <div class="add-video-card"><div class="add-icon">＋</div><div class="add-text">Add More Videos</div><div class="add-hint">Upload on Vimeo → paste link where it says YOUR_VIMEO_LINK_HERE</div></div>
+        <div class="add-video-card"><div class="add-icon">🖼️</div><div class="add-text">Thumbnails & Posters Coming Soon</div><div class="add-hint">Tony will upload design images directly to this section</div></div>
       </div>
     </div>
   </section>
