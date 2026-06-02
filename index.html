@@ -1275,6 +1275,7 @@ window.addEventListener('resize',()=>{
   rvGoTo(rvCur);
 });
 
+function switchTab(tab,el){
   document.querySelectorAll('.work-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.work-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
