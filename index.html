@@ -345,6 +345,53 @@ section{position:relative;z-index:10;min-height:100vh;padding:7rem 4rem 4rem;}
 @media(max-width:480px){.thumb-grid{grid-template-columns:1fr;}}
 
 /* ══════════════════════════════
+   REVIEWS
+══════════════════════════════ */
+#reviews{background:rgba(0,5,15,0.5);}
+.rv-outer{position:relative;}
+.rv-topbar{display:flex;justify-content:flex-end;margin-bottom:0.5rem;min-height:34px;align-items:center;}
+.rv-topbtn{font-family:'Orbitron',monospace;font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;border-radius:4px;cursor:pointer;padding:7px 14px;background:rgba(0,245,255,0.06);border:1px solid rgba(0,245,255,0.32);color:var(--neon);transition:all .22s;line-height:1;}
+.rv-topbtn:hover{background:rgba(0,245,255,0.14);border-color:var(--neon);box-shadow:0 0 10px rgba(0,245,255,0.2);}
+.rv-viewport{overflow:hidden;width:100%;}
+.rv-track{display:flex;gap:1.5rem;transition:transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);}
+.rv-card{background:var(--glass);border:1px solid var(--glass-border);padding:1.8rem 1.5rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s;flex-shrink:0;}
+.rv-card:hover{border-color:var(--neon);transform:translateY(-5px);box-shadow:0 0 18px rgba(0,245,255,0.18),0 0 40px rgba(0,245,255,0.06),inset 0 0 18px rgba(0,245,255,0.03);}
+.rv-card::after{content:'';position:absolute;bottom:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--neon),var(--neon2));transition:width .4s;}
+.rv-card:hover::after{width:100%;}
+.rv-card-empty{pointer-events:none;}
+.rv-qmark{font-family:'Orbitron',monospace;font-size:80px;color:var(--neon);opacity:.055;position:absolute;top:-4px;right:8px;line-height:1;font-weight:900;pointer-events:none;user-select:none;}
+.rv-stars-display{color:var(--neon);font-size:0.82rem;letter-spacing:3px;margin-bottom:0.75rem;}
+.rv-text{font-family:'Rajdhani',sans-serif;color:rgba(224,247,250,0.86);font-size:0.95rem;line-height:1.7;margin:0 0 1rem;font-weight:500;position:relative;z-index:1;}
+.rv-divider{border:none;border-top:1px solid rgba(0,245,255,0.09);margin-bottom:0.75rem;}
+.rv-meta{display:flex;align-items:center;gap:0.8rem;}
+.rv-avatar{width:36px;height:36px;border-radius:50%;background:rgba(0,245,255,0.07);border:1px solid rgba(0,245,255,0.24);display:flex;align-items:center;justify-content:center;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--neon);flex-shrink:0;}
+.rv-name{font-family:'Orbitron',monospace;color:#fff;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;}
+.rv-role-lbl{font-family:'Rajdhani',sans-serif;color:rgba(0,245,255,0.5);font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;}
+.rv-bottom{display:flex;align-items:center;margin-top:0.9rem;min-height:36px;}
+.rv-arrow{width:32px;height:32px;border:1px solid rgba(0,245,255,0.28);background:rgba(0,245,255,0.04);color:var(--neon);border-radius:4px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;font-family:sans-serif;flex-shrink:0;padding:0;line-height:1;}
+.rv-arrow:hover:not([disabled]){background:rgba(0,245,255,0.14);border-color:var(--neon);}
+.rv-arrow[disabled]{opacity:.18;cursor:not-allowed;}
+.rv-dot{border-radius:50%;border:1px solid rgba(0,245,255,0.45);cursor:pointer;transition:all .38s cubic-bezier(0.34,1.3,0.64,1);flex-shrink:0;}
+.rv-form-wrap{margin-top:1.2rem;background:rgba(0,245,255,0.02);border:1px solid rgba(0,245,255,0.13);padding:1.4rem;display:none;}
+.rv-form-wrap input,.rv-form-wrap textarea{width:100%;background:var(--glass);border:1px solid var(--glass-border);color:#e0f7fa;padding:0.7rem 1rem;font-family:'Rajdhani',sans-serif;font-size:0.9rem;outline:none;transition:border-color .3s;margin-bottom:0.7rem;resize:none;}
+.rv-form-wrap input:focus,.rv-form-wrap textarea:focus{border-color:var(--neon);}
+.rv-form-wrap textarea{height:80px;display:block;}
+.rv-star-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(224,247,250,0.2);padding:1px 3px;transition:transform .12s,color .12s;line-height:1;}
+.rv-star-btn:hover{transform:scale(1.25);}
+.rv-submit{padding:0.75rem 2rem;background:transparent;border:1px solid var(--neon);color:var(--neon);font-family:'Rajdhani',sans-serif;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;position:relative;overflow:hidden;transition:all .3s;width:100%;}
+.rv-submit::before{content:'';position:absolute;inset:0;background:var(--neon);transform:translateX(-101%);transition:transform .3s;}
+.rv-submit:hover::before{transform:translateX(0);}
+.rv-submit:hover{color:var(--dark);}
+.rv-submit span{position:relative;z-index:1;}
+.rv-msg{font-family:'Rajdhani',sans-serif;font-size:0.8rem;letter-spacing:0.1em;text-align:center;padding:0.5rem 0;display:none;}
+.rv-empty-label{font-family:'Orbitron',monospace;font-size:0.6rem;color:rgba(0,245,255,0.18);letter-spacing:0.22em;text-align:center;padding:2.5rem 0;}
+@media(max-width:768px){
+  .rv-card{padding:1.2rem 1rem;}
+  .rv-text{font-size:0.85rem;}
+  .rv-track{gap:1rem;}
+}
+
+/* ══════════════════════════════
    CONTACT
 ══════════════════════════════ */
 #contact{background:linear-gradient(180deg,transparent,rgba(0,10,30,0.9));}
@@ -515,6 +562,7 @@ footer span{color:var(--neon);}
       <a href="#about" class="snd-nav" data-section="about">About</a>
       <a href="#skills" class="snd-nav" data-section="skills">Skills</a>
       <a href="#projects" class="snd-nav" data-section="projects">Work</a>
+      <a href="#reviews" class="snd-nav" data-section="reviews">Reviews</a>
       <a href="#contact" class="snd-nav" data-section="contact">Contact</a>
     </div>
   </nav>
@@ -602,24 +650,7 @@ footer span{color:var(--neon);}
           </div>
           <div class="video-info"><div class="video-title">Edited for Self Guide</div><div class="video-desc">7 Habits to Level Up Your Looks & Life 2026 — lifestyle content with energetic pacing.</div></div>
         </a>
-        <a class="video-card snd-card" href="https://youtu.be/daM_XcWWEcs" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Ritu Solanki Editing Tips'})">
-          <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/daM_XcWWEcs/hqdefault.jpg" alt="These Editing Tips Will Make You 10x Faster in Resolve" loading="lazy"/>
-            <div class="video-thumb-overlay"></div>
-            <div class="play-btn"><div class="play-icon"></div></div>
-            <div class="youtube-badge">▶ YOUTUBE</div>
-          </div>
-          <div class="video-info"><div class="video-title">Edited for Ritu Solanki</div><div class="video-desc">These Editing Tips Will Make You 10x Faster in Resolve — clean cuts and motion graphics.</div></div>
-        </a>
-        <a class="video-card snd-card" href="https://youtu.be/lEd-jNuZQu0" target="_blank" onclick="gtag('event','play_video',{category:'typography',title:'Ritu Solanki 90 Day Roadmap'})">
-          <div class="video-thumb">
-            <img src="https://img.youtube.com/vi/lEd-jNuZQu0/hqdefault.jpg" alt="90-Day Video Editing Roadmap to Build" loading="lazy"/>
-            <div class="video-thumb-overlay"></div>
-            <div class="play-btn"><div class="play-icon"></div></div>
-            <div class="youtube-badge">▶ YOUTUBE</div>
-          </div>
-          <div class="video-info"><div class="video-title">Edited for Ritu Solanki</div><div class="video-desc">90-Day Video Editing Roadmap — cinematic color grading and engaging visual storytelling.</div></div>
-        </a>
+
       </div>
     </div>
     <div class="work-panel" id="panel-reels">
@@ -675,8 +706,63 @@ footer span{color:var(--neon);}
     </div>
   </section>
 
+  </section>
+
+  <!-- REVIEWS SECTION -->
+  <section id="reviews">
+    <div class="sec-header reveal"><div class="sec-number">// 04</div><div class="sec-title">Client Reviews</div><div class="sec-line"></div></div>
+    <div class="rv-outer reveal">
+
+      <!-- VIEW MORE button — top right of card area -->
+      <div class="rv-topbar">
+        <button class="rv-topbtn" id="rv-vm-btn" onclick="rvViewMore()">VIEW MORE ›</button>
+      </div>
+
+      <!-- Card track -->
+      <div class="rv-viewport" id="rv-viewport">
+        <div class="rv-track" id="rv-track"></div>
+      </div>
+
+      <!-- Bottom row: LEAVE A REVIEW (default) OR 5-dot nav (after View More) -->
+      <div class="rv-bottom">
+        <div id="rv-lr-slot">
+          <button class="rv-topbtn" onclick="rvToggleForm()">★ LEAVE A REVIEW</button>
+        </div>
+        <div id="rv-nav-slot" style="display:none;align-items:center;gap:10px;">
+          <button class="rv-arrow" id="rv-prev" onclick="rvNav(-1)" disabled>‹</button>
+          <div id="rv-dots" style="display:flex;gap:8px;align-items:center;"></div>
+          <button class="rv-arrow" id="rv-next" onclick="rvNav(1)">›</button>
+        </div>
+      </div>
+
+      <!-- Review submission form (hidden by default) -->
+      <div class="rv-form-wrap" id="rv-form-wrap">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+          <div style="font-family:'Orbitron',monospace;font-size:0.68rem;color:var(--neon);letter-spacing:0.2em;">SUBMIT YOUR REVIEW</div>
+          <button onclick="rvToggleForm()" style="background:none;border:none;color:rgba(0,245,255,0.35);font-size:1rem;cursor:pointer;line-height:1;">✕</button>
+        </div>
+        <input id="rv-inp-name" placeholder="Your name / brand" />
+        <input id="rv-inp-role" placeholder="Your role / platform  (e.g. YouTube Creator)" />
+        <div style="margin-bottom:0.7rem;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;color:rgba(224,247,250,0.35);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px;">Rating</div>
+          <div id="rv-star-row" style="display:flex;gap:4px;">
+            <button class="rv-star-btn" data-v="1">☆</button>
+            <button class="rv-star-btn" data-v="2">☆</button>
+            <button class="rv-star-btn" data-v="3">☆</button>
+            <button class="rv-star-btn" data-v="4">☆</button>
+            <button class="rv-star-btn" data-v="5">☆</button>
+          </div>
+        </div>
+        <textarea id="rv-inp-text" placeholder="Write your review here..."></textarea>
+        <div class="rv-msg" id="rv-msg"></div>
+        <button class="rv-submit" onclick="rvSubmit()"><span>SUBMIT REVIEW →</span></button>
+      </div>
+
+    </div>
+  </section>
+
   <section id="contact">
-    <div class="sec-header reveal"><div class="sec-number">// 04</div><div class="sec-title">Contact</div><div class="sec-line"></div></div>
+    <div class="sec-header reveal"><div class="sec-number">// 05</div><div class="sec-title">Contact</div><div class="sec-line"></div></div>
     <div class="contact-grid">
       <div class="contact-info reveal">
         <p>Ready to bring your vision to life? Whether it's a cinematic video, a brand identity, or a full creative campaign — let's collaborate.</p>
@@ -847,6 +933,8 @@ function initPortfolio(){
   attachSounds();
   initActiveNav();
   checkOrientation();
+  rvInit();
+  rvInitStars();
   window.addEventListener('orientationchange',()=>setTimeout(checkOrientation,300));
 
   // CURSOR
@@ -934,7 +1022,259 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='Escape')closeLightbox();
 });
 
-function switchTab(tab,el){
+
+// ══════════════════════════════════════
+// REVIEWS — Supabase live integration
+// ══════════════════════════════════════
+const SB_URL='https://ejrpaogmxdtbmhwhipyt.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqcnBhb2dteGR0Ym1od2hpcHl0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAzMTYyMjMsImV4cCI6MjA5NTg5MjIyM30.9ENjsy9t2HVJKNwirUMVsvCCsjceyi0TzwTiI4Fpsy4';
+
+const RV_SEED=[
+  {name:'Self Guide',role:'YouTube Channel',stars:5,text:'"Tony\'s editing completely transformed our channel. Every cut feels intentional — this guy genuinely knows what he\'s doing."'}
+];
+
+let rvAll=[...RV_SEED];
+let rvCur=0;
+let rvExpanded=false;
+let rvRating=0;
+const RV_VIS=3;
+const RV_GAP=24; // px — matches 1.5rem gap
+
+async function rvInit(){
+  try{
+    const res=await fetch(`${SB_URL}/rest/v1/reviews?order=created_at.asc`,{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+    });
+    if(res.ok){
+      const data=await res.json();
+      if(Array.isArray(data)&&data.length>0) rvAll=[...RV_SEED,...data];
+    }
+  }catch(e){}
+  rvRender(0);
+}
+
+function rvCardW(){
+  const vp=document.getElementById('rv-viewport');
+  if(!vp)return 300;
+  return Math.floor((vp.offsetWidth-(RV_VIS-1)*RV_GAP)/RV_VIS);
+}
+
+function rvStarsHtml(n){
+  let s='';for(let i=1;i<=5;i++)s+=i<=n?'★':'☆';return s;
+}
+
+function rvInitials(name){
+  return(name||'?').split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2)||'??';
+}
+
+function rvMaxSlide(){
+  return Math.max(0,rvAll.length-RV_VIS);
+}
+
+function rvRender(targetPos){
+  const track=document.getElementById('rv-track');
+  if(!track)return;
+  const cw=rvCardW();
+  const total=Math.max(rvAll.length,RV_VIS);
+  let html='';
+  for(let i=0;i<total;i++){
+    const r=rvAll[i];
+    if(r){
+      html+=`<div class="rv-card" style="min-width:${cw}px;max-width:${cw}px;">
+        <div class="rv-qmark">"</div>
+        <div class="rv-stars-display">${rvStarsHtml(r.stars)}</div>
+        <p class="rv-text">${r.text}</p>
+        <hr class="rv-divider">
+        <div class="rv-meta">
+          <div class="rv-avatar">${rvInitials(r.name)}</div>
+          <div>
+            <div class="rv-name">${r.name}</div>
+            ${r.role?`<div class="rv-role-lbl">${r.role}</div>`:''}
+          </div>
+        </div>
+      </div>`;
+    }else{
+      html+=`<div class="rv-card rv-card-empty" style="min-width:${cw}px;max-width:${cw}px;">
+        <div class="rv-empty-label">AWAITING REVIEW</div>
+      </div>`;
+    }
+  }
+  track.innerHTML=html;
+
+  // 3D tilt — desktop only
+  if(window.innerWidth>768){
+    track.querySelectorAll('.rv-card:not(.rv-card-empty)').forEach(card=>{
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-0.5,y=(e.clientY-r.top)/r.height-0.5;
+        card.style.transform=`perspective(600px) rotateX(${-y*6}deg) rotateY(${x*6}deg) translateY(-5px)`;
+      });
+      card.addEventListener('mouseleave',()=>{card.style.transform='';});
+    });
+  }
+
+  rvGoTo(targetPos||0);
+  rvBuildDots();
+
+  // Restore expanded state after re-render
+  if(rvExpanded){
+    const vmBtn=document.getElementById('rv-vm-btn');
+    const lrSlot=document.getElementById('rv-lr-slot');
+    const navSlot=document.getElementById('rv-nav-slot');
+    if(vmBtn)vmBtn.style.display='none';
+    if(lrSlot)lrSlot.style.display='none';
+    if(navSlot)navSlot.style.display='flex';
+  }
+}
+
+function rvGoTo(n){
+  rvCur=Math.max(0,Math.min(n,rvMaxSlide()));
+  const cw=rvCardW();
+  const track=document.getElementById('rv-track');
+  if(track)track.style.transform=`translateX(-${rvCur*(cw+RV_GAP)}px)`;
+  const prev=document.getElementById('rv-prev');
+  const next=document.getElementById('rv-next');
+  if(prev)prev.disabled=rvCur===0;
+  if(next)next.disabled=rvCur>=rvMaxSlide();
+  rvUpdateDots();
+}
+
+function rvNav(dir){rvGoTo(rvCur+dir);}
+
+function rvBuildDots(){
+  const dotRow=document.getElementById('rv-dots');
+  if(!dotRow)return;
+  dotRow.innerHTML='';
+  if(rvMaxSlide()<=0)return;
+  // Always 5 dots; each dot = relative offset from center (-2,-1,0,+1,+2)
+  for(let i=0;i<5;i++){
+    const d=document.createElement('div');
+    d.className='rv-dot';
+    d.dataset.offset=String(i-2);
+    d.onclick=()=>rvNav(i-2);
+    dotRow.appendChild(d);
+  }
+  rvUpdateDots();
+}
+
+function rvUpdateDots(){
+  const dots=document.querySelectorAll('.rv-dot');
+  if(!dots.length)return;
+  const opacities=[0.2,0.5,1,0.5,0.2];
+  const sizes=[5,6.5,9,6.5,5];
+  dots.forEach((d,i)=>{
+    const offset=i-2; // -2,-1,0,+1,+2
+    const target=rvCur+offset;
+    const inRange=target>=0&&target<=rvMaxSlide();
+    d.style.width=sizes[i]+'px';
+    d.style.height=sizes[i]+'px';
+    d.style.opacity=inRange?opacities[i]:String(opacities[i]*0.3);
+    d.style.pointerEvents=inRange?'auto':'none';
+    if(i===2){
+      d.style.background='var(--neon)';
+      d.style.boxShadow='0 0 8px rgba(0,245,255,1),0 0 16px rgba(0,245,255,0.55)';
+      d.style.borderColor='var(--neon)';
+    }else{
+      d.style.background='transparent';
+      d.style.boxShadow='none';
+      d.style.borderColor=inRange?'rgba(0,245,255,0.45)':'rgba(0,245,255,0.15)';
+    }
+  });
+}
+
+function rvViewMore(){
+  rvExpanded=true;
+  const vmBtn=document.getElementById('rv-vm-btn');
+  const lrSlot=document.getElementById('rv-lr-slot');
+  const navSlot=document.getElementById('rv-nav-slot');
+  if(vmBtn)vmBtn.style.display='none';
+  if(lrSlot)lrSlot.style.display='none';
+  if(navSlot)navSlot.style.display='flex';
+  rvBuildDots();
+}
+
+function rvToggleForm(){
+  const f=document.getElementById('rv-form-wrap');
+  if(!f)return;
+  f.style.display=f.style.display==='block'?'none':'block';
+}
+
+function rvInitStars(){
+  document.querySelectorAll('.rv-star-btn').forEach(s=>{
+    s.addEventListener('mouseenter',()=>{
+      const v=+s.dataset.v;
+      document.querySelectorAll('.rv-star-btn').forEach(b=>{
+        b.textContent=+b.dataset.v<=v?'★':'☆';
+        b.style.color=+b.dataset.v<=v?'var(--neon)':'rgba(224,247,250,0.2)';
+      });
+    });
+    s.addEventListener('mouseleave',()=>{
+      document.querySelectorAll('.rv-star-btn').forEach(b=>{
+        b.textContent=+b.dataset.v<=rvRating?'★':'☆';
+        b.style.color=+b.dataset.v<=rvRating?'var(--neon)':'rgba(224,247,250,0.2)';
+      });
+    });
+    s.onclick=()=>{
+      rvRating=+s.dataset.v;
+      document.querySelectorAll('.rv-star-btn').forEach(b=>{
+        b.textContent=+b.dataset.v<=rvRating?'★':'☆';
+        b.style.color=+b.dataset.v<=rvRating?'var(--neon)':'rgba(224,247,250,0.2)';
+      });
+    };
+  });
+}
+
+async function rvSubmit(){
+  const nameEl=document.getElementById('rv-inp-name');
+  const roleEl=document.getElementById('rv-inp-role');
+  const textEl=document.getElementById('rv-inp-text');
+  const msg=document.getElementById('rv-msg');
+  const name=(nameEl&&nameEl.value.trim())||'';
+  const role=(roleEl&&roleEl.value.trim())||'';
+  const text=(textEl&&textEl.value.trim())||'';
+  if(!name||!text||!rvRating){
+    msg.style.display='block';msg.style.color='var(--neon3)';
+    msg.textContent='⚠ Please fill in your name, a rating and your review.';
+    setTimeout(()=>msg.style.display='none',3000);return;
+  }
+  msg.style.display='block';msg.style.color='var(--neon)';msg.textContent='Submitting...';
+  try{
+    const res=await fetch(`${SB_URL}/rest/v1/reviews`,{
+      method:'POST',
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+      body:JSON.stringify({name,role,stars:rvRating,text})
+    });
+    if(res.ok){
+      msg.style.color='#00ff88';msg.textContent='✓ Review submitted! Thank you.';
+      const newR={name,role,stars:rvRating,text};
+      rvAll.push(newR);
+      const savedExpanded=rvExpanded;
+      rvRender(rvMaxSlide());
+      if(savedExpanded)rvExpanded=true;
+      setTimeout(()=>{
+        const f=document.getElementById('rv-form-wrap');
+        if(f)f.style.display='none';
+        if(nameEl)nameEl.value='';if(roleEl)roleEl.value='';if(textEl)textEl.value='';
+        rvRating=0;
+        document.querySelectorAll('.rv-star-btn').forEach(b=>{b.textContent='☆';b.style.color='rgba(224,247,250,0.2)';});
+        msg.style.display='none';
+      },2000);
+    }else{
+      msg.style.color='var(--neon3)';msg.textContent='⚠ Submission failed. Please try again.';
+    }
+  }catch(e){
+    msg.style.color='var(--neon3)';msg.textContent='⚠ Network error. Please try again.';
+  }
+}
+
+// Re-calculate card widths on resize
+window.addEventListener('resize',()=>{
+  const track=document.getElementById('rv-track');
+  if(!track)return;
+  const cw=rvCardW();
+  track.querySelectorAll('.rv-card').forEach(c=>{c.style.minWidth=cw+'px';c.style.maxWidth=cw+'px';});
+  rvGoTo(rvCur);
+});
+
   document.querySelectorAll('.work-tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.work-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('panel-'+tab).classList.add('active');
