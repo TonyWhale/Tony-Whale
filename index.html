@@ -1037,8 +1037,9 @@ let rvAll=[...RV_SEED];
 let rvCur=0;
 let rvExpanded=false;
 let rvRating=0;
-const RV_VIS=3;
-const RV_GAP=24; // px — matches 1.5rem gap
+const RV_GAP=24;
+function rvVis(){return window.innerWidth<=768?1:3;}
+function rvGap(){return window.innerWidth<=768?16:24;}
 
 async function rvInit(){
   try{
@@ -1056,7 +1057,9 @@ async function rvInit(){
 function rvCardW(){
   const vp=document.getElementById('rv-viewport');
   if(!vp)return 300;
-  return Math.floor((vp.offsetWidth-(RV_VIS-1)*RV_GAP)/RV_VIS);
+  const vis=rvVis();
+  const gap=rvGap();
+  return Math.floor((vp.offsetWidth-(vis-1)*gap)/vis);
 }
 
 function rvStarsHtml(n){
@@ -1068,18 +1071,18 @@ function rvInitials(name){
 }
 
 function rvMaxSlide(){
-  return Math.max(0,rvAll.length-RV_VIS);
+  return Math.max(0,rvAll.length-rvVis());
 }
 
 function rvRender(targetPos){
   const track=document.getElementById('rv-track');
   if(!track)return;
   const cw=rvCardW();
-  const total=Math.max(rvAll.length,RV_VIS);
+  const total=rvAll.length;
   let html='';
   for(let i=0;i<total;i++){
     const r=rvAll[i];
-    if(r){
+    if(!r)continue;
       html+=`<div class="rv-card" style="min-width:${cw}px;max-width:${cw}px;">
         <div class="rv-qmark">"</div>
         <div class="rv-stars-display">${rvStarsHtml(r.stars)}</div>
@@ -1093,11 +1096,6 @@ function rvRender(targetPos){
           </div>
         </div>
       </div>`;
-    }else{
-      html+=`<div class="rv-card rv-card-empty" style="min-width:${cw}px;max-width:${cw}px;">
-        <div class="rv-empty-label">AWAITING REVIEW</div>
-      </div>`;
-    }
   }
   track.innerHTML=html;
 
@@ -1130,7 +1128,7 @@ function rvGoTo(n){
   rvCur=Math.max(0,Math.min(n,rvMaxSlide()));
   const cw=rvCardW();
   const track=document.getElementById('rv-track');
-  if(track)track.style.transform=`translateX(-${rvCur*(cw+RV_GAP)}px)`;
+  if(track)track.style.transform=`translateX(-${rvCur*(cw+rvGap())}px)`;
   const prev=document.getElementById('rv-prev');
   const next=document.getElementById('rv-next');
   if(prev)prev.disabled=rvCur===0;
@@ -1269,10 +1267,10 @@ async function rvSubmit(){
 // Re-calculate card widths on resize
 window.addEventListener('resize',()=>{
   const track=document.getElementById('rv-track');
-  if(!track)return;
-  const cw=rvCardW();
-  track.querySelectorAll('.rv-card').forEach(c=>{c.style.minWidth=cw+'px';c.style.maxWidth=cw+'px';});
-  rvGoTo(rvCur);
+  if(!track||!rvAll.length)return;
+  const savedExpanded=rvExpanded;
+  rvRender(Math.min(rvCur,rvMaxSlide()));
+  if(savedExpanded)rvExpanded=true;
 });
 
 function switchTab(tab,el){
